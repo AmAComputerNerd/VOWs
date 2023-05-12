@@ -1,0 +1,71 @@
+﻿<UserControl x:Class="VOWsLauncher.MVVM.View.NewView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:VOWsLauncher.MVVM.View"
+             mc:Ignorable="d" 
+             d:DesignHeight="495" d:DesignWidth="690">
+    
+    <StackPanel>
+
+        <TextBlock Text="New"
+                   Style="{StaticResource TitleTheme}"/>
+
+        <TextBlock Text="Time for a new project? You can create a new document if you're planning for something short and sweet, or&#x0a;for the wild ideas begging to escape the bounds of a single document, use a workspace to lock and store it all&#x0a;in one convenient package!"
+                   Margin="0,0,0,20"
+                   Style="{StaticResource DescriptiveTextTheme}"/>
+
+        <StackPanel Orientation="Horizontal">
+            <Button Content="New Document"
+                    Height="100"
+                    Width="150"
+                    Style="{StaticResource StylisedButtonTheme}"
+                    Margin="0,0,20,20"/>
+            <Button Content="Example Template"
+                    Height="100"
+                    Width="150"
+                    Style="{StaticResource StylisedButtonTheme}"
+                    Margin="0,0,5,20"/>
+            <Button Content="Example Template"
+                    Height="100"
+                    Width="150"
+                    Style="{StaticResource StylisedButtonTheme}"
+                    Margin="0,0,5,20"/>
+            <Button Content="Example Template"
+                    Height="100"
+                    Width="150"
+                    Style="{StaticResource StylisedButtonTheme}"
+                    Margin="0,0,5,20"/>
+        </StackPanel>
+
+        <StackPanel Orientation="Horizontal">
+            <Button Content="New Workspace"
+                    Height="100"
+                    Width="150"
+                    Style="{StaticResource StylisedButtonTheme}"
+                    Margin="0,0,20,10"/>
+            <Button Content="Example Template"
+                    Height="100"
+                    Width="150"
+                    Style="{StaticResource StylisedButtonTheme}"
+                    Margin="0,0,5,10"/>
+            <Button Content="Example Template"
+                    Height="100"
+                    Width="150"
+                    Style="{StaticResource StylisedButtonTheme}"
+                    Margin="0,0,5,10"/>
+            <Button Content="Example Template"
+                    Height="100"
+                    Width="150"
+                    Style="{StaticResource StylisedButtonTheme}"
+                    Margin="0,0,5,10"/>
+        </StackPanel>
+
+        <TextBlock Text="Show all templates"
+                   HorizontalAlignment="Center"
+                   Style="{StaticResource DescriptiveTextTheme}"/>
+
+    </StackPanel>
+
+</UserControl>

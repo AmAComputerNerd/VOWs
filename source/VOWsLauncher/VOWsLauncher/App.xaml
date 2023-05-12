@@ -1,0 +1,36 @@
+﻿<Application x:Class="VOWsLauncher.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:local="clr-namespace:VOWsLauncher"
+             xmlns:viewModel="clr-namespace:VOWsLauncher.MVVM.ViewModel"
+             xmlns:view="clr-namespace:VOWsLauncher.MVVM.View"
+             StartupUri="MainWindow.xaml">
+    <Application.Resources>
+        <ResourceDictionary>
+            <!--TODO: Implement ThemedDictionaries for LightTheme.xaml and DarkTheme.xaml respectively.-->
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="Theme/DarkTheme.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+
+            <DataTemplate DataType="{x:Type viewModel:HomeViewModel}">
+                <view:HomeView/>
+            </DataTemplate>
+
+            <DataTemplate DataType="{x:Type viewModel:NewViewModel}">
+                <view:NewView/>
+            </DataTemplate>
+
+            <DataTemplate DataType="{x:Type viewModel:OpenViewModel}">
+                <view:OpenView/>
+            </DataTemplate>
+
+            <DataTemplate DataType="{x:Type viewModel:PinnedViewModel}">
+                <view:PinnedView/>
+            </DataTemplate>
+
+            <DataTemplate DataType="{x:Type viewModel:RecentViewModel}">
+                <view:RecentView/>
+            </DataTemplate>
+        </ResourceDictionary>
+    </Application.Resources>
+</Application>
