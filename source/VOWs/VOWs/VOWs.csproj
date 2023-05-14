@@ -10,20 +10,23 @@
   <ItemGroup>
     <None Remove="Resources\Images\VOWsuite-logos_black.png" />
     <None Remove="Resources\Images\VOWsuite-logos_white.png" />
+    <None Remove="Resources\VOWsuite-logos_icon.ico" />
   </ItemGroup>
 
   <ItemGroup>
     <Folder Include="MVVM\Model\" />
-    <Folder Include="MVVM\ViewModel\" />
     <Folder Include="Windows\" />
   </ItemGroup>
 
   <ItemGroup>
     <Resource Include="Resources\Images\VOWsuite-logos_black.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Resources\Images\VOWsuite-logos_white.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\VOWsuite-logos_icon.ico">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
   </ItemGroup>
 

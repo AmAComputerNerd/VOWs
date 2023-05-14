@@ -1,12 +1,25 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
 
+    <!--Style for the frame (window) of the editor.-->
     <Style x:Key="RootFrame"
            TargetType="{x:Type Grid}">
 
         <Style.Setters>
+            <!--Default values to show up in the XAML view, and to use as a backup if QuickSettings is not available for whatever reason.-->
             <Setter Property="Background" Value="#2F2F2F"/>
         </Style.Setters>
+
+        <Style.Triggers>
+            <!--Theming triggers. These are pretty long, annoyingly, because Trigger objects can't be nested.-->
+            <!--Default theming triggers. Anything that changes based ONLY on the theme selected should go in here.-->
+            <DataTrigger Binding="{Binding QuickStorage.Theme}" Value="Dark">
+                <Setter Property="Background" Value="#2F2F2F"/>
+            </DataTrigger>
+            <DataTrigger Binding="{Binding QuickStorage.Theme}" Value="Light">
+                <Setter Property="Background" Value="#D0D0D0"/>
+            </DataTrigger>
+        </Style.Triggers>
 
     </Style>
 

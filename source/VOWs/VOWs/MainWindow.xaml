@@ -4,14 +4,20 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:VOWs"
+        xmlns:viewmodel="clr-namespace:VOWs.MVVM.ViewModel"
         mc:Ignorable="d"
         Title="VOWs" Height="450" Width="800"
-        WindowState="Maximized">
+        Icon="/Resources/VOWsuite-logos_icon.ico"
+        WindowState="Maximized" WindowStartupLocation="CenterOwner">
+
+    <Window.DataContext>
+        <viewmodel:MainViewModel/>
+    </Window.DataContext>
 
     <Grid Style="{StaticResource RootFrame}">
         <Grid.RowDefinitions>
             <RowDefinition Height="0.075*" MaxHeight="30"/>
-            <RowDefinition Height="0.15*"/>
+            <RowDefinition Height="0.15*" MaxHeight="80"/>
             <RowDefinition/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
@@ -20,16 +26,45 @@
             <ColumnDefinition Width="0.05*" MaxWidth="30"/>
         </Grid.ColumnDefinitions>
 
-        <Button Style="{StaticResource ImageButton}"
-                Margin="0,2,0,0">
-            <Image Source="\Resources\Images\VOWsuite-logos_white.png"
-                   Width="50" Height="50"
-                   HorizontalAlignment="Center"
-                   VerticalAlignment="Center"/>
-        </Button>
+        <Button Style="{StaticResource VOWsButton}"/>
 
-        
+        <StackPanel x:Name="WritingCategoriesDock" 
+                    Orientation="Horizontal"
+                    Grid.Column="1" Grid.ColumnSpan="2">
 
+            <Button Content="Home"
+                    Margin="2,0,0,0"
+                    Style="{StaticResource CategoryButton}"/>
+            <Button Content="Edit"
+                    Style="{StaticResource CategoryButton}"/>
+            <Button Content="Insert"
+                    Style="{StaticResource CategoryButton}"/>
+            <Button Content="Page"
+                    Style="{StaticResource CategoryButton}"/>
+            <Button Content="View"
+                    Style="{StaticResource CategoryButton}"/>
+            <Button Content="Version Control"
+                    Style="{StaticResource CategoryButton}"/>
+
+        </StackPanel>
+
+        <Border x:Name="CategoryDisplayBarName"
+                Grid.Row="1">
+
+            <ItemsControl ItemsSource="{Binding Source='HOME'}"
+                          HorizontalAlignment="Center"
+                          VerticalAlignment="Center"
+                          Foreground="White">
+                <ItemsControl.ItemContainerStyle>
+                    <Style>
+                        <Setter Property="FrameworkElement.Margin" Value="-2"/>
+                        <Setter Property="FrameworkElement.HorizontalAlignment" Value="Center"/>
+                    </Style>
+                </ItemsControl.ItemContainerStyle>
+            </ItemsControl>
+
+        </Border>
+        <StackPanel x:Name="CategoryDisplayBar"/>
     </Grid>
 
 
