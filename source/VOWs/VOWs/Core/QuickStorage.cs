@@ -11,57 +11,36 @@ namespace VOWs.Core
     public class QuickStorage : ObservableObject
     {
         private StorageWrapper<string> _theme;
-        private StorageWrapper<Image> _imageContext;
-        private StorageWrapper<VideoDrawing> _videoContext;
-        public string Theme 
-        { 
-            get { return _theme.Value; } 
-            set 
-            {
-                if (_theme.Intent == StorageIntent.LocalNone || _theme.Intent == StorageIntent.LocalReadOnly) return;
-                _theme = new StorageWrapper<string>(this, _theme.Key, value);
-            } 
-        }
-        public Image ImageContext
+        public string Theme
         {
-            get { return _imageContext.Value; }
-            set
+            get
             {
-                if (_imageContext.Intent == StorageIntent.LocalNone || _imageContext.Intent == StorageIntent.LocalReadOnly) return;
-                _imageContext = new StorageWrapper<Image>(this, _imageContext.Key, value);
+                return _theme.Name;
             }
-        }
-        public VideoDrawing VideoContext
-        {
-            get { return _videoContext.Value; }
             set
             {
-                if (_videoContext.Intent == StorageIntent.LocalNone || _videoContext.Intent == StorageIntent.LocalReadOnly) return;
-                _videoContext = new StorageWrapper<VideoDrawing>(this, _videoContext.Key, value);
+                if (_theme != null && _theme.ReadOnly == true) throw new ArgumentException();
+                _theme = new StorageWrapper<string>("theme", "Theme", value, false);
             }
         }
 
         #pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
         public QuickStorage() 
         {
-            LoadValues();
+            RefreshValues();
         }
         #pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
 
-        public void LoadValue(string identifier)
+        private void RefreshValue(string identifier)
         {
             // TODO: Retrieve a specific value from the database based off the provided identifier.
         }
 
-        public void LoadValues()
+        private void RefreshValues()
         {
             // TODO: Retrieve data values from the database to assign to all settings here.
             // Set Theme value.
-            _theme = new StorageWrapper<string>(this, "Theme", "Dark", StorageIntent.All);
-            // Set ImageContext to null - until an image is selected, this shouldn't be a thing.
-            _imageContext = new StorageWrapper<Image>(this, "ImageContext", null, StorageIntent.LocalOnly);
-            // Set VideoContext to null - until a video is selected, this shouldn't be a thing.
-            _videoContext = new StorageWrapper<VideoDrawing>(this, "VideoContext", null, StorageIntent.LocalOnly);
+            Theme = "Dark";
         }
 
         public void SaveValue(string identifier)

@@ -67,5 +67,4 @@
         <StackPanel x:Name="CategoryDisplayBar"/>
     </Grid>
 
-
 </Window>
