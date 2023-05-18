@@ -2,14 +2,20 @@
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:local="clr-namespace:VOWs"
+             xmlns:viewModel="clr-namespace:VOWs.MVVM.ViewModel"
+             xmlns:view="clr-namespace:VOWs.MVVM.View"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
 
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="Resources\Themes\RootWindowTheme.xaml"/>
+                <ResourceDictionary Source="Resources\Themes\ParentObjectThemes.xaml"/>
                 <ResourceDictionary Source="Resources\Themes\MenuThemes.xaml"/>
             </ResourceDictionary.MergedDictionaries>
+
+            <DataTemplate DataType="{x:Type viewModel:DocumentViewModel}">
+                <view:DocumentView/>
+            </DataTemplate>
         </ResourceDictionary>
          
     </Application.Resources>

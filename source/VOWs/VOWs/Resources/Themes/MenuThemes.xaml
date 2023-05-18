@@ -2,13 +2,16 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:converters="clr-namespace:VOWs.Converters">
     
-    <!--String -> Image converter definition. Marvel at the line that took me 4 hours to figure out (Style.Resources and Binding tag expressions, the only 
+    <!--String => Image converter definition. Marvel at the line that took me 4 hours to figure out (Style.Resources and Binding tag expressions, the only 
     other ways without sticking this line in App resources, just didn't work, okay! :/).-->
     <converters:StringToBitmapImageConverter x:Key="ToImg"/>
+    <!--String to Boolean converter definition.-->
+    <converters:StringToBooleanConverter x:Key="ToBool"/>
 
     <!--Style for the main menu button within the editor.-->
     <Style x:Key="VOWsButton"
-           TargetType="{x:Type Button}">
+           TargetType="{x:Type Button}"
+           BasedOn="{StaticResource {x:Type Button}}">
 
         <Style.Setters>
             <!--Default values to show up in the XAML view, and to use as a backup if QuickSettings is not available for whatever reason.-->
@@ -23,8 +26,7 @@
                     <ControlTemplate TargetType="Button">
                         <Border Background="{TemplateBinding Background}"
                                 BorderBrush="{TemplateBinding BorderBrush}"
-                                BorderThickness="{TemplateBinding BorderThickness}"
-                                CornerRadius="5">
+                                BorderThickness="{TemplateBinding BorderThickness}">
                             <!--This image will correlate to one of two versions of the VOWs logo, depending on what theme is selected.-->
                             <!--We use an unused Button property, Tag, to store the URI. This could even be repurposed to work with any Image potentially.-->
                             <Image Height="50"
@@ -99,7 +101,8 @@
 
     <!--Style for category buttons at the top of the page within the editor.-->
     <Style x:Key="CategoryButton"
-           TargetType="{x:Type Button}">
+           TargetType="{x:Type Button}"
+           BasedOn="{StaticResource ThemedControl}">
 
         <Style.Setters>
             <!--Default values to show up in the XAML view, and to use as a backup if QuickSettings is not available for whatever reason.-->
@@ -194,14 +197,48 @@
 
         <Style.Setters>
             <!--Default values to show up in the XAML view, and to use as a backup if QuickSettings is not available for whatever reason.-->
-
-            <!--Template to style the section.-->
+            <Setter Property="Background" Value="#2A2A2A"/>
+            <Setter Property="BorderThickness" Value="0"/>
         </Style.Setters>
+
+        <Style.Triggers>
+            <!--Theming triggers. These are pretty long, annoyingly, because Trigger objects can't be nested.-->
+            <!--Default theming triggers. Anything that changes based ONLY on the theme selected should go in here.-->
+            <DataTrigger Binding="{Binding QuickStorage.Theme}" Value="Dark">
+                <Setter Property="Background" Value="#2A2A2A"/>
+            </DataTrigger>
+            <DataTrigger Binding="{Binding QuickStorage.Theme}" Value="Light">
+                <Setter Property="Background" Value="#D6D6D6"/>
+            </DataTrigger>
+        </Style.Triggers>
         
     </Style>
 
+    <!--Style for the display bar holding each MenuButton or stackpanel holding MenuButton.-->
+    <Style x:Key="CategoryDisplayBar"
+           TargetType="{x:Type StackPanel}">
+
+        <Style.Setters>
+            <!--Default values to show up in the XAML view, and to use as a backup if QuickSettings is not available for whatever reason.-->
+            <Setter Property="Background" Value="#2A2A2A"/>
+            <!--Template to style the section.-->
+        </Style.Setters>
+
+        <Style.Triggers>
+            <!--Theming triggers. These are pretty long, annoyingly, because Trigger objects can't be nested.-->
+            <!--Default theming triggers. Anything that changes based ONLY on the theme selected should go in here.-->
+            <DataTrigger Binding="{Binding QuickStorage.Theme}" Value="Dark">
+                <Setter Property="Background" Value="#2A2A2A"/>
+            </DataTrigger>
+            <DataTrigger Binding="{Binding QuickStorage.Theme}" Value="Light">
+                <Setter Property="Background" Value="#D6D6D6"/>
+            </DataTrigger>
+        </Style.Triggers>
+
+    </Style>
+
     <!--Style for buttons within the categories at the top of the page in the editor.-->
-    <Style x:Key="MenuButton"
+    <Style x:Key="MenuButton.Big"
            TargetType="{x:Type Button}">
 
         <Style.Setters>

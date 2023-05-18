@@ -4,7 +4,6 @@ D:\Coding\C#\VOWs\source\VOWs\VOWs\bin\Debug\net6.0-windows\VOWs.runtimeconfig.j
 D:\Coding\C#\VOWs\source\VOWs\VOWs\bin\Debug\net6.0-windows\VOWs.dll
 D:\Coding\C#\VOWs\source\VOWs\VOWs\bin\Debug\net6.0-windows\VOWs.pdb
 D:\Coding\C#\VOWs\source\VOWs\VOWs\obj\Debug\net6.0-windows\VOWs.csproj.AssemblyReference.cache
-D:\Coding\C#\VOWs\source\VOWs\VOWs\obj\Debug\net6.0-windows\Resources\Themes\RootWindowTheme.baml
 D:\Coding\C#\VOWs\source\VOWs\VOWs\obj\Debug\net6.0-windows\MainWindow.g.cs
 D:\Coding\C#\VOWs\source\VOWs\VOWs\obj\Debug\net6.0-windows\MVVM\View\DocumentView.g.cs
 D:\Coding\C#\VOWs\source\VOWs\VOWs\obj\Debug\net6.0-windows\App.g.cs
@@ -25,3 +24,4 @@ D:\Coding\C#\VOWs\source\VOWs\VOWs\obj\Debug\net6.0-windows\refint\VOWs.dll
 D:\Coding\C#\VOWs\source\VOWs\VOWs\obj\Debug\net6.0-windows\VOWs.pdb
 D:\Coding\C#\VOWs\source\VOWs\VOWs\obj\Debug\net6.0-windows\VOWs.genruntimeconfig.cache
 D:\Coding\C#\VOWs\source\VOWs\VOWs\obj\Debug\net6.0-windows\ref\VOWs.dll
+D:\Coding\C#\VOWs\source\VOWs\VOWs\obj\Debug\net6.0-windows\Resources\Themes\ParentObjectThemes.baml

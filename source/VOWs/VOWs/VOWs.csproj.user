@@ -21,7 +21,7 @@
     <Page Update="Resources\Themes\MenuThemes.xaml">
       <SubType>Designer</SubType>
     </Page>
-    <Page Update="Resources\Themes\RootWindowTheme.xaml">
+    <Page Update="Resources\Themes\ParentObjectThemes.xaml">
       <SubType>Designer</SubType>
     </Page>
   </ItemGroup>

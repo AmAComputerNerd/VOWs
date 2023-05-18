@@ -10,11 +10,11 @@ none
 false
 TRACE;DEBUG;NET;NET6_0;NETCOREAPP
 D:\Coding\C#\VOWs\source\VOWs\VOWs\App.xaml
-4-1061799344
+4-578626639
 
-11-1903608432
+121143897770
 194237474483
-MainWindow.xaml;MVVM\View\DocumentView.xaml;Resources\Themes\MenuThemes.xaml;Resources\Themes\RootWindowTheme.xaml;
+MainWindow.xaml;MVVM\View\DocumentView.xaml;Resources\Themes\MenuThemes.xaml;Resources\Themes\ParentObjectThemes.xaml;
 
 False
 
