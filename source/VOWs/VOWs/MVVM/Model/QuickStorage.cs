@@ -12,9 +12,17 @@ namespace VOWs.MVVM.Model
     public class QuickStorage : ObservableObject
     {
         /// <summary>
+        /// The static field exposing the current instance of QuickStorage.
+        /// 
+        /// <b>NOTE:</b> This field will be overriden as soon as a new QuickStorage object is created,
+        /// but older versions can still be accessed if you have access to the object.
+        /// </summary>
+        public static QuickStorage? Instance;
+
+        /// <summary>
         /// The private field storing the <c>StorageWrapper</c>, notably storing the location of the key in the database, identifier, value and whether it is readonly.
         /// </summary>
-        private StorageWrapper<string> _theme;
+        private StorageWrapper<string>? _theme;
         /// <summary>
         /// The public field exposing the value of the private <c>StorageWrapper</c> field. The variable can be set as long as the value is not readonly.
         /// </summary>
@@ -37,6 +45,7 @@ namespace VOWs.MVVM.Model
         public QuickStorage()
         {
             RefreshValues();
+            Instance = this;
         }
 
         /// <summary>

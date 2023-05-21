@@ -7,17 +7,14 @@ namespace VOWs.MVVM.ViewModel
 {
     class DocumentViewModel
     {
-        public QuickStorage QuickStorage { get; private set; }
-        public Image? ImageContext { get; set; }
-        public VideoDrawing? VideoContext { get; set; }
+        /// <summary>
+        /// The public field exposing the <c>QuickStorage</c> instance.
+        /// 
+        /// This is mostly for XAML use, as it can be accessed in code elsewhere with
+        /// <c>QuickStorage.Instance</c>.
+        /// </summary>
+        public QuickStorage Storage => QuickStorage.Instance;
 
-        public DocumentViewModel()
-        {
-            // Retrieve the storage reference from the MainViewModel. This isn't the best practise, but tbh, I can't think of another way to do it except by static access.
-            QuickStorage = ((MainViewModel)Application.Current.MainWindow.DataContext).StorageRef;
-            // These can be set to null until a user clicks on an image or video - this will store the position and other relevant information on these sections.
-            ImageContext = null;
-            VideoContext = null;
-        }
+        public DocumentViewModel() { }
     }
 }

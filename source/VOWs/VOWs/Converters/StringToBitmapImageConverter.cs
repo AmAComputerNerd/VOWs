@@ -18,8 +18,8 @@ namespace VOWs.Converters
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
             string? path = (string?)value;
-            if (path == null) return new BitmapImage(new Uri("/Resources/Images/404-notfound.png", UriKind.Relative));
-            Uri uri = new Uri(path, UriKind.Relative);
+            if (path == null) return new BitmapImage(new Uri("/Resources/Images/404-notfound.png", UriKind.RelativeOrAbsolute));
+            Uri uri = new(path, UriKind.RelativeOrAbsolute);
             return new BitmapImage(uri);
         }
 

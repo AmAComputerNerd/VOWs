@@ -19,31 +19,48 @@
             <ColumnDefinition Width="0.05*" MaxWidth="30"/>
         </Grid.ColumnDefinitions>
 
+        <!--Create the VOWsButton which will change the view to SettingsView.-->
         <Button x:Name="VOWsButton" 
-                Style="{StaticResource VOWsButton}"/>
+                Style="{StaticResource Category_VOWsButton}"/>
 
-        <StackPanel x:Name="WritingCategoriesDock" 
+        <!--Create the CategoriesPanel that holds all category buttons.-->
+        <StackPanel x:Name="CategoriesPanel" 
                     Orientation="Horizontal"
                     Grid.Column="1" Grid.ColumnSpan="2">
 
+            <!--Home button - changes List of menu buttons to the Home context.-->
             <Button Content="Home"
                     Margin="2,0,0,0"
-                    Style="{StaticResource CategoryButton}"/>
+                    Style="{StaticResource Category_Button}"/>
+            <!--Edit button - changes List of menu buttons to the Edit context.-->
             <Button Content="Edit"
-                    Style="{StaticResource CategoryButton}"/>
+                    Style="{StaticResource Category_Button}"/>
+            <!--Insert button - changes List of menu buttons to the Insert context.-->
             <Button Content="Insert"
-                    Style="{StaticResource CategoryButton}"/>
+                    Style="{StaticResource Category_Button}"/>
+            <!--Page button - changes List of menu buttons to the Page context.-->
             <Button Content="Page"
-                    Style="{StaticResource CategoryButton}"/>
+                    Style="{StaticResource Category_Button}"/>
+            <!--View button - changes List of menu buttons to the View context.-->
             <Button Content="View"
-                    Style="{StaticResource CategoryButton}"/>
+                    Style="{StaticResource Category_Button}"/>
+            <!--Version control button - changes List of menu buttons to the Version Control context.-->
             <Button Content="Version Control"
-                    Style="{StaticResource CategoryButton}"/>
+                    Style="{StaticResource Category_Button}"/>
 
         </StackPanel>
 
+        <!--========
+        Begin CategoryContentMenu construction.
+        ========-->
+        
+        <!--Create a background border covering the entire area.-->
+        <Border x:Name="CategoryContentMenu_Border"
+                Style="{StaticResource CategoryContent_Border}"/>
+
+        <!--Create the border surrounding the DisplayName.-->
         <Border x:Name="WritingCategoryDisplayName"
-                Style="{StaticResource CategoryDisplayName}"
+                Style="{StaticResource CategoryContent_DisplayName}"
                 Grid.Row="1">
 
             <ItemsControl ItemsSource="{Binding Source='HOME'}"

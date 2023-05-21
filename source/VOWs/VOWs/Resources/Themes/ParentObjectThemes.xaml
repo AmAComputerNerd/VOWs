@@ -13,10 +13,10 @@
         <Style.Triggers>
             <!--Theming triggers. These are pretty long, annoyingly, because Trigger objects can't be nested.-->
             <!--Default theming triggers. Anything that changes based ONLY on the theme selected should go in here.-->
-            <DataTrigger Binding="{Binding QuickStorage.Theme}" Value="Dark">
+            <DataTrigger Binding="{Binding Storage.Theme}" Value="Dark">
                 <Setter Property="Background" Value="#2F2F2F"/>
             </DataTrigger>
-            <DataTrigger Binding="{Binding QuickStorage.Theme}" Value="Light">
+            <DataTrigger Binding="{Binding Storage.Theme}" Value="Light">
                 <Setter Property="Background" Value="#D0D0D0"/>
             </DataTrigger>
         </Style.Triggers>
@@ -67,11 +67,11 @@
         <Style.Triggers>
             <!--Theming triggers. These are pretty long, annoyingly, because Trigger objects can't be nested.-->
             <!--Default theming triggers. Anything that changes based ONLY on the theme selected should go in here.-->
-            <DataTrigger Binding="{Binding QuickStorage.Theme}" Value="Dark">
+            <DataTrigger Binding="{Binding Storage.Theme}" Value="Dark">
                 <Setter Property="Background" Value="#2F2F2F"/>
                 <Setter Property="Foreground" Value="#C0C0C0"/>
             </DataTrigger>
-            <DataTrigger Binding="{Binding QuickStorage.Theme}" Value="Light">
+            <DataTrigger Binding="{Binding Storage.Theme}" Value="Light">
                 <Setter Property="Background" Value="#D0D0D0"/>
                 <Setter Property="Foreground" Value="#3F3F3F"/>
             </DataTrigger>
@@ -108,11 +108,11 @@
         <Style.Triggers>
             <!--Theming triggers. These are pretty long, annoyingly, because Trigger objects can't be nested.-->
             <!--Default theming triggers. Anything that changes based ONLY on the theme selected should go in here.-->
-            <DataTrigger Binding="{Binding QuickStorage.Theme}" Value="Dark">
+            <DataTrigger Binding="{Binding Storage.Theme}" Value="Dark">
                 <Setter Property="Background" Value="#2A2A2A"/>
                 <Setter Property="Foreground" Value="#C0C0C0"/>
             </DataTrigger>
-            <DataTrigger Binding="{Binding QuickStorage.Theme}" Value="Light">
+            <DataTrigger Binding="{Binding Storage.Theme}" Value="Light">
                 <Setter Property="Background" Value="#D6D6D6"/>
                 <Setter Property="Foreground" Value="#3F3F3F"/>
             </DataTrigger>
@@ -120,7 +120,7 @@
             <!--Theming triggers for the IsMouseOver event, as well as the theme.-->
             <MultiDataTrigger>
                 <MultiDataTrigger.Conditions>
-                    <Condition Binding="{Binding QuickStorage.Theme}" Value="Dark"/>
+                    <Condition Binding="{Binding Storage.Theme}" Value="Dark"/>
                     <Condition Binding="{Binding RelativeSource={RelativeSource Mode=Self}, Path=IsMouseOver}" Value="True"/>
                 </MultiDataTrigger.Conditions>
                 <MultiDataTrigger.Setters>
@@ -129,7 +129,7 @@
             </MultiDataTrigger>
             <MultiDataTrigger>
                 <MultiDataTrigger.Conditions>
-                    <Condition Binding="{Binding QuickStorage.Theme}" Value="Light"/>
+                    <Condition Binding="{Binding Storage.Theme}" Value="Light"/>
                     <Condition Binding="{Binding RelativeSource={RelativeSource Mode=Self}, Path=IsMouseOver}" Value="True"/>
                 </MultiDataTrigger.Conditions>
                 <MultiDataTrigger.Setters>
@@ -140,7 +140,7 @@
             <!--Theming triggers for the IsPressed event, as well as the theme.-->
             <MultiDataTrigger>
                 <MultiDataTrigger.Conditions>
-                    <Condition Binding="{Binding QuickStorage.Theme}" Value="Dark"/>
+                    <Condition Binding="{Binding Storage.Theme}" Value="Dark"/>
                     <Condition Binding="{Binding RelativeSource={RelativeSource Mode=Self}, Path=IsPressed}" Value="True"/>
                 </MultiDataTrigger.Conditions>
                 <MultiDataTrigger.Setters>
@@ -149,7 +149,7 @@
             </MultiDataTrigger>
             <MultiDataTrigger>
                 <MultiDataTrigger.Conditions>
-                    <Condition Binding="{Binding QuickStorage.Theme}" Value="Light"/>
+                    <Condition Binding="{Binding Storage.Theme}" Value="Light"/>
                     <Condition Binding="{Binding RelativeSource={RelativeSource Mode=Self}, Path=IsPressed}" Value="True"/>
                 </MultiDataTrigger.Conditions>
                 <MultiDataTrigger.Setters>
