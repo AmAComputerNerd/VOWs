@@ -9,12 +9,15 @@
 
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="Resources\Themes\ParentObjectThemes.xaml"/>
-                <ResourceDictionary Source="Resources\Themes\MenuThemes.xaml"/>
+                <ResourceDictionary Source="Resources/Themes/RootStyles.xaml"/>
             </ResourceDictionary.MergedDictionaries>
 
-            <DataTemplate DataType="{x:Type viewModel:DocumentViewModel}">
-                <view:DocumentView/>
+            <DataTemplate DataType="{x:Type viewModel:DocumentEditViewModel}">
+                <view:DocumentEditView/>
+            </DataTemplate>
+
+            <DataTemplate DataType="{x:Type viewModel:SettingsViewModel}">
+                <view:SettingsView/>
             </DataTemplate>
         </ResourceDictionary>
          

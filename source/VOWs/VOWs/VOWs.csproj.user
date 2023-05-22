@@ -7,7 +7,10 @@
     </ApplicationDefinition>
   </ItemGroup>
   <ItemGroup>
-    <Compile Update="MVVM\View\DocumentView.xaml.cs">
+    <Compile Update="MVVM\View\DocumentEditView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="MVVM\View\SettingsView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
   </ItemGroup>
@@ -15,13 +18,13 @@
     <Page Update="MainWindow.xaml">
       <SubType>Designer</SubType>
     </Page>
-    <Page Update="MVVM\View\DocumentView.xaml">
+    <Page Update="MVVM\View\DocumentEditView.xaml">
       <SubType>Designer</SubType>
     </Page>
-    <Page Update="Resources\Themes\MenuThemes.xaml">
+    <Page Update="MVVM\View\SettingsView.xaml">
       <SubType>Designer</SubType>
     </Page>
-    <Page Update="Resources\Themes\ParentObjectThemes.xaml">
+    <Page Update="Resources\Themes\RootStyles.xaml">
       <SubType>Designer</SubType>
     </Page>
   </ItemGroup>

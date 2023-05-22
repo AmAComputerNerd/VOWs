@@ -6,14 +6,16 @@
         xmlns:local="clr-namespace:VOWs"
         xmlns:viewmodel="clr-namespace:VOWs.MVVM.ViewModel"
         mc:Ignorable="d"
-        Title="VOWs" Height="450" Width="800"
-        Icon="/Resources/VOWsuite-logos_icon.ico"
-        WindowState="Maximized" WindowStartupLocation="CenterOwner">
+        Icon="pack://application:,,,/Resources/Icons/VOWsuite-logos_transparent.ico"
+        Title="VOWs" Height="450" Width="800">
 
     <Window.DataContext>
         <viewmodel:MainViewModel/>
     </Window.DataContext>
-
-    <ContentControl Content="{Binding CurrentView}"/>
+    
+    <!--Grid to hold content - for now, only the ContentControl.-->
+    <Grid>
+        <ContentControl Content="{Binding CurrentView}"/>
+    </Grid>
     
 </Window>

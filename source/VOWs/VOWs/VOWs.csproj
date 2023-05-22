@@ -8,24 +8,28 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Resources\Icons\VOWsuite-logos_transparent.ico" />
     <None Remove="Resources\Images\VOWsuite-logos_black.png" />
     <None Remove="Resources\Images\VOWsuite-logos_white.png" />
-    <None Remove="Resources\VOWsuite-logos_icon.ico" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Windows\" />
+    <None Include="..\.editorconfig" Link=".editorconfig" />
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="CommunityToolkit.Mvvm" Version="8.2.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Resources\Icons\VOWsuite-logos_transparent.ico">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
     <Resource Include="Resources\Images\VOWsuite-logos_black.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Resources\Images\VOWsuite-logos_white.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="Resources\VOWsuite-logos_icon.ico">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
   </ItemGroup>
 
