@@ -1,8 +1,10 @@
-﻿using System;
+﻿using CommunityToolkit.Mvvm.Messaging;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using VOWs.Events;
 
 namespace VOWs.MVVM.Model
 {
@@ -59,19 +61,30 @@ namespace VOWs.MVVM.Model
     
         public DynamicURIResolver(string uri, Uri resolveUri)
         {
+            _usesThemes = false;
             _uri = uri;
             _resolveUri = resolveUri;
-            _usesThemes = false;
         }
 
-        public DynamicURIResolver(string blackUri, string darkUri, string lightUri, string whiteUri, DatabaseWrapper databaseWrapper, Uri resolveUri)
+        public DynamicURIResolver(string darkUri, string lightUri, Uri resolveUri)
+        {
+            _usesThemes = true;
+            _blackUri = darkUri;
+            _darkUri = darkUri;
+            _lightUri = lightUri;
+            _whiteUri = lightUri;
+            _databaseWrapper = WeakReferenceMessenger.Default.Send(new RequestStorageMessage());
+            _resolveUri = resolveUri;
+        }
+
+        public DynamicURIResolver(string blackUri, string darkUri, string lightUri, string whiteUri, Uri resolveUri)
         {
             _usesThemes = true;
             _blackUri = blackUri;
             _darkUri = darkUri;
             _lightUri = lightUri;
             _whiteUri = whiteUri;
-            _databaseWrapper = databaseWrapper;
+            _databaseWrapper = WeakReferenceMessenger.Default.Send(new RequestStorageMessage());
             _resolveUri = resolveUri;
         }
     }

@@ -10,6 +10,9 @@
     <Compile Update="MVVM\View\DocumentEditView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="MVVM\View\PageView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="MVVM\View\SettingsView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -21,7 +24,13 @@
     <Page Update="MVVM\View\DocumentEditView.xaml">
       <SubType>Designer</SubType>
     </Page>
+    <Page Update="MVVM\View\PageView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
     <Page Update="MVVM\View\SettingsView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Resources\Themes\DocumentStyles.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Resources\Themes\RootStyles.xaml">

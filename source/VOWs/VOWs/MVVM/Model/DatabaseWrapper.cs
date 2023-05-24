@@ -30,7 +30,7 @@ namespace VOWs.MVVM.Model
         private void AssignValues()
         {
             // TODO: Retrieve values and parse from database instead of just dummy values.
-            WrappedTheme = new WrappedItem<string>("app.theme", "Theme", "Black", true);
+            WrappedTheme = new WrappedItem<string>("app.theme", "Theme", "Light", true);
         }
     
         public void RefreshValues()

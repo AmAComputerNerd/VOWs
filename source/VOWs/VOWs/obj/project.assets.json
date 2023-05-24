@@ -59,19 +59,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\thoms\\.nuget\\packages\\": {}
+    "C:\\Users\\jonathon.thompson3\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\thoms\\source\\repos\\VOWs\\VOWs\\VOWs.csproj",
+      "projectUniqueName": "D:\\Coding\\VOWs\\source\\VOWs\\VOWs\\VOWs.csproj",
       "projectName": "VOWs",
-      "projectPath": "C:\\Users\\thoms\\source\\repos\\VOWs\\VOWs\\VOWs.csproj",
-      "packagesPath": "C:\\Users\\thoms\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\thoms\\source\\repos\\VOWs\\VOWs\\obj\\",
+      "projectPath": "D:\\Coding\\VOWs\\source\\VOWs\\VOWs\\VOWs.csproj",
+      "packagesPath": "C:\\Users\\jonathon.thompson3\\.nuget\\packages\\",
+      "outputPath": "D:\\Coding\\VOWs\\source\\VOWs\\VOWs\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\thoms\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\jonathon.thompson3\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -121,7 +121,7 @@
             "privateAssets": "none"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.102\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.302\\RuntimeIdentifierGraph.json"
       }
     }
   }

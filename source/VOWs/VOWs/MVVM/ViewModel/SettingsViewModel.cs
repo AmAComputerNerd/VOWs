@@ -1,16 +1,22 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Messaging;
+using VOWs.Events;
+using VOWs.MVVM.Model;
 
 namespace VOWs.MVVM.ViewModel
 {
-    public class SettingsViewModel
+    public class SettingsViewModel : ObservableRecipient
     {
-        public SettingsViewModel(MainViewModel context)
+        // Copies of global resources relevant to the SettingsView.
+        public DatabaseWrapper Storage
         {
+            get => Messenger.Send(new RequestStorageMessage());
+            set => Messenger.Send(new UpdateStorageMessage(value));
+        }
+        // Local resources relevant to the SettingsView.
 
+        public SettingsViewModel()
+        {
         }
     }
 }

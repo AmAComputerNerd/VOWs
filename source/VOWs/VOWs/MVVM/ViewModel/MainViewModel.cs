@@ -1,7 +1,7 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using CommunityToolkit.Mvvm.Messaging;
-using System.Runtime.CompilerServices;
+using System;
 using VOWs.Events;
 using VOWs.MVVM.Model;
 
@@ -60,34 +60,99 @@ namespace VOWs.MVVM.ViewModel
             // Assign values for Storage-related variables.
             Storage = new DatabaseWrapper();
 
+            // Activate ViewModel to receive messages.
+            IsActive = true;
+
             // Assign values for DocumentEdit view.
-            DocumentEditVM = new DocumentEditViewModel(this);
+            DocumentEditVM = new DocumentEditViewModel();
             DocumentEditViewCommand = new RelayCommand(() =>
             {
                 CurrentView = DocumentEditVM;
             });
             // Assign values for Settings view.
-            SettingsVM = new SettingsViewModel(this);
+            SettingsVM = new SettingsViewModel();
             SettingsViewCommand = new RelayCommand(() =>
             {
                 CurrentView = SettingsVM;
             });
 
-            // Register this class to the Messenger service for all view tokens.
-            Messenger.Register<MainViewModel, ChangeViewEvent, string>(this, "VOWsButtonToggle", (_, _) =>
-            {
-                if(CurrentView != null || CurrentView == SettingsVM)
-                {
-                    DocumentEditViewCommand.Execute(null);
-                } 
-                else if(CurrentView == DocumentEditVM)
-                {
-                    SettingsViewCommand.Execute(null);
-                }
-            });
-
             // Set CurrentView to default menu (DocumentEditVM).
             CurrentView = DocumentEditVM;
+        }
+
+        /// <summary>
+        /// The overriden <c>OnActivated</c> method registers the class with a variety of messagers from the Messenger object.
+        /// </summary>
+        protected override void OnActivated()
+        {
+            // Register the class to receive ChangeViewEvent messages.
+            Messenger.Register<MainViewModel, ChangeViewMessage>(this, (r, m) => r.Receive(m));
+            // Register the class to receive RequestStorageMessage messages.
+            Messenger.Register<MainViewModel, RequestStorageMessage>(this, (r, m) => r.Reply(m));
+            // Register the class to receive UpdateStorageMessage messages.
+            Messenger.Register<MainViewModel, UpdateStorageMessage>(this, (r, m) => r.Reply(m));
+        }
+
+        /// <summary>
+        /// The <c>Receive</c> method will be called whenever the <c>ChangeViewMessage</c> is sent.
+        /// </summary>
+        /// <param name="message">The event that was sent, with data.</param>
+        private void Receive(ChangeViewMessage message)
+        {
+            if(message.IsExplicit)
+            {
+                CurrentView = GetViewModel(message.Id);
+                return;
+            }
+            // Fetch both viewmodels.
+            object vm1 = GetViewModel(message.Id);
+            object vm2 = GetViewModel((int)message.OtherId);
+            // Attempt to toggle them.
+            if (CurrentView == vm1) CurrentView = vm2;
+            else if (CurrentView == vm2) CurrentView = vm1;
+        }
+
+        /// <summary>
+        /// The <c>Reply</c> method will be called whenever the <c>RequestStorageMessage</c> is sent.
+        /// </summary>
+        /// <param name="message">The event that was sent to reply to.</param>
+        private void Reply(RequestStorageMessage message)
+        {
+            message.Reply(Storage);
+        }
+
+        /// <summary>
+        /// The <c>Reply</c> method will be called whenever the <c>UpdateStorageMessage</c> is sent.
+        /// </summary>
+        /// <param name="message">The event that was sent to reply to, with data.</param>
+        private void Reply(UpdateStorageMessage message)
+        {
+            try
+            {
+                Storage = message.UpdatedValue;
+                message.Reply(true);
+            } catch (Exception)
+            {
+                message.Reply(false);
+            }
+        }
+
+        /// <summary>
+        /// The <c>GetViewModel</c> method converts an Id to it's corresponding ViewModel.
+        /// </summary>
+        /// <param name="id">The Id of the ViewModel to fetch.</param>
+        /// <returns>The ViewModel</returns>
+        private object GetViewModel(int id)
+        {
+            switch(id)
+            {
+                case 0:
+                    return DocumentEditVM;
+                case 1:
+                    return SettingsVM;
+                default:
+                    return null;
+            }
         }
     }
 }

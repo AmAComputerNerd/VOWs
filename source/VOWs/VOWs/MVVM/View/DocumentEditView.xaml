@@ -18,10 +18,14 @@
             <RowDefinition/>
         </Grid.RowDefinitions>
 
+        <!--Create the border for the resulting background of the category panel and category menu panel.-->
+        <Border Style="{StaticResource MenuBackground}"
+                Grid.RowSpan="2"/>
+        
         <!--Create the CategoriesPanel that holds all category buttons.-->
         <StackPanel x:Name="CategoriesPanel"
                     Orientation="Horizontal">
-            
+
             <!--Create the VOWsButton which will change the view to SettingsView.-->
             <Button Style="{StaticResource FlatButton}"
                     Command="{Binding VOWsuiteButtonCommand}"
@@ -87,8 +91,33 @@
                                FontSize="12"/>
                 </Button.Content>
             </Button>
-        
+
         </StackPanel>
+
+        <!--Create the CategoriesMenuPanel that holds all menu buttons inside a category.-->
+        <StackPanel x:Name="CategoriesMenuPanel"
+                    Orientation="Horizontal"
+                    Grid.Row="1">
+            
+            <!--We handle all additions to this panel in the ViewModel code.-->
+            <ToggleButton Tag="Colour"
+                          Style="{StaticResource MenuToggleButton_Big}">
+                
+                <ToggleButton.Content>
+                    <Image Source="{Binding ExampleImageSource}"/>
+                </ToggleButton.Content>
+                
+            </ToggleButton>
+
+            <StackPanel Style="{StaticResource MenuPanel}">
+                <TextBox Tag="Font Size:"
+                         Style="{StaticResource MenuValueBox}"/>
+            </StackPanel>
+        </StackPanel>
+        
+        <!--Create the ContentControl to show the Page.-->
+        <ContentControl Content="{Binding PageVM}"
+                        Grid.Row="2"/>
     </Grid>
     
 </UserControl>
