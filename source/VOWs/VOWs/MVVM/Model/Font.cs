@@ -1,87 +1,100 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Media;
 
 namespace VOWs.MVVM.Model
 {
-    public class Font : ObservableRecipient
+    public partial class Font : ObservableRecipient
     {
-        private FontFamily _name;
-        private int _size;
-        private bool _bold;
-        private bool _italics;
-        private bool _underline;
-        private Color _foreground;
-        private Color _background;
+        /// <summary>
+        /// The <c>Name</c> property represents the FontFamily for this Font object.
+        /// </summary>
+        [ObservableProperty]
+        private FontFamily name;
+        /// <summary>
+        /// The <c>Size</c> property represents the font size for this Font object.
+        /// </summary>
+        [ObservableProperty]
+        private int size;
+        /// <summary>
+        /// The <c>Bold</c> property represents whether this Font object is bold or not.
+        /// </summary>
+        [ObservableProperty]
+        private bool bold;
+        /// <summary>
+        /// The <c>Italics</c> property represents whether this Font object is italic or not.
+        /// </summary>
+        [ObservableProperty]
+        private bool italics;
+        /// <summary>
+        /// The <c>Underline</c> property represents whether this Font object is underlined or not.
+        /// </summary>
+        [ObservableProperty]
+        private bool underline;
+        /// <summary>
+        /// The <c>Foreground</c> property represents the colour for the foreground (text) for this Font object.
+        /// </summary>
+        [ObservableProperty]
+        private Color foreground;
+        /// <summary>
+        /// The <c>Background</c> property represents the colour for the background (behind text) for this Font object.
+        /// </summary>
+        [ObservableProperty]
+        private Color background;
 
-        public FontFamily Name
+        /// <summary>
+        /// The constructor for <c>Font</c> constructs the object based off the <c>name</c> (FontFamily) parameter,
+        /// with otherwise default settings.
+        /// </summary>
+        /// <param name="name">The FontFamily that this Font should use.</param>
+        public Font(FontFamily name)
         {
-            get => _name;
-            set => SetProperty(ref _name, value);
-        }
-        public int Size
-        {
-            get => _size;
-            set => SetProperty(ref _size, value);
-        }
-        public bool Bold
-        {
-            get => _bold;
-            set => SetProperty(ref _bold, value);
-        }
-        public bool Italics
-        {
-            get => _italics;
-            set => SetProperty(ref _italics, value);
-        }
-        public bool Underline
-        {
-            get => _underline;
-            set => SetProperty(ref _italics, value);
-        }
-        public Color Foreground
-        {
-            get => _foreground;
-            set => SetProperty(ref _foreground, value);
-        }
-        public Color Background
-        {
-            get => _background;
-            set => SetProperty(ref _background, value);
-        }
-    
-        public Font()
-        {
-            _name = new FontFamily("Calibri");
-            _size = 11;
-            _bold = false;
-            _italics = false;
-            _underline = false;
-            _foreground = Color.FromRgb(0, 0, 0);
-            _background = Color.FromRgb(255, 255, 255);
+            Name = name;
+            Size = 11;
+            Bold = false;
+            Italics = false;
+            Underline = false;
+            Foreground = Color.FromRgb(0, 0, 0);
+            Background = Color.FromRgb(255, 255, 255);
         }
 
-        public Font(FontFamily name) : this()
-        {
-            _name = name;
-        }
-
+        /// <summary>
+        /// The constructor for <c>Font</c> constructs the object based off the <c>name</c>, <c>size</c>
+        /// and <c>foreground</c> parameters, with otherwise default settings.
+        /// </summary>
+        /// <param name="name">The FontFamily that this Font should use.</param>
+        /// <param name="size">The size that this Font should use.</param>
+        /// <param name="foreground">The foreground that this Font should use.</param>
         public Font(FontFamily name, int size, Color foreground) : this(name)
         {
-            _size = size;
-            _foreground = foreground;
+            Size = size;
+            Foreground = foreground;
         }
 
+        /// <summary>
+        /// The constructor for <c>Font</c> constructs the object based off parameters entered.
+        /// </summary>
+        /// <param name="name">The FontFamilt that this Font should use.</param>
+        /// <param name="size">The size that this Font should use.</param>
+        /// <param name="bold">Whether this Font should be bold.</param>
+        /// <param name="italics">Whether this Font should be italics.</param>
+        /// <param name="underline">Whether this Font should be underlined.</param>
+        /// <param name="foreground">The Color this Font should use as a foreground (text colour).</param>
+        /// <param name="background">The Color this Font should use as a background (text highlight/background).</param>
         public Font(FontFamily name, int size, bool bold, bool italics, bool underline, Color foreground, Color background) : this(name, size, foreground)
         {
-            _bold = bold;
-            _italics = italics;
-            _underline = underline;
-            _background = background;
+            Bold = bold;
+            Italics = italics;
+            Underline = underline;
+            Background = background;
+        }
+
+        /// <summary>
+        /// Create a new Font with default settings.
+        /// </summary>
+        /// <returns>The new Calibri font, size 11 without any modifiers, with a black foreground and white background.</returns>
+        public static Font Default()
+        {
+            return new Font(new FontFamily("Calibri"));
         }
     }
 }

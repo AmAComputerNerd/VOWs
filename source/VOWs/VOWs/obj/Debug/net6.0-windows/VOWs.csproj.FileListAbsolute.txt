@@ -59,3 +59,5 @@ D:\Coding\VOWs\source\VOWs\VOWs\obj\Debug\net6.0-windows\VOWs.pdb
 D:\Coding\VOWs\source\VOWs\VOWs\obj\Debug\net6.0-windows\VOWs.genruntimeconfig.cache
 D:\Coding\VOWs\source\VOWs\VOWs\obj\Debug\net6.0-windows\ref\VOWs.dll
 D:\Coding\VOWs\source\VOWs\VOWs\obj\Debug\net6.0-windows\Resources\Themes\DocumentStyles.baml
+D:\Coding\VOWs\source\VOWs\VOWs\obj\Debug\net6.0-windows\MVVM\View\PageView.g.cs
+D:\Coding\VOWs\source\VOWs\VOWs\obj\Debug\net6.0-windows\MVVM\View\PageView.baml

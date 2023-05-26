@@ -95,26 +95,16 @@
         </StackPanel>
 
         <!--Create the CategoriesMenuPanel that holds all menu buttons inside a category.-->
-        <StackPanel x:Name="CategoriesMenuPanel"
-                    Orientation="Horizontal"
-                    Grid.Row="1">
-            
-            <!--We handle all additions to this panel in the ViewModel code.-->
-            <ToggleButton Tag="Colour"
-                          Style="{StaticResource MenuToggleButton_Big}">
-                
-                <ToggleButton.Content>
-                    <Image Source="{Binding ExampleImageSource}"/>
-                </ToggleButton.Content>
-                
-            </ToggleButton>
+        <ItemsControl x:Name="CategoriesMenuPanel" 
+                      ItemsSource="{Binding MenuContent}"
+                      Grid.Row="1">
+            <ItemsControl.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <StackPanel Orientation="Horizontal"/>
+                </ItemsPanelTemplate>
+            </ItemsControl.ItemsPanel>
+        </ItemsControl>
 
-            <StackPanel Style="{StaticResource MenuPanel}">
-                <TextBox Tag="Font Size:"
-                         Style="{StaticResource MenuValueBox}"/>
-            </StackPanel>
-        </StackPanel>
-        
         <!--Create the ContentControl to show the Page.-->
         <ContentControl Content="{Binding PageVM}"
                         Grid.Row="2"/>

@@ -10,7 +10,14 @@ namespace VOWs.MVVM.ViewModel
     public class PageViewModel : ObservableRecipient
     {
         // Copies of global resources relevant to the PageView.
+        /// <summary>
+        /// The <c>_storage</c> private parameter stores the backup value for <c>Storage</c>.
+        /// </summary>
         private DatabaseWrapper _storage;
+        /// <summary>
+        /// The <c>Storage</c> parameter links back to the <c>MainViewModel</c>'s Storage parameter, and is
+        /// either retrieved through messages or using the backup <c>_storage</c> parameter.
+        /// </summary>
         public DatabaseWrapper Storage
         {
             get
@@ -38,61 +45,19 @@ namespace VOWs.MVVM.ViewModel
         }
 
         // Local resources relevant to the PageView.
-        private FontFamily _fontFamily;
-        public FontFamily FontFamily
-        {
-            get => _fontFamily; 
-            set => SetProperty(ref _fontFamily, value);
-        }
-        private int _fontSize;
-        public int FontSize
-        {
-            get => _fontSize; 
-            set => SetProperty(ref _fontSize, value);
-        }
-        private bool _bold;
-        public bool Bold 
-        {
-            get => _bold;
-            set => SetProperty(ref _bold, value); 
-        }
-        private bool _italics;
-        public bool Italics
-        {
-            get => _italics;
-            set => SetProperty(ref _italics, value);
-        }
-        private bool _underline;
-        public bool Underline
-        {
-            get => _underline;
-            set => SetProperty(ref _italics, value);
-        }
-        private Color _textColour;
-        public Color TextColour
-        {
-            get => _textColour;
-            set => SetProperty(ref _textColour, value);
-        }
-        private Color _backgroundColour;
-        public Color BackgroundColour
-        {
-            get => _backgroundColour;
-            set => SetProperty(ref _backgroundColour, value);
-        }
+        /// <summary>
+        /// The <c>OpenDocument</c> parameter stores information about the currently open document, linked
+        /// directly to <c>DocumentEditViewModel</c>. 
+        /// </summary>
+        public Document OpenDocument;
 
+        /// <summary>
+        /// The constructor for <c>PageViewModel</c> initialises variables relevant to <c>PageView</c>.
+        /// </summary>
         public PageViewModel()
         {
             // Set the backup storage variable.
             _storage = Messenger.Send(new RequestStorageMessage());
-            // Set font properties.
-            _fontFamily = new FontFamily("Calibri");
-            _fontSize = 11;
-            _bold = false;
-            _italics = false;
-            _underline = false;
-            _textColour = Color.FromRgb(0, 0, 0);
-            _backgroundColour = Color.FromRgb(255, 255, 255);
         }
     }
 }
