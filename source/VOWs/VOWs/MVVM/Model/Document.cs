@@ -1,6 +1,8 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using System;
 using System.Collections.ObjectModel;
+using System.Windows.Controls;
+using System.Windows.Media;
 
 namespace VOWs.MVVM.Model
 {
@@ -23,6 +25,11 @@ namespace VOWs.MVVM.Model
         [ObservableProperty]
         private ObservableCollection<Page> pages;
         /// <summary>
+        /// The <c>DisplayPages</c> property represents the display objects (Border, TextBlock, etc.) that make up the Pages of this document.
+        /// </summary>
+        [ObservableProperty]
+        private ObservableCollection<Object> displayPages;
+        /// <summary>
         /// The <c>FileLocation</c> property represents the location of this Document on the computer.
         /// </summary>
         [ObservableProperty]
@@ -37,6 +44,11 @@ namespace VOWs.MVVM.Model
         {
             // TODO: Load document pages through Uri, if exists.
             FileLocation = fileLocation;
+            DisplayPages = new();
+            Border b = new Border();
+            b.Height = 1000;
+            b.Background = new SolidColorBrush(Color.FromRgb(255,255,255));
+            DisplayPages.Add(b);
         }
 
         /// <summary>

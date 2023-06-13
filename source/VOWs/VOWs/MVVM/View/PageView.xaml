@@ -4,17 +4,22 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:VOWs.MVVM.View"
+             xmlns:viewmodel="clr-namespace:VOWs.MVVM.ViewModel" d:DataContext="{d:DesignInstance Type=viewmodel:PageViewModel}"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
 
     <ScrollViewer HorizontalScrollBarVisibility="Auto">
-        <StackPanel>
-            <Border Background="White"
-                    HorizontalAlignment="Center"
-                    Width="2480px"
-                    Height="3508px"
-                    Margin="50"/>
-        </StackPanel>
+        <Grid Margin="0,20,0,10">
+            
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="0.2*"/>
+                <ColumnDefinition MaxWidth="700"/>
+                <ColumnDefinition Width="0.2*"/>
+            </Grid.ColumnDefinitions>
+
+            <ListView ItemsSource="{Binding OpenDocument.DisplayPages}"
+                      Grid.Column="1"/>
+        </Grid>
     </ScrollViewer>
 
 </UserControl>

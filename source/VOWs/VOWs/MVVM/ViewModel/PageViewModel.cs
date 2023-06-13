@@ -1,6 +1,7 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Messaging;
 using System;
+using System.Collections.ObjectModel;
 using System.Windows.Media;
 using VOWs.Events;
 using VOWs.MVVM.Model;
@@ -49,7 +50,7 @@ namespace VOWs.MVVM.ViewModel
         /// The <c>OpenDocument</c> parameter stores information about the currently open document, linked
         /// directly to <c>DocumentEditViewModel</c>. 
         /// </summary>
-        public Document OpenDocument;
+        public Document OpenDocument { get; set; }
 
         /// <summary>
         /// The constructor for <c>PageViewModel</c> initialises variables relevant to <c>PageView</c>.
@@ -58,6 +59,8 @@ namespace VOWs.MVVM.ViewModel
         {
             // Set the backup storage variable.
             _storage = Messenger.Send(new RequestStorageMessage());
+            // Set the OpenDocument variable to a default document for showcase purposes.
+            OpenDocument = new Document(null);
         }
     }
 }
