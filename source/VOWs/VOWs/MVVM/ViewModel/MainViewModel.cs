@@ -17,6 +17,12 @@ namespace VOWs.MVVM.ViewModel
         /// It acts as an interface between the application and the database, allowing access and limited edit abilities on variables.
         /// </summary>
         public DatabaseWrapper Storage;
+        /// <summary>
+        /// The <c>Logger</c> parameter is a reference to the Logger object representing the runtime
+        /// environment. The logger responds to <c>LogMessage</c> messages to signal a new log, or they can be
+        /// alternatively logged through a direct reference to the object and one of the tiered methods.
+        /// </summary>
+        public Logger Logger;
 
         /// <summary>
         /// The <c>DocumentEditVM</c> parameter refers to the current instance of the <c>DocumentEditViewModel</c> and accompanying view.
@@ -59,6 +65,8 @@ namespace VOWs.MVVM.ViewModel
         {
             // Assign values for Storage-related variables.
             Storage = new DatabaseWrapper();
+            // Assign values for Logger variable.
+            Logger = Logger.New();
 
             // Activate ViewModel to receive messages.
             IsActive = true;

@@ -6,7 +6,15 @@
              xmlns:local="clr-namespace:VOWs.MVVM.View"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
-    <Grid>
-            
-    </Grid>
+
+    <ScrollViewer HorizontalScrollBarVisibility="Auto">
+        <StackPanel>
+            <Border Background="White"
+                    HorizontalAlignment="Center"
+                    Width="2480px"
+                    Height="3508px"
+                    Margin="50"/>
+        </StackPanel>
+    </ScrollViewer>
+
 </UserControl>

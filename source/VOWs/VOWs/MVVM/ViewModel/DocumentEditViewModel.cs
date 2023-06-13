@@ -51,6 +51,8 @@ namespace VOWs.MVVM.ViewModel
             }
         }
 
+        public EnvironmentArgs EnvironmentArgs { get => new EnvironmentArgs(); }
+
         // Local resources relevant to the DocumentEditView.
         /// <summary>
         /// The <c>_vowsuiteLogoUriResolver</c> private parameter stores the value for <c>VOWsuiteLogoSource</c>.
@@ -107,7 +109,9 @@ namespace VOWs.MVVM.ViewModel
             // Set the MenuContent collection to a new list.
             MenuContent = new();
             // Update the MenuContent.
-            UpdateMenuContent();
+            //UpdateMenuContent();
+            // Set the Page ViewModel.
+            PageVM = new PageViewModel();
         }
     
         /// <summary>

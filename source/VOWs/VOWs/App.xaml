@@ -17,6 +17,10 @@
                 <view:DocumentEditView/>
             </DataTemplate>
 
+            <DataTemplate DataType="{x:Type viewModel:PageViewModel}">
+                <view:PageView/>
+            </DataTemplate>
+
             <DataTemplate DataType="{x:Type viewModel:SettingsViewModel}">
                 <view:SettingsView/>
             </DataTemplate>
