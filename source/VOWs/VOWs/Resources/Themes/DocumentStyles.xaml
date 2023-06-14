@@ -12,16 +12,16 @@
         <Style.Triggers>
             <!--Theming triggers. These are pretty long, annoyingly, because Trigger objects can't be nested.-->
             <!--Default theming triggers. Anything that changes based ONLY on the theme selected should go in here.-->
-            <DataTrigger Binding="{Binding Storage.Theme}" Value="Black">
+            <DataTrigger Binding="{Binding Globals.Theme}" Value="Black">
                 <Setter Property="Background" Value="#141414"/>
             </DataTrigger>
-            <DataTrigger Binding="{Binding Storage.Theme}" Value="Dark">
+            <DataTrigger Binding="{Binding Globals.Theme}" Value="Dark">
                 <Setter Property="Background" Value="#333333"/>
             </DataTrigger>
-            <DataTrigger Binding="{Binding Storage.Theme}" Value="Light">
+            <DataTrigger Binding="{Binding Globals.Theme}" Value="Light">
                 <Setter Property="Background" Value="#d6d6d6"/>
             </DataTrigger>
-            <DataTrigger Binding="{Binding Storage.Theme}" Value="White">
+            <DataTrigger Binding="{Binding Globals.Theme}" Value="White">
                 <Setter Property="Background" Value="#f5f5f5"/>
             </DataTrigger>
         </Style.Triggers>
@@ -39,22 +39,64 @@
         <Style.Triggers>
             <!--Theming triggers. These are pretty long, annoyingly, because Trigger objects can't be nested.-->
             <!--Default theming triggers. Anything that changes based ONLY on the theme selected should go in here.-->
-            <DataTrigger Binding="{Binding Storage.Theme}" Value="Black">
+            <DataTrigger Binding="{Binding Globals.Theme}" Value="Black">
                 <Setter Property="Background" Value="#141414"/>
             </DataTrigger>
-            <DataTrigger Binding="{Binding Storage.Theme}" Value="Dark">
+            <DataTrigger Binding="{Binding Globals.Theme}" Value="Dark">
                 <Setter Property="Background" Value="#333333"/>
             </DataTrigger>
-            <DataTrigger Binding="{Binding Storage.Theme}" Value="Light">
+            <DataTrigger Binding="{Binding Globals.Theme}" Value="Light">
                 <Setter Property="Background" Value="#d6d6d6"/>
             </DataTrigger>
-            <DataTrigger Binding="{Binding Storage.Theme}" Value="White">
+            <DataTrigger Binding="{Binding Globals.Theme}" Value="White">
                 <Setter Property="Background" Value="#f5f5f5"/>
             </DataTrigger>
         </Style.Triggers>
 
     </Style>
 
+    <Style x:Key="MenuSection"
+           TargetType="UniformGrid">
+
+        <Style.Setters>
+            
+        </Style.Setters>
+        
+    </Style>
+
+    <Style x:Key="MenuSectionTitle"
+           TargetType="TextBlock">
+
+        <Style.Setters>
+
+            <Setter Property="Margin" Value="5,0,0,0"/>
+            <Setter Property="FontSize" Value="9"/>
+            <Setter Property="FontWeight" Value="Light"/>
+            <Setter Property="Foreground" Value="#B8B8B8"/>
+
+        </Style.Setters>
+
+        <Style.Triggers>
+
+            <!--Theming triggers. These are pretty long, annoyingly, because Trigger objects can't be nested.-->
+            <!--Default theming triggers. Anything that changes based ONLY on the theme selected should go in here.-->
+            <DataTrigger Binding="{Binding Globals.Theme}" Value="Black">
+                <Setter Property="Foreground" Value="#C6C6C6"/>
+            </DataTrigger>
+            <DataTrigger Binding="{Binding Globals.Theme}" Value="Dark">
+                <Setter Property="Foreground" Value="#B8B8B8"/>
+            </DataTrigger>
+            <DataTrigger Binding="{Binding Globals.Theme}" Value="Light">
+                <Setter Property="Foreground" Value="#1F1F1F"/>
+            </DataTrigger>
+            <DataTrigger Binding="{Binding Globals.Theme}" Value="White">
+                <Setter Property="Foreground" Value="#0A0A0A"/>
+            </DataTrigger>
+
+        </Style.Triggers>
+        
+    </Style>
+    
     <Style x:Key="MenuButton"
            TargetType="Button"
            BasedOn="{StaticResource MinimalisticButton}">
@@ -70,14 +112,15 @@
                                 Margin="{TemplateBinding Margin}"
                                 Padding="{TemplateBinding Padding}">
 
-                            <StackPanel Orientation="Horizontal">
+                            <StackPanel Orientation="Horizontal" Margin="5,0">
                                 <ContentPresenter HorizontalAlignment="Center"
                                                   VerticalAlignment="Center"
-                                                  MaxHeight="10" MaxWidth="10"/>
+                                                  MaxHeight="15" MaxWidth="15"/>
 
                                 <TextBlock Text="{TemplateBinding Tag}"
                                            Foreground="{TemplateBinding Foreground}"
-                                           HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                           HorizontalAlignment="Center" VerticalAlignment="Center"
+                                           Margin="10,0,0,0"/>
                             </StackPanel>
 
                         </Border>
@@ -229,22 +272,22 @@
         <Style.Triggers>
             <!--Theming triggers. These are pretty long, annoyingly, because Trigger objects can't be nested.-->
             <!--Default theming triggers. Anything that changes based ONLY on the theme selected should go in here.-->
-            <DataTrigger Binding="{Binding Storage.Theme}" Value="Black">
+            <DataTrigger Binding="{Binding Globals.Theme}" Value="Black">
                 <Setter Property="Background" Value="#141414"/>
                 <Setter Property="Foreground" Value="#dddddd"/>
                 <Setter Property="BorderBrush" Value="#4084A3"/>
             </DataTrigger>
-            <DataTrigger Binding="{Binding Storage.Theme}" Value="Dark">
+            <DataTrigger Binding="{Binding Globals.Theme}" Value="Dark">
                 <Setter Property="Background" Value="#333333"/>
                 <Setter Property="Foreground" Value="#cccccc"/>
                 <Setter Property="BorderBrush" Value="#5da1c0"/>
             </DataTrigger>
-            <DataTrigger Binding="{Binding Storage.Theme}" Value="Light">
+            <DataTrigger Binding="{Binding Globals.Theme}" Value="Light">
                 <Setter Property="Background" Value="#d6d6d6"/>
                 <Setter Property="Foreground" Value="#333333"/>
                 <Setter Property="BorderBrush" Value="#89bbd1"/>
             </DataTrigger>
-            <DataTrigger Binding="{Binding Storage.Theme}" Value="White">
+            <DataTrigger Binding="{Binding Globals.Theme}" Value="White">
                 <Setter Property="Background" Value="#f5f5f5"/>
                 <Setter Property="Foreground" Value="#141414"/>
                 <Setter Property="BorderBrush" Value="#b6d5e2"/>
@@ -269,12 +312,13 @@
                                 BorderThickness="{TemplateBinding BorderThickness}"
                                 Margin="{TemplateBinding Margin}"
                                 Padding="{TemplateBinding Padding}">
-                            <StackPanel Orientation="Horizontal">
+                            <StackPanel Orientation="Horizontal" Margin="5,0">
                                 <TextBlock Text="{TemplateBinding Tag}"
                                            Foreground="{TemplateBinding Foreground}"
                                            VerticalAlignment="Center"/>
 
                                 <ScrollViewer x:Name="PART_ContentHost"
+                                              VerticalAlignment="Center"
                                               Margin="0" Padding="0,0,2,0"/>
                             </StackPanel>
                         </Border>
@@ -286,19 +330,19 @@
         <Style.Triggers>
             <!--Theming triggers. These are pretty long, annoyingly, because Trigger objects can't be nested.-->
             <!--Default theming triggers. Anything that changes based ONLY on the theme selected should go in here.-->
-            <DataTrigger Binding="{Binding Storage.Theme}" Value="Black">
+            <DataTrigger Binding="{Binding Globals.Theme}" Value="Black">
                 <Setter Property="Background" Value="#141414"/>
                 <Setter Property="Foreground" Value="#dddddd"/>
             </DataTrigger>
-            <DataTrigger Binding="{Binding Storage.Theme}" Value="Dark">
+            <DataTrigger Binding="{Binding Globals.Theme}" Value="Dark">
                 <Setter Property="Background" Value="#333333"/>
                 <Setter Property="Foreground" Value="#cccccc"/>
             </DataTrigger>
-            <DataTrigger Binding="{Binding Storage.Theme}" Value="Light">
+            <DataTrigger Binding="{Binding Globals.Theme}" Value="Light">
                 <Setter Property="Background" Value="#d6d6d6"/>
                 <Setter Property="Foreground" Value="#333333"/>
             </DataTrigger>
-            <DataTrigger Binding="{Binding Storage.Theme}" Value="White">
+            <DataTrigger Binding="{Binding Globals.Theme}" Value="White">
                 <Setter Property="Background" Value="#f5f5f5"/>
                 <Setter Property="Foreground" Value="#141414"/>
             </DataTrigger>

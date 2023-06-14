@@ -4,6 +4,10 @@ using System.Collections.ObjectModel;
 
 namespace VOWs.MVVM.Model
 {
+    /// <summary>
+    /// The <c>Workspace</c> class is a data representation of a VOWsuite workspace - a collection of documents that are in some ways related to each other, grouped by the user.
+    /// This includes all information about the location of the Workspace, documents within it, and workspace-specific settings (later).
+    /// </summary>
     public partial class Workspace : ObservableRecipient
     {
         /// <summary>

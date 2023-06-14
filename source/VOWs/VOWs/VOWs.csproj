@@ -9,6 +9,8 @@
 
   <ItemGroup>
     <None Remove="Resources\Icons\VOWsuite-logos_transparent.ico" />
+    <None Remove="Resources\Images\menu_colour.png" />
+    <None Remove="Resources\Images\menu_font-family.png" />
     <None Remove="Resources\Images\VOWsuite-logos_black.png" />
     <None Remove="Resources\Images\VOWsuite-logos_white.png" />
   </ItemGroup>
@@ -23,6 +25,12 @@
 
   <ItemGroup>
     <Resource Include="Resources\Icons\VOWsuite-logos_transparent.ico">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Images\menu_colour.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Images\menu_font-family.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Resources\Images\VOWsuite-logos_black.png">

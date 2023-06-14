@@ -3,43 +3,46 @@ using System.Windows.Media;
 
 namespace VOWs.MVVM.Model
 {
+    /// <summary>
+    /// The <c>Font</c> class is a data representation of the current font settings.
+    /// </summary>
     public partial class Font : ObservableRecipient
     {
+        private FontFamily _name;
+        private int _size;
+        private bool _bold;
+        private bool _italics;
+        private bool _underline;
+        private Color _foreground;
+        private Color _background;
         /// <summary>
         /// The <c>Name</c> property represents the FontFamily for this Font object.
         /// </summary>
-        [ObservableProperty]
-        private FontFamily name;
+        public FontFamily Name;
         /// <summary>
         /// The <c>Size</c> property represents the font size for this Font object.
         /// </summary>
-        [ObservableProperty]
-        private int size;
+        public int Size;
         /// <summary>
         /// The <c>Bold</c> property represents whether this Font object is bold or not.
         /// </summary>
-        [ObservableProperty]
-        private bool bold;
+        public bool Bold;
         /// <summary>
         /// The <c>Italics</c> property represents whether this Font object is italic or not.
         /// </summary>
-        [ObservableProperty]
-        private bool italics;
+        public bool Italics;
         /// <summary>
         /// The <c>Underline</c> property represents whether this Font object is underlined or not.
         /// </summary>
-        [ObservableProperty]
-        private bool underline;
+        public bool Underline;
         /// <summary>
         /// The <c>Foreground</c> property represents the colour for the foreground (text) for this Font object.
         /// </summary>
-        [ObservableProperty]
-        private Color foreground;
+        public Color Foreground;
         /// <summary>
         /// The <c>Background</c> property represents the colour for the background (behind text) for this Font object.
         /// </summary>
-        [ObservableProperty]
-        private Color background;
+        public Color Background;
 
         /// <summary>
         /// The constructor for <c>Font</c> constructs the object based off the <c>name</c> (FontFamily) parameter,
@@ -87,6 +90,8 @@ namespace VOWs.MVVM.Model
             Underline = underline;
             Background = background;
         }
+
+        
 
         /// <summary>
         /// Create a new Font with default settings.

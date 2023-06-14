@@ -31,6 +31,12 @@
             LogLevel = "INFO";
         }
 
+        /// <summary>
+        /// The constructor for <c>LogMessage</c> will create a log with a message, description of the sending class and a log level.
+        /// </summary>
+        /// <param name="message"></param>
+        /// <param name="sendingClassDescriptor"></param>
+        /// <param name="logLevel"></param>
         public LogMessage(string message, string sendingClassDescriptor, string logLevel) : this(message)
         {
             SendingClassDescriptor = sendingClassDescriptor;

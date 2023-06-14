@@ -6,6 +6,10 @@ using VOWs.Events;
 
 namespace VOWs.MVVM.Model
 {
+    /// <summary>
+    /// The <c>Defaults</c> class is a static class that includes all <i>final</i> variables.
+    /// These are values that will always be the same, or are always calculated the same, and thus this class gives easy access to these variables to all classes.
+    /// </summary>
     public class Defaults
     {
         /// <summary>
@@ -22,7 +26,7 @@ namespace VOWs.MVVM.Model
             {
                 case "a4":
                     if (orientation.ToLower().Equals("horizontal")) return new int[] { 0, 0 };
-                    else return new int[] { 0, 0 };
+                    else return new int[] { 620, 877 };
                 case "a3":
                     if (orientation.ToLower().Equals("horizontal")) return new int[] { 0, 0 };
                     else return new int[] { 0, 0 };
@@ -43,7 +47,8 @@ namespace VOWs.MVVM.Model
         {
             try
             {
-                double[] scaleFactor = WeakReferenceMessenger.Default.Send<RequestScaleFactorMessage>();
+                //double[] scaleFactor = WeakReferenceMessenger.Default.Send<RequestScaleFactorMessage>();
+                double[] scaleFactor = new double[] { 1, 1 };
                 pageDimensions = GetUnscaledPageDimensions(size, orientation);
                 for (int i = 0; i < 2; i++)
                 {

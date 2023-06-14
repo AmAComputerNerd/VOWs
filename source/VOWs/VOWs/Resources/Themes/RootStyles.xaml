@@ -18,16 +18,16 @@
         <Style.Triggers>
             <!--Theming triggers. These are pretty long, annoyingly, because Trigger objects can't be nested.-->
             <!--Default theming triggers. Anything that changes based ONLY on the theme selected should go in here.-->
-            <DataTrigger Binding="{Binding Storage.Theme}" Value="Black">
+            <DataTrigger Binding="{Binding Globals.Theme}" Value="Black">
                 <Setter Property="Background" Value="#1f1f1f"/>
             </DataTrigger>
-            <DataTrigger Binding="{Binding Storage.Theme}" Value="Dark">
+            <DataTrigger Binding="{Binding Globals.Theme}" Value="Dark">
                 <Setter Property="Background" Value="#3d3d3d"/>
             </DataTrigger>
-            <DataTrigger Binding="{Binding Storage.Theme}" Value="Light">
+            <DataTrigger Binding="{Binding Globals.Theme}" Value="Light">
                 <Setter Property="Background" Value="#e0e0e0"/>
             </DataTrigger>
-            <DataTrigger Binding="{Binding Storage.Theme}" Value="White">
+            <DataTrigger Binding="{Binding Globals.Theme}" Value="White">
                 <Setter Property="Background" Value="#ffffff"/>
             </DataTrigger>
         </Style.Triggers>
@@ -44,16 +44,16 @@
         <Style.Triggers>
             <!--Theming triggers. These are pretty long, annoyingly, because Trigger objects can't be nested.-->
             <!--Default theming triggers. Anything that changes based ONLY on the theme selected should go in here.-->
-            <DataTrigger Binding="{Binding Storage.Theme}" Value="Black">
+            <DataTrigger Binding="{Binding Globals.Theme}" Value="Black">
                 <Setter Property="Background" Value="#1f1f1f"/>
             </DataTrigger>
-            <DataTrigger Binding="{Binding Storage.Theme}" Value="Dark">
+            <DataTrigger Binding="{Binding Globals.Theme}" Value="Dark">
                 <Setter Property="Background" Value="#3d3d3d"/>
             </DataTrigger>
-            <DataTrigger Binding="{Binding Storage.Theme}" Value="Light">
+            <DataTrigger Binding="{Binding Globals.Theme}" Value="Light">
                 <Setter Property="Background" Value="#e0e0e0"/>
             </DataTrigger>
-            <DataTrigger Binding="{Binding Storage.Theme}" Value="White">
+            <DataTrigger Binding="{Binding Globals.Theme}" Value="White">
                 <Setter Property="Background" Value="#ffffff"/>
             </DataTrigger>
         </Style.Triggers>
@@ -70,16 +70,16 @@
         <Style.Triggers>
             <!--Theming triggers. These are pretty long, annoyingly, because Trigger objects can't be nested.-->
             <!--Default theming triggers. Anything that changes based ONLY on the theme selected should go in here.-->
-            <DataTrigger Binding="{Binding Storage.Theme}" Value="Black">
+            <DataTrigger Binding="{Binding Globals.Theme}" Value="Black">
                 <Setter Property="Background" Value="#1f1f1f"/>
             </DataTrigger>
-            <DataTrigger Binding="{Binding Storage.Theme}" Value="Dark">
+            <DataTrigger Binding="{Binding Globals.Theme}" Value="Dark">
                 <Setter Property="Background" Value="#3d3d3d"/>
             </DataTrigger>
-            <DataTrigger Binding="{Binding Storage.Theme}" Value="Light">
+            <DataTrigger Binding="{Binding Globals.Theme}" Value="Light">
                 <Setter Property="Background" Value="#e0e0e0"/>
             </DataTrigger>
-            <DataTrigger Binding="{Binding Storage.Theme}" Value="White">
+            <DataTrigger Binding="{Binding Globals.Theme}" Value="White">
                 <Setter Property="Background" Value="#ffffff"/>
             </DataTrigger>
         </Style.Triggers>
@@ -119,22 +119,22 @@
         <Style.Triggers>
             <!--Theming triggers. These are pretty long, annoyingly, because Trigger objects can't be nested.-->
             <!--Default theming triggers. Anything that changes based ONLY on the theme selected should go in here.-->
-            <DataTrigger Binding="{Binding Storage.Theme}" Value="Black">
+            <DataTrigger Binding="{Binding Globals.Theme}" Value="Black">
                 <Setter Property="Background" Value="#141414"/>
                 <Setter Property="Foreground" Value="#dddddd"/>
                 <Setter Property="BorderBrush" Value="#4084A3"/>
             </DataTrigger>
-            <DataTrigger Binding="{Binding Storage.Theme}" Value="Dark">
+            <DataTrigger Binding="{Binding Globals.Theme}" Value="Dark">
                 <Setter Property="Background" Value="#333333"/>
                 <Setter Property="Foreground" Value="#cccccc"/>
                 <Setter Property="BorderBrush" Value="#5da1c0"/>
             </DataTrigger>
-            <DataTrigger Binding="{Binding Storage.Theme}" Value="Light">
+            <DataTrigger Binding="{Binding Globals.Theme}" Value="Light">
                 <Setter Property="Background" Value="#d6d6d6"/>
                 <Setter Property="Foreground" Value="#333333"/>
                 <Setter Property="BorderBrush" Value="#89bbd1"/>
             </DataTrigger>
-            <DataTrigger Binding="{Binding Storage.Theme}" Value="White">
+            <DataTrigger Binding="{Binding Globals.Theme}" Value="White">
                 <Setter Property="Background" Value="#f5f5f5"/>
                 <Setter Property="Foreground" Value="#141414"/>
                 <Setter Property="BorderBrush" Value="#b6d5e2"/>
@@ -143,7 +143,7 @@
             <!--Theming triggers for the IsMouseOver event, as well as the theme.-->
             <MultiDataTrigger>
                 <MultiDataTrigger.Conditions>
-                    <Condition Binding="{Binding Storage.Theme}" Value="Black"/>
+                    <Condition Binding="{Binding Globals.Theme}" Value="Black"/>
                     <!--The condition for IsMouseOver couldn't be defined the simple way, so we need to use this convoluted Binding to access the property.-->
                     <Condition Binding="{Binding RelativeSource={RelativeSource Mode=Self}, Path=IsMouseOver}" Value="True"/>
                 </MultiDataTrigger.Conditions>
@@ -154,7 +154,7 @@
             </MultiDataTrigger>
             <MultiDataTrigger>
                 <MultiDataTrigger.Conditions>
-                    <Condition Binding="{Binding Storage.Theme}" Value="Dark"/>
+                    <Condition Binding="{Binding Globals.Theme}" Value="Dark"/>
                     <Condition Binding="{Binding RelativeSource={RelativeSource Mode=Self}, Path=IsMouseOver}" Value="True"/>
                 </MultiDataTrigger.Conditions>
                 <MultiDataTrigger.Setters>
@@ -164,7 +164,7 @@
             </MultiDataTrigger>
             <MultiDataTrigger>
                 <MultiDataTrigger.Conditions>
-                    <Condition Binding="{Binding Storage.Theme}" Value="Light"/>
+                    <Condition Binding="{Binding Globals.Theme}" Value="Light"/>
                     <Condition Binding="{Binding RelativeSource={RelativeSource Mode=Self}, Path=IsMouseOver}" Value="True"/>
                 </MultiDataTrigger.Conditions>
                 <MultiDataTrigger.Setters>
@@ -174,7 +174,7 @@
             </MultiDataTrigger>
             <MultiDataTrigger>
                 <MultiDataTrigger.Conditions>
-                    <Condition Binding="{Binding Storage.Theme}" Value="White"/>
+                    <Condition Binding="{Binding Globals.Theme}" Value="White"/>
                     <Condition Binding="{Binding RelativeSource={RelativeSource Mode=Self}, Path=IsMouseOver}" Value="True"/>
                 </MultiDataTrigger.Conditions>
                 <MultiDataTrigger.Setters>
@@ -186,7 +186,7 @@
             <!--Theming triggers for the IsPressed event, as well as the theme.-->
             <MultiDataTrigger>
                 <MultiDataTrigger.Conditions>
-                    <Condition Binding="{Binding Storage.Theme}" Value="Black"/>
+                    <Condition Binding="{Binding Globals.Theme}" Value="Black"/>
                     <!--The condition for IsPressed couldn't be defined the simple way, so we need to use this convoluted Binding to access the property.-->
                     <Condition Binding="{Binding RelativeSource={RelativeSource Mode=Self}, Path=IsPressed}" Value="True"/>
                 </MultiDataTrigger.Conditions>
@@ -196,7 +196,7 @@
             </MultiDataTrigger>
             <MultiDataTrigger>
                 <MultiDataTrigger.Conditions>
-                    <Condition Binding="{Binding Storage.Theme}" Value="Dark"/>
+                    <Condition Binding="{Binding Globals.Theme}" Value="Dark"/>
                     <Condition Binding="{Binding RelativeSource={RelativeSource Mode=Self}, Path=IsPressed}" Value="True"/>
                 </MultiDataTrigger.Conditions>
                 <MultiDataTrigger.Setters>
@@ -205,7 +205,7 @@
             </MultiDataTrigger>
             <MultiDataTrigger>
                 <MultiDataTrigger.Conditions>
-                    <Condition Binding="{Binding Storage.Theme}" Value="Light"/>
+                    <Condition Binding="{Binding Globals.Theme}" Value="Light"/>
                     <Condition Binding="{Binding RelativeSource={RelativeSource Mode=Self}, Path=IsPressed}" Value="True"/>
                 </MultiDataTrigger.Conditions>
                 <MultiDataTrigger.Setters>
@@ -214,7 +214,7 @@
             </MultiDataTrigger>
             <MultiDataTrigger>
                 <MultiDataTrigger.Conditions>
-                    <Condition Binding="{Binding Storage.Theme}" Value="White"/>
+                    <Condition Binding="{Binding Globals.Theme}" Value="White"/>
                     <Condition Binding="{Binding RelativeSource={RelativeSource Mode=Self}, Path=IsPressed}" Value="True"/>
                 </MultiDataTrigger.Conditions>
                 <MultiDataTrigger.Setters>
@@ -257,22 +257,22 @@
         <Style.Triggers>
             <!--Theming triggers. These are pretty long, annoyingly, because Trigger objects can't be nested.-->
             <!--Default theming triggers. Anything that changes based ONLY on the theme selected should go in here.-->
-            <DataTrigger Binding="{Binding Storage.Theme}" Value="Black">
+            <DataTrigger Binding="{Binding Globals.Theme}" Value="Black">
                 <Setter Property="Background" Value="#141414"/>
                 <Setter Property="Foreground" Value="#dddddd"/>
                 <Setter Property="BorderBrush" Value="#4084A3"/>
             </DataTrigger>
-            <DataTrigger Binding="{Binding Storage.Theme}" Value="Dark">
+            <DataTrigger Binding="{Binding Globals.Theme}" Value="Dark">
                 <Setter Property="Background" Value="#333333"/>
                 <Setter Property="Foreground" Value="#cccccc"/>
                 <Setter Property="BorderBrush" Value="#5da1c0"/>
             </DataTrigger>
-            <DataTrigger Binding="{Binding Storage.Theme}" Value="Light">
+            <DataTrigger Binding="{Binding Globals.Theme}" Value="Light">
                 <Setter Property="Background" Value="#d6d6d6"/>
                 <Setter Property="Foreground" Value="#333333"/>
                 <Setter Property="BorderBrush" Value="#89bbd1"/>
             </DataTrigger>
-            <DataTrigger Binding="{Binding Storage.Theme}" Value="White">
+            <DataTrigger Binding="{Binding Globals.Theme}" Value="White">
                 <Setter Property="Background" Value="#f5f5f5"/>
                 <Setter Property="Foreground" Value="#141414"/>
                 <Setter Property="BorderBrush" Value="#b6d5e2"/>
@@ -281,7 +281,7 @@
             <!--Theming triggers for the IsMouseOver event, as well as the theme.-->
             <MultiDataTrigger>
                 <MultiDataTrigger.Conditions>
-                    <Condition Binding="{Binding Storage.Theme}" Value="Black"/>
+                    <Condition Binding="{Binding Globals.Theme}" Value="Black"/>
                     <!--The condition for IsMouseOver couldn't be defined the simple way, so we need to use this convoluted Binding to access the property.-->
                     <Condition Binding="{Binding RelativeSource={RelativeSource Mode=Self}, Path=IsMouseOver}" Value="True"/>
                 </MultiDataTrigger.Conditions>
@@ -292,7 +292,7 @@
             </MultiDataTrigger>
             <MultiDataTrigger>
                 <MultiDataTrigger.Conditions>
-                    <Condition Binding="{Binding Storage.Theme}" Value="Dark"/>
+                    <Condition Binding="{Binding Globals.Theme}" Value="Dark"/>
                     <Condition Binding="{Binding RelativeSource={RelativeSource Mode=Self}, Path=IsMouseOver}" Value="True"/>
                 </MultiDataTrigger.Conditions>
                 <MultiDataTrigger.Setters>
@@ -302,7 +302,7 @@
             </MultiDataTrigger>
             <MultiDataTrigger>
                 <MultiDataTrigger.Conditions>
-                    <Condition Binding="{Binding Storage.Theme}" Value="Light"/>
+                    <Condition Binding="{Binding Globals.Theme}" Value="Light"/>
                     <Condition Binding="{Binding RelativeSource={RelativeSource Mode=Self}, Path=IsMouseOver}" Value="True"/>
                 </MultiDataTrigger.Conditions>
                 <MultiDataTrigger.Setters>
@@ -312,7 +312,7 @@
             </MultiDataTrigger>
             <MultiDataTrigger>
                 <MultiDataTrigger.Conditions>
-                    <Condition Binding="{Binding Storage.Theme}" Value="White"/>
+                    <Condition Binding="{Binding Globals.Theme}" Value="White"/>
                     <Condition Binding="{Binding RelativeSource={RelativeSource Mode=Self}, Path=IsMouseOver}" Value="True"/>
                 </MultiDataTrigger.Conditions>
                 <MultiDataTrigger.Setters>
@@ -324,7 +324,7 @@
             <!--Theming triggers for the IsChecked event, as well as the theme.-->
             <MultiDataTrigger>
                 <MultiDataTrigger.Conditions>
-                    <Condition Binding="{Binding Storage.Theme}" Value="Black"/>
+                    <Condition Binding="{Binding Globals.Theme}" Value="Black"/>
                     <!--The condition for IsChecked couldn't be defined the simple way, so we need to use this convoluted Binding to access the property.-->
                     <Condition Binding="{Binding RelativeSource={RelativeSource Mode=Self}, Path=IsChecked}" Value="True"/>
                 </MultiDataTrigger.Conditions>
@@ -334,7 +334,7 @@
             </MultiDataTrigger>
             <MultiDataTrigger>
                 <MultiDataTrigger.Conditions>
-                    <Condition Binding="{Binding Storage.Theme}" Value="Dark"/>
+                    <Condition Binding="{Binding Globals.Theme}" Value="Dark"/>
                     <Condition Binding="{Binding RelativeSource={RelativeSource Mode=Self}, Path=IsChecked}" Value="True"/>
                 </MultiDataTrigger.Conditions>
                 <MultiDataTrigger.Setters>
@@ -343,7 +343,7 @@
             </MultiDataTrigger>
             <MultiDataTrigger>
                 <MultiDataTrigger.Conditions>
-                    <Condition Binding="{Binding Storage.Theme}" Value="Light"/>
+                    <Condition Binding="{Binding Globals.Theme}" Value="Light"/>
                     <Condition Binding="{Binding RelativeSource={RelativeSource Mode=Self}, Path=IsChecked}" Value="True"/>
                 </MultiDataTrigger.Conditions>
                 <MultiDataTrigger.Setters>
@@ -352,7 +352,7 @@
             </MultiDataTrigger>
             <MultiDataTrigger>
                 <MultiDataTrigger.Conditions>
-                    <Condition Binding="{Binding Storage.Theme}" Value="White"/>
+                    <Condition Binding="{Binding Globals.Theme}" Value="White"/>
                     <Condition Binding="{Binding RelativeSource={RelativeSource Mode=Self}, Path=IsChecked}" Value="True"/>
                 </MultiDataTrigger.Conditions>
                 <MultiDataTrigger.Setters>

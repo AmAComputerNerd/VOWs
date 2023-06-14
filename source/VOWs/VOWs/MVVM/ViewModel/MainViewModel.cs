@@ -10,19 +10,13 @@ namespace VOWs.MVVM.ViewModel
     /// <summary>
     /// The <c>MainViewModel</c> class holds data relating to the MainWindow MVVM model as well as global Storage objects.
     /// </summary>
-    public class MainViewModel : ObservableRecipient
+    public partial class MainViewModel : ObservableRecipient
     {
         /// <summary>
-        /// The <c>Storage</c> parameter is a reference to the database connected to the application.
-        /// It acts as an interface between the application and the database, allowing access and limited edit abilities on variables.
+        /// The <c>Globals</c> property refers to an object full of shared variables across multiple classes.
+        /// These may be read-only, or be able to be edited across classes. The <c>Globals</c> class is an <c>ObservableObject</c>.
         /// </summary>
-        public DatabaseWrapper Storage;
-        /// <summary>
-        /// The <c>Logger</c> parameter is a reference to the Logger object representing the runtime
-        /// environment. The logger responds to <c>LogMessage</c> messages to signal a new log, or they can be
-        /// alternatively logged through a direct reference to the object and one of the tiered methods.
-        /// </summary>
-        public Logger Logger;
+        public Globals Globals { get => Globals.Default; }
 
         /// <summary>
         /// The <c>DocumentEditVM</c> parameter refers to the current instance of the <c>DocumentEditViewModel</c> and accompanying view.
@@ -42,32 +36,16 @@ namespace VOWs.MVVM.ViewModel
         public RelayCommand SettingsViewCommand;
 
         /// <summary>
-        /// The <c>_currentView</c> private parameter is the storage object behind <c>CurrentView</c>.
+        /// The <c>CurrentView</c> property exposes the currently assigned ViewModel to the program, linking to the View to display.
         /// </summary>
         private object _currentView;
-        /// <summary>
-        /// The <c>CurrentView</c> parameter exposes the currently assigned ViewModel to the program, linking to the View to display.
-        /// </summary>
-        public object CurrentView
-        {
-            get { return _currentView; }
-            set
-            {
-                _currentView = value;
-                OnPropertyChanged();
-            }
-        }
+        public object CurrentView { get => _currentView; set => SetProperty(ref _currentView, value); }
 
         /// <summary>
         /// A constructor for <c>MainViewModel</c> that assigns default values to all class variables.
         /// </summary>
         public MainViewModel()
         {
-            // Assign values for Storage-related variables.
-            Storage = new DatabaseWrapper();
-            // Assign values for Logger variable.
-            Logger = Logger.New();
-
             // Activate ViewModel to receive messages.
             IsActive = true;
 
@@ -95,10 +73,6 @@ namespace VOWs.MVVM.ViewModel
         {
             // Register the class to receive ChangeViewEvent messages.
             Messenger.Register<MainViewModel, ChangeViewMessage>(this, (r, m) => r.Receive(m));
-            // Register the class to receive RequestStorageMessage messages.
-            Messenger.Register<MainViewModel, RequestStorageMessage>(this, (r, m) => r.Reply(m));
-            // Register the class to receive UpdateStorageMessage messages.
-            Messenger.Register<MainViewModel, UpdateStorageMessage>(this, (r, m) => r.Reply(m));
         }
 
         /// <summary>
@@ -118,31 +92,6 @@ namespace VOWs.MVVM.ViewModel
             // Attempt to toggle them.
             if (CurrentView == vm1) CurrentView = vm2;
             else if (CurrentView == vm2) CurrentView = vm1;
-        }
-
-        /// <summary>
-        /// The <c>Reply</c> method will be called whenever the <c>RequestStorageMessage</c> is sent.
-        /// </summary>
-        /// <param name="message">The event that was sent to reply to.</param>
-        private void Reply(RequestStorageMessage message)
-        {
-            message.Reply(Storage);
-        }
-
-        /// <summary>
-        /// The <c>Reply</c> method will be called whenever the <c>UpdateStorageMessage</c> is sent.
-        /// </summary>
-        /// <param name="message">The event that was sent to reply to, with data.</param>
-        private void Reply(UpdateStorageMessage message)
-        {
-            try
-            {
-                Storage = message.UpdatedValue;
-                message.Reply(true);
-            } catch (Exception)
-            {
-                message.Reply(false);
-            }
         }
 
         /// <summary>

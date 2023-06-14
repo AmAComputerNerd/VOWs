@@ -6,6 +6,10 @@ using VOWs.Events;
 
 namespace VOWs.MVVM.Model
 {
+    /// <summary>
+    /// The <c>EnvironmentArgs</c> class contains information on the command line arguments that were used to launch VOWsuite.
+    /// This allows for dynamic commands to be executed.
+    /// </summary>
     public class EnvironmentArgs
     {
         /// <summary>

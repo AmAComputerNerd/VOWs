@@ -14,7 +14,7 @@
             <!--First row - categories stackpanel and VOWsuite button.-->
             <RowDefinition Height="0.075*" MaxHeight="25"/>
             <!--Second row - menu buttons for whatever category is selected.-->
-            <RowDefinition Height="0.2*" MaxHeight="80"/>
+            <RowDefinition Height="0.25*" MaxHeight="80"/>
             <!--Third row - document view area.-->
             <RowDefinition/>
         </Grid.RowDefinitions>
@@ -29,17 +29,17 @@
 
             <!--Create the VOWsButton which will change the view to SettingsView.-->
             <Button Style="{StaticResource FlatButton}"
-                    Command="{Binding VOWsuiteButtonCommand}"
+                    Command="{Binding VOWsuiteLogoCommand}"
                     Margin="0,0,2,0">
                 <Button.Content>
-                    <Image Source="{Binding VOWsuiteLogoSource}"
+                    <Image Source="{Binding VOWsuiteLogo.ImageSource}"
                            Margin="5"/>
                 </Button.Content>
             </Button>
 
             <!--Various dummy buttons for the categories tab.-->
             <Button Style="{StaticResource FlatButton}"
-                    Command="{Binding SwitchTab_Home}"
+                    Command="{Binding ToggleHomeTabCommand}"
                     Margin="0,0,2,0">
                 <Button.Content>
                     <TextBlock Text="Home"
@@ -48,7 +48,7 @@
                 </Button.Content>
             </Button>
             <Button Style="{StaticResource FlatButton}"
-                    Command="{Binding SwitchTab_Text}"
+                    Command="{Binding ToggleTextTabCommand}"
                     Margin="0,0,2,0">
                 <Button.Content>
                     <TextBlock Text="Text"
@@ -57,7 +57,7 @@
                 </Button.Content>
             </Button>
             <Button Style="{StaticResource FlatButton}"
-                    Command="{Binding SwitchTab_Media}"
+                    Command="{Binding ToggleMediaTabCommand}"
                     Margin="0,0,2,0">
                 <Button.Content>
                     <TextBlock Text="Media"
@@ -66,7 +66,7 @@
                 </Button.Content>
             </Button>
             <Button Style="{StaticResource FlatButton}"
-                    Command="{Binding SwitchTab_Page}"
+                    Command="{Binding TogglePageTabCommand}"
                     Margin="0,0,2,0">
                 <Button.Content>
                     <TextBlock Text="Page"
@@ -75,7 +75,7 @@
                 </Button.Content>
             </Button>
             <Button Style="{StaticResource FlatButton}"
-                    Command="{Binding SwitchTab_View}"
+                    Command="{Binding ToggleViewTabCommand}"
                     Margin="0,0,2,0">
                 <Button.Content>
                     <TextBlock Text="View"
@@ -84,7 +84,7 @@
                 </Button.Content>
             </Button>
             <Button Style="{StaticResource FlatButton}"
-                    Command="{Binding SwitchTab_VersionControl}"
+                    Command="{Binding ToggleVersionControlTabCommand}"
                     Margin="0,0,2,0">
                 <Button.Content>
                     <TextBlock Text="Version Control"
@@ -97,10 +97,36 @@
 
         <!--Create the Home stackpanel that holds all menu buttons inside the Home category.-->
         <StackPanel Orientation="Horizontal"
-                    Visibility="{Binding HomeCategoryVisibility}"
+                    Visibility="{Binding HomeTabVisible}"
                     Grid.Row="1">
-            <Button Style="{StaticResource MenuButton_Big}"
-                    Content="Wooooooo"/>
+
+            <StackPanel>
+                <TextBlock Text="Font Options"
+                           Style="{StaticResource MenuSectionTitle}"/>
+                
+                <UniformGrid Rows="3"
+                             Style="{StaticResource MenuSection}">
+
+                    <TextBox Tag="Font Size:"
+                         Style="{StaticResource MenuValueBox}"/>
+
+                    <Button Tag="Font Family"
+                            Style="{StaticResource MenuButton}">
+                        <Button.Content>
+                            <Image Source="pack://application:,,,/Resources/Images/menu_font-family.png"/>
+                        </Button.Content>
+                    </Button>
+
+                    <Button Tag="Font Colour"
+                            Style="{StaticResource MenuButton}">
+                        <Button.Content>
+                            <Image Source="pack://application:,,,/Resources/Images/menu_colour.png"/>
+                        </Button.Content>
+                    </Button>
+
+                </UniformGrid>
+            </StackPanel>
+
         </StackPanel>
 
         <!--Create the ContentControl to show the Page.-->

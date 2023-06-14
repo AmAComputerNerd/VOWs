@@ -1,11 +1,14 @@
 ﻿using CommunityToolkit.Mvvm.Messaging;
 using System;
 using System.IO;
-using System.Reflection;
 using VOWs.Events;
 
 namespace VOWs.MVVM.Model
 {
+    /// <summary>
+    /// The <c>Logger</c> class handles all logging actions in the application.
+    /// It can be written to with a <c>LogMessage</c> message, or through direct references to the object with the various utility methods.
+    /// </summary>
     public class Logger : IRecipient<LogMessage>
     {
         /// <summary>
@@ -114,7 +117,7 @@ namespace VOWs.MVVM.Model
             if(message != null && message.Message != null && message.LogLevel != null)
             {
                 sentMessage = message.LogLevel + ": " + message.Message;
-                if (message.SendingClassDescripter != null) sentMessage += " (" + message.SendingClassDescripter + ")";
+                if (message.SendingClassDescriptor != null) sentMessage += " (" + message.SendingClassDescriptor + ")";
                 Write(sentMessage);
             }
         }
@@ -143,7 +146,7 @@ namespace VOWs.MVVM.Model
                 }
                 // Return a Logger.
                 return new(new(logPath), new(logPath), File.CreateText(logPath));
-            } catch(Exception e)
+            } catch(Exception)
             {
                 return null;
             }

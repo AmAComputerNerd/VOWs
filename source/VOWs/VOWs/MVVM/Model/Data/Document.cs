@@ -4,31 +4,35 @@ using System.Collections.ObjectModel;
 
 namespace VOWs.MVVM.Model
 {
+    /// <summary>
+    /// The <c>Document</c> class is a data representation of a VOWsuite document.
+    /// This includes all information from the location of the document on a user's computer to it's pages and (eventually) a version control object.
+    /// </summary>
     public partial class Document : ObservableRecipient
     {
+        // Fields.
+        private string _name;
+        private string _defaultPageSize;
+        private ObservableCollection<Page> _pages;
+        private Uri _fileLocation;
         // Properties.
         /// <summary>
         /// The <c>Name</c> property represents the given name to this Document.
         /// </summary>
-        [ObservableProperty]
-        private string name;
+        public string Name { get => _name; set => SetProperty(ref _name, value); }
         /// <summary>
         /// The <c>DefaultPageSize</c> property represents the default page size to give to new Pages associated with it.
         /// For more information on applicable values, see <c>Page.Size</c>.
         /// </summary>
-        [ObservableProperty]
-        private string defaultPageSize;
+        public string DefaultPageSize { get => _defaultPageSize; set => SetProperty(ref _defaultPageSize, value); }
         /// <summary>
         /// The <c>Pages</c> property represents the collection of Pages that make up this document.
         /// </summary>
-        [ObservableProperty]
-        private ObservableCollection<Page> pages;
+        public ObservableCollection<Page> Pages { get => _pages; set => SetProperty(ref _pages, value); }
         /// <summary>
         /// The <c>FileLocation</c> property represents the location of this Document on the computer.
         /// </summary>
-        [ObservableProperty]
-        private Uri fileLocation;
-        // Attributes.
+        public Uri FileLocation { get => _fileLocation; set => SetProperty(ref _fileLocation, value); }
         /// <summary>
         /// The <c>DisplayPages</c> attribute represents the display objects (Border, TextBlock, etc.) that make up the Pages of this document.
         /// </summary>
@@ -58,7 +62,10 @@ namespace VOWs.MVVM.Model
             // TODO: Load document pages through Uri, if exists.
             Name = "ExampleName";
             DefaultPageSize = "A4";
-            Pages = new();
+            Pages = new()
+            {
+                Page.Default()
+            };
             FileLocation = fileLocation;
         }
 
