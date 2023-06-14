@@ -100,6 +100,10 @@ namespace VOWs.MVVM.ViewModel
         /// </summary>
         public RelayCommand ToggleVersionControlTabCommand { get; }
         /// <summary>
+        /// The <c>UpdateFontCommand</c> property holds the RelayCommand to be executed whenever a font change is made.
+        /// </summary>
+        public RelayCommand UpdateFontCommand { get; }
+        /// <summary>
         /// The <c>PageVM</c> property holds the current instance of the PageViewModel.
         /// </summary>
         public PageViewModel PageVM { get; }
@@ -156,6 +160,10 @@ namespace VOWs.MVVM.ViewModel
             {
                 HideAllTabs();
                 VersionControlTabVisible = Visibility.Visible;
+            });
+            UpdateFontCommand = new(() =>
+            {
+
             });
             // Set Page VM.
             PageVM = new PageViewModel();

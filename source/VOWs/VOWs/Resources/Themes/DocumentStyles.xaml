@@ -70,6 +70,7 @@
         <Style.Setters>
 
             <Setter Property="Margin" Value="5,0,0,0"/>
+            <Setter Property="HorizontalAlignment" Value="Center"/>
             <Setter Property="FontSize" Value="9"/>
             <Setter Property="FontWeight" Value="Light"/>
             <Setter Property="Foreground" Value="#B8B8B8"/>
@@ -319,7 +320,11 @@
 
                                 <ScrollViewer x:Name="PART_ContentHost"
                                               VerticalAlignment="Center"
-                                              Margin="0" Padding="0,0,2,0"/>
+                                              Margin="0" Padding="0,0,2,0">
+                                    <ScrollViewer.InputBindings>
+                                        <KeyBinding Command="{TemplateBinding Text}" Key="Return"/>
+                                    </ScrollViewer.InputBindings>
+                                </ScrollViewer>
                             </StackPanel>
                         </Border>
                     </ControlTemplate>

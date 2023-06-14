@@ -5,6 +5,8 @@ using System.Windows.Media;
 using System.DirectoryServices.ActiveDirectory;
 using System.Windows;
 using System;
+using System.Security.Cryptography.Xml;
+using System.Windows.Input;
 
 namespace VOWs.MVVM.Model
 {
@@ -77,6 +79,7 @@ namespace VOWs.MVVM.Model
             Size = size;
             Orientation = orientation;
             Text = new RichTextBox();
+            // Start RichTextBox customisation.
             int[] dimensions = new int[2];
             if(Defaults.GetScaledPageDimensions(Size, Orientation, out dimensions))
             {
@@ -84,6 +87,7 @@ namespace VOWs.MVVM.Model
                 Text.Height = dimensions[1] - 2*20;
             }
             Text.IsUndoEnabled = false;
+            // End.
             PageColour = Color.FromRgb(255, 255, 255);
             SelectedFont = font;
         }

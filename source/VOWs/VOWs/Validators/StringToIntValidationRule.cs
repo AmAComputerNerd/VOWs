@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Globalization;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Globalization;
 using System.Windows.Controls;
 
 namespace VOWs.Validators
@@ -14,7 +9,7 @@ namespace VOWs.Validators
         {
             int i;
             if (int.TryParse(value.ToString(), out i)) return new ValidationResult(true, null);
-            return new ValidationResult(false, "Invalid value.");
+            return new ValidationResult(false, 32);
         }
     }
 }

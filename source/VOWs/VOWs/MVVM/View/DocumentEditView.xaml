@@ -5,8 +5,13 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:VOWs.MVVM.View" 
              xmlns:viewmodel="clr-namespace:VOWs.MVVM.ViewModel" d:DataContext="{d:DesignInstance Type=viewmodel:DocumentEditViewModel}"
+             xmlns:convert="clr-namespace:VOWs.Converters"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
+    
+    <UserControl.Resources>
+        <convert:StringToIntConverter x:Key="strToInt"/>
+    </UserControl.Resources>
 
     <Grid Style="{StaticResource ThemedGrid}">
         <!--Create row definitions for the grid.-->
@@ -101,14 +106,13 @@
                     Grid.Row="1">
 
             <StackPanel>
-                <TextBlock Text="Font Options"
-                           Style="{StaticResource MenuSectionTitle}"/>
-                
                 <UniformGrid Rows="3"
                              Style="{StaticResource MenuSection}">
 
                     <TextBox Tag="Font Size:"
-                         Style="{StaticResource MenuValueBox}"/>
+                             Text="{Binding Globals.Font.Size, Converter={StaticResource strToInt}}"
+                             Style="{StaticResource MenuValueBox}"/>
+
 
                     <Button Tag="Font Family"
                             Style="{StaticResource MenuButton}">
@@ -125,12 +129,15 @@
                     </Button>
 
                 </UniformGrid>
+                <TextBlock Text="Font Options"
+                           Style="{StaticResource MenuSectionTitle}"/>
             </StackPanel>
 
         </StackPanel>
 
         <!--Create the ContentControl to show the Page.-->
         <ContentControl Content="{Binding PageVM}"
+                        Margin="0,10,0,0"
                         Grid.Row="2"/>
     </Grid>
     

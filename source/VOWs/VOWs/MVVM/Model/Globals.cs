@@ -1,10 +1,12 @@
-﻿namespace VOWs.MVVM.Model
+﻿using CommunityToolkit.Mvvm.ComponentModel;
+
+namespace VOWs.MVVM.Model
 {
     /// <summary>
     /// The <c>Globals</c> class contains data relevant to multiple classes or objects.
     /// Any properties, fields or data methods from a class that are required outside the scope of that class should be moved here!
     /// </summary>
-    public class Globals
+    public class Globals : ObservableObject
     {
         /// <summary>
         /// The <c>Default</c> field is a reference to the default instance of this class.
@@ -21,6 +23,7 @@
         private WrappedItem<string> _wrappedTheme;
         private EnvironmentArgs _commandLineArgs;
         private Logger _logger;
+        private Font _font;
         
         // Properties.
         /// <summary>
@@ -42,6 +45,10 @@
         /// This Logger may also be written to by sending <c>LogMessage</c> messages.
         /// </summary>
         public Logger Logger { get => _logger; }
+        /// <summary>
+        /// The <c>Font</c> property exposes the currently set Font settings from DocumentEditView(Model).
+        /// </summary>
+        public Font Font { get => _font; set => SetProperty(ref _font, value); }
 
         /// <summary>
         /// The constructor for <c>Global</c> will initialise a new instance.
