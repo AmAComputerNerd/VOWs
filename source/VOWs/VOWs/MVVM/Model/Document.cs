@@ -1,13 +1,12 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using System;
 using System.Collections.ObjectModel;
-using System.Windows.Controls;
-using System.Windows.Media;
 
 namespace VOWs.MVVM.Model
 {
     public partial class Document : ObservableRecipient
     {
+        // Properties.
         /// <summary>
         /// The <c>Name</c> property represents the given name to this Document.
         /// </summary>
@@ -25,15 +24,29 @@ namespace VOWs.MVVM.Model
         [ObservableProperty]
         private ObservableCollection<Page> pages;
         /// <summary>
-        /// The <c>DisplayPages</c> property represents the display objects (Border, TextBlock, etc.) that make up the Pages of this document.
-        /// </summary>
-        [ObservableProperty]
-        private ObservableCollection<Object> displayPages;
-        /// <summary>
         /// The <c>FileLocation</c> property represents the location of this Document on the computer.
         /// </summary>
         [ObservableProperty]
         private Uri fileLocation;
+        // Attributes.
+        /// <summary>
+        /// The <c>DisplayPages</c> attribute represents the display objects (Border, TextBlock, etc.) that make up the Pages of this document.
+        /// </summary>
+        public ObservableCollection<object> DisplayPages
+        {
+            get
+            {
+                Collection<object> result = new Collection<object>();
+                foreach (Page page in Pages) 
+                {
+                    foreach (object obj in page.DisplayElements)
+                    {
+                        result.Add(obj);
+                    }
+                }
+                return new ObservableCollection<object>(result);
+            }
+        }
 
         /// <summary>
         /// The constructor for <c>Document</c> constructs the object based off the Uri pointing to a VOWsuite
@@ -43,12 +56,10 @@ namespace VOWs.MVVM.Model
         public Document(Uri fileLocation)
         {
             // TODO: Load document pages through Uri, if exists.
+            Name = "ExampleName";
+            DefaultPageSize = "A4";
+            Pages = new();
             FileLocation = fileLocation;
-            DisplayPages = new();
-            Border b = new Border();
-            b.Height = 1000;
-            b.Background = new SolidColorBrush(Color.FromRgb(255,255,255));
-            DisplayPages.Add(b);
         }
 
         /// <summary>

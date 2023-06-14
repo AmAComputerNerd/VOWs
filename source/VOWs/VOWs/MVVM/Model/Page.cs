@@ -1,4 +1,7 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
+using System.Windows.Controls;
+using System.Collections.ObjectModel;
+using System.Windows.Media;
 
 namespace VOWs.MVVM.Model
 {
@@ -15,15 +18,32 @@ namespace VOWs.MVVM.Model
         [ObservableProperty]
         private string orientation;
         /// <summary>
-        /// The <c>CursorLineNum</c> property represents the current line the cursor is focusing on (starting at 1).
+        /// The <c>PageColour</c> property represents the colour for this page (default: White (255,255,255)).
         /// </summary>
         [ObservableProperty]
-        private int cursorLineNum;
+        private Color pageColour;
         /// <summary>
-        /// The <c>CursorLinePos</c> property represents the current position within a line the cursor is focusing on (starting at 0).
+        /// The <c>Text</c> property represents the RichTextBox for this page, which will contain all formatted
+        /// text. Writes should be handled with settings from the <c>Font</c> in mind.
         /// </summary>
         [ObservableProperty]
-        private int cursorLinePos;
+        private RichTextBox text;
+        /// <summary>
+        /// The <c>SelectedFont</c> property represents the currently selected font settings. This is commonly updated
+        /// by the overbearing <c>Document</c> object.
+        /// </summary>
+        [ObservableProperty]
+        private Font selectedFont;
+        // Attributes.
+        public Collection<object> DisplayElements
+        {
+            get
+            {
+                Collection<object> result = new Collection<object>();
+                Border b = new Border();
+                
+            }
+        }
 
         /// <summary>
         /// The constructor for <c>Page</c> constructs the object based off the arguments entered.
@@ -32,12 +52,12 @@ namespace VOWs.MVVM.Model
         /// <param name="orientation">The orientation, either <c>horizontal</c> and <c>vertical</c>.</param>
         /// <param name="cursorLineNum">The line number the cursor currently sits at on this page.</param>
         /// <param name="cursorLinePos">The position within the line the cursor currently sits at on this page.</param>
-        public Page(string size, string orientation, int cursorLineNum, int cursorLinePos)
+        public Page(string size, string orientation, Font font)
         {
             Size = size;
             Orientation = orientation;
-            CursorLineNum = cursorLineNum;
-            CursorLinePos = cursorLinePos;
+            Text = new RichTextBox();
+            SelectedFont = font;
         }
     
         /// <summary>
@@ -47,7 +67,7 @@ namespace VOWs.MVVM.Model
         /// <returns>The new A4, vertical Page.</returns>
         public static Page Default()
         {
-            return new Page("a4", "vertical", 1, 0);
+            return new Page("a4", "vertical", Font.Default());
         }
 
         /// <summary>
@@ -57,7 +77,7 @@ namespace VOWs.MVVM.Model
         /// <returns>The new A4, horizontal Page.</returns>
         public static Page Slide()
         {
-            return new Page("a4", "horizontal", 1, 0);
+            return new Page("a4", "horizontal", Font.Default());
         }
     }
 }
