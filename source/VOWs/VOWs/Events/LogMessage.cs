@@ -1,27 +1,39 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace VOWs.Events
+﻿namespace VOWs.Events
 {
+    /// <summary>
+    /// The <c>LogMessage</c> will trigger a new log message to be submitted with the current settings.
+    /// </summary>
     public class LogMessage
     {
+        /// <summary>
+        /// The <c>Message</c> parameter contains the message to be logged.
+        /// </summary>
         public string Message;
-        public string SendingClassDescripter;
+        /// <summary>
+        /// The <c>SendingClassDescriptor</c> parameter is optional, but should contain information on the
+        /// class that sent the <c>LogMessage</c>.
+        /// </summary>
+        public string SendingClassDescriptor;
+        /// <summary>
+        /// The <c>LogLevel</c> parameter is the string that will prefix the log message.
+        /// </summary>
         public string LogLevel;
 
+        /// <summary>
+        /// The constructor for <c>LogMessage</c> will create a log with a message, no value for <c>SendingClassDescriptor</c>
+        /// and an "INFO" log level.
+        /// </summary>
+        /// <param name="message"></param>
         public LogMessage(string message)
         {
             Message = message;
-            SendingClassDescripter = "null";
+            SendingClassDescriptor = "null";
             LogLevel = "INFO";
         }
 
-        public LogMessage(string message, string sendingClassDescripter, string logLevel) : this(message)
+        public LogMessage(string message, string sendingClassDescriptor, string logLevel) : this(message)
         {
-            SendingClassDescripter = sendingClassDescripter;
+            SendingClassDescriptor = sendingClassDescriptor;
             LogLevel = logLevel;
         }
     }

@@ -1,5 +1,7 @@
 ﻿using CommunityToolkit.Mvvm.Messaging;
 using System;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
 using VOWs.Events;
 
 namespace VOWs.MVVM.Model
@@ -54,7 +56,9 @@ namespace VOWs.MVVM.Model
                 return _resolveUri;
             }
         }
-    
+
+        public ImageSource ImageSource { get => new BitmapImage(Uri) };
+
         public DynamicURIResolver(string uri, Uri resolveUri)
         {
             _usesThemes = false;

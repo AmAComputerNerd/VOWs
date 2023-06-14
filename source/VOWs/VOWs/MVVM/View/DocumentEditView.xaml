@@ -39,7 +39,7 @@
 
             <!--Various dummy buttons for the categories tab.-->
             <Button Style="{StaticResource FlatButton}"
-                    Command="{Binding }"
+                    Command="{Binding SwitchTab_Home}"
                     Margin="0,0,2,0">
                 <Button.Content>
                     <TextBlock Text="Home"
@@ -48,7 +48,7 @@
                 </Button.Content>
             </Button>
             <Button Style="{StaticResource FlatButton}"
-                    Command="{Binding }"
+                    Command="{Binding SwitchTab_Text}"
                     Margin="0,0,2,0">
                 <Button.Content>
                     <TextBlock Text="Text"
@@ -57,7 +57,7 @@
                 </Button.Content>
             </Button>
             <Button Style="{StaticResource FlatButton}"
-                    Command="{Binding }"
+                    Command="{Binding SwitchTab_Media}"
                     Margin="0,0,2,0">
                 <Button.Content>
                     <TextBlock Text="Media"
@@ -66,7 +66,7 @@
                 </Button.Content>
             </Button>
             <Button Style="{StaticResource FlatButton}"
-                    Command="{Binding }"
+                    Command="{Binding SwitchTab_Page}"
                     Margin="0,0,2,0">
                 <Button.Content>
                     <TextBlock Text="Page"
@@ -75,7 +75,7 @@
                 </Button.Content>
             </Button>
             <Button Style="{StaticResource FlatButton}"
-                    Command="{Binding }"
+                    Command="{Binding SwitchTab_View}"
                     Margin="0,0,2,0">
                 <Button.Content>
                     <TextBlock Text="View"
@@ -84,7 +84,7 @@
                 </Button.Content>
             </Button>
             <Button Style="{StaticResource FlatButton}"
-                    Command="{Binding }"
+                    Command="{Binding SwitchTab_VersionControl}"
                     Margin="0,0,2,0">
                 <Button.Content>
                     <TextBlock Text="Version Control"
@@ -95,16 +95,13 @@
 
         </StackPanel>
 
-        <!--Create the CategoriesMenuPanel that holds all menu buttons inside a category.-->
-        <ItemsControl x:Name="CategoriesMenuPanel" 
-                      ItemsSource="{Binding MenuContent}"
-                      Grid.Row="1">
-            <ItemsControl.ItemsPanel>
-                <ItemsPanelTemplate>
-                    <StackPanel Orientation="Horizontal"/>
-                </ItemsPanelTemplate>
-            </ItemsControl.ItemsPanel>
-        </ItemsControl>
+        <!--Create the Home stackpanel that holds all menu buttons inside the Home category.-->
+        <StackPanel Orientation="Horizontal"
+                    Visibility="{Binding HomeCategoryVisibility}"
+                    Grid.Row="1">
+            <Button Style="{StaticResource MenuButton_Big}"
+                    Content="Wooooooo"/>
+        </StackPanel>
 
         <!--Create the ContentControl to show the Page.-->
         <ContentControl Content="{Binding PageVM}"

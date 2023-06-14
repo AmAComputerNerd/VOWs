@@ -2,19 +2,15 @@
 using CommunityToolkit.Mvvm.Input;
 using CommunityToolkit.Mvvm.Messaging;
 using System;
-using System.Collections.ObjectModel;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using VOWs.Events;
 using VOWs.MVVM.Model;
-using VOWs.Validators;
 
 namespace VOWs.MVVM.ViewModel
 {
-    public class DocumentEditViewModel : ObservableRecipient
+    public partial class DocumentEditViewModel : ObservableRecipient
     {
         // Copies of global resources relevant to the DocumentEditView.
         /// <summary>
@@ -50,32 +46,60 @@ namespace VOWs.MVVM.ViewModel
                 else throw new ArgumentException("Storage variable was unable to be updated.");
             }
         }
-
+        /// <summary>
+        /// The <c>EnvironmentArgs</c> parameter is a copy of the Environment arguments, also known as command
+        /// line arguments. This is constantly recycled to ensure that data remains relatively read-only, while
+        /// also allowing classes to use instances of the object to store modified values.
+        /// </summary>
         public EnvironmentArgs EnvironmentArgs { get => new EnvironmentArgs(); }
 
         // Local resources relevant to the DocumentEditView.
         /// <summary>
-        /// The <c>_vowsuiteLogoUriResolver</c> private parameter stores the value for <c>VOWsuiteLogoSource</c>.
+        /// The <c>_VOWsuiteLogoUriResolver</c> private parameter stores the value for <c>VOWsuiteLogoSource</c>.
         /// </summary>
-        private DynamicURIResolver _vowsuiteLogoUriResolver;
+        private DynamicURIResolver _VOWsuiteLogoUriResolver;
         /// <summary>
         /// The <c>VOWsuiteLogoSource</c> parameter stores an <c>ImageSource</c> to be accessed by the View.
         /// It will always resolve to the <c>ImageSource</c> most fitting of the current selected theme.
         /// </summary>
-        public ImageSource VOWsuiteLogoSource { get => new BitmapImage(_vowsuiteLogoUriResolver.Uri); }
-        private DynamicURIResolver _exampleImageUriResolver;
-        public ImageSource ExampleImageSource { get => new BitmapImage(_vowsuiteLogoUriResolver.Uri); }
+        public ImageSource VOWsuiteImageSource { get => new BitmapImage(_VOWsuiteLogoUriResolver.Uri); }
 
         /// <summary>
-        /// The <c>MenuContent</c> parameter stores a collection of objects that are the menu
-        /// buttons / content for the currently selected category.
+        /// The <c>SwitchTab_Home</c> command will trigger switching to the Home category, which will toggle the state of the button and unhide the Home
+        /// category menu buttons.
         /// </summary>
-        public ObservableCollection<object> MenuContent { get; }
+        public RelayCommand SwitchTab_Home;
+        public Visibility HomeCategoryVisibility = Visibility.Collapsed;
         /// <summary>
-        /// The <c>CurrentFont</c> parameter stores the <c>Font</c> object that the <c>PageVM</c> should
-        /// pull from when writing new text.
+        /// The <c>SwitchTab_Text</c> command will trigger switching to the Text category, which will toggle the state of the button and unhide the Text
+        /// category menu buttons.
         /// </summary>
-        public Font CurrentFont { get; }
+        public RelayCommand SwitchTab_Text;
+        public Visibility TextCategoryVisibility = Visibility.Collapsed;
+        /// <summary>
+        /// The <c>SwitchTab_Media</c> command will trigger switching to the Media category, which will toggle the state of the button and unhide the 
+        /// Media category menu buttons.
+        /// </summary>
+        public RelayCommand SwitchTab_Media;
+        public Visibility MediaCategoryVisibility = Visibility.Collapsed;
+        /// <summary>
+        /// The <c>SwitchTab_Page</c> command will trigger switching to the Page category, which will toggle the state of the button and unhide the Page
+        /// category menu buttons.
+        /// </summary>
+        public RelayCommand SwitchTab_Page;
+        public Visibility PageCategoryVisibility = Visibility.Collapsed;
+        /// <summary>
+        /// The <c>SwitchTab_View</c> command will trigger switching to the View category, which will toggle the state of the button and unhide the View
+        /// category menu buttons.
+        /// </summary>
+        public RelayCommand SwitchTab_View;
+        public Visibility ViewCategoryVisibility = Visibility.Collapsed;
+        /// <summary>
+        /// The <c>SwitchTab_VersionControl</c> command will trigger switching to the Version Control category, which will toggle the state of the button 
+        /// and unhide the Version Control category menu buttons.
+        /// </summary>
+        public RelayCommand SwitchTab_VersionControl;
+        public Visibility VersionControlCategoryVisibility = Visibility.Collapsed;
 
         /// <summary>
         /// The <c>VOWsuiteButtonCommand</c> parameter stores a <c>RelayCommand</c> that will trigger the
@@ -99,94 +123,82 @@ namespace VOWs.MVVM.ViewModel
             // Set the Logo URI Resolver, a fancy little solution that can automatically return a relevant URI depending on the theme selected, or just a backup if the main one can't be resolved.
             string _whiteLogoSource = "pack://application:,,,/Resources/Images/VOWsuite-logos_white.png";
             string _blackLogoSource = "pack://application:,,,/Resources/Images/VOWsuite-logos_black.png";
-            _vowsuiteLogoUriResolver = new(_whiteLogoSource, _blackLogoSource, new Uri("Resources/Images/VOWsuite-logos_white.png", UriKind.Relative));
+            _VOWsuiteLogoUriResolver = new(_whiteLogoSource, _blackLogoSource, new Uri("Resources/Images/VOWsuite-logos_white.png", UriKind.Relative));
             // Set VOWsuiteButtonCommand to send a message when clicked.
             VOWsuiteButtonCommand = new(() =>
             {
                 // Send a ChangeViewMessage message to the MainViewModel.
                 Messenger.Send(new ChangeViewMessage(0, 1));
             });
-            // Set the MenuContent collection to a new list.
-            MenuContent = new();
-            // Update the MenuContent.
-            //UpdateMenuContent();
+            // Set the various category change buttons.
+            SwitchTab_Home = new(() =>
+            {
+                // Hide other tabs.
+                TextCategoryVisibility = Visibility.Collapsed;
+                MediaCategoryVisibility = Visibility.Collapsed;
+                PageCategoryVisibility = Visibility.Collapsed;
+                ViewCategoryVisibility = Visibility.Collapsed;
+                VersionControlCategoryVisibility = Visibility.Collapsed;
+                // Show Home.
+                HomeCategoryVisibility = Visibility.Visible;
+            });
+            SwitchTab_Text = new(() =>
+            {
+                // Hide other tabs.
+                HomeCategoryVisibility = Visibility.Collapsed;
+                MediaCategoryVisibility = Visibility.Collapsed;
+                PageCategoryVisibility = Visibility.Collapsed;
+                ViewCategoryVisibility = Visibility.Collapsed;
+                VersionControlCategoryVisibility = Visibility.Collapsed;
+                // Show Text.
+                TextCategoryVisibility = Visibility.Visible;
+            });
+            SwitchTab_Media = new(() =>
+            {
+                // Hide other tabs.
+                HomeCategoryVisibility = Visibility.Collapsed;
+                TextCategoryVisibility = Visibility.Collapsed;
+                PageCategoryVisibility = Visibility.Collapsed;
+                ViewCategoryVisibility = Visibility.Collapsed;
+                VersionControlCategoryVisibility = Visibility.Collapsed;
+                // Show Media.
+                MediaCategoryVisibility = Visibility.Visible;
+            });
+            SwitchTab_Page = new(() =>
+            {
+                // Hide other tabs.
+                HomeCategoryVisibility = Visibility.Collapsed;
+                TextCategoryVisibility = Visibility.Collapsed;
+                MediaCategoryVisibility = Visibility.Collapsed;
+                ViewCategoryVisibility = Visibility.Collapsed;
+                VersionControlCategoryVisibility = Visibility.Collapsed;
+                // Show Page.
+                PageCategoryVisibility = Visibility.Visible;
+            });
+            SwitchTab_View = new(() =>
+            {
+                // Hide other tabs.
+                HomeCategoryVisibility = Visibility.Collapsed;
+                TextCategoryVisibility = Visibility.Collapsed;
+                MediaCategoryVisibility = Visibility.Collapsed;
+                PageCategoryVisibility = Visibility.Collapsed;
+                VersionControlCategoryVisibility = Visibility.Collapsed;
+                // Show View.
+                ViewCategoryVisibility = Visibility.Visible;
+            });
+            SwitchTab_VersionControl = new(() =>
+            {
+                // Hide other tabs.
+                HomeCategoryVisibility = Visibility.Collapsed;
+                TextCategoryVisibility = Visibility.Collapsed;
+                MediaCategoryVisibility = Visibility.Collapsed;
+                PageCategoryVisibility = Visibility.Collapsed;
+                ViewCategoryVisibility = Visibility.Collapsed;
+                // Show Version Control.
+                VersionControlCategoryVisibility = Visibility.Visible;
+            });
             // Set the Page ViewModel.
             PageVM = new PageViewModel();
-        }
-    
-        /// <summary>
-        /// The <c>UpdateMenuContent</c> method will sequentially create all relevant menu content to a category
-        /// and add them to the <c>MenuContent</c> collection.
-        /// </summary>
-        private void UpdateMenuContent()
-        {
-            // TODO: Update MenuButtons based on the selected category.
-            // Create reusable temp variables.
-            Image image = new Image();
-            Binding binding = new Binding();
-            // Retrieve styles.
-            Style subpanel = (Style)Application.Current.TryFindResource("MenuPanel");
-            Style bigButton = (Style)Application.Current.TryFindResource("MenuButton_Big");
-            Style button = (Style)Application.Current.TryFindResource("MenuButton");
-            Style bigToggleButton = (Style)Application.Current.TryFindResource("MenuToggleButton_Big");
-            Style toggleButton = (Style)Application.Current.TryFindResource("MenuToggleButton");
-            Style dropDownBox = (Style)Application.Current.TryFindResource("MenuDropDownBox");
-            Style valueBox = (Style)Application.Current.TryFindResource("MenuValueBox");
-            // Create buttons.
-            // Create "Page Size" button.
-            Button pageSizeButton = new Button();
-            pageSizeButton.Tag = "Page Size";
-            image = new Image();
-            image.Source = ExampleImageSource;
-            pageSizeButton.Content = image;
-            pageSizeButton.Style = bigButton;
-            MenuContent.Add(pageSizeButton);
-            // Create "Page Orientation" button.
-            Button pageOrientationButton = new Button();
-            pageOrientationButton.Tag = "Page Orientation";
-            image = new Image();
-            image.Source = ExampleImageSource;
-            pageOrientationButton.Content = image;
-            pageOrientationButton.Style = bigButton;
-            MenuContent.Add(pageOrientationButton);
-            // Create StackPanel for font buttons.
-            StackPanel fontPanel = new StackPanel();
-            fontPanel.Style = subpanel;
-            // Create "Font Size" value box.
-            TextBox fontSize = new TextBox();
-            fontSize.Tag = "Font Size: ";
-            fontSize.Style = valueBox;
-            // Create the "Font Size" validation binding.
-            binding = new Binding();
-            binding.Path = new PropertyPath("CurrentFont.Size");
-            binding.ValidationRules.Add(new StringToIntValidationRule());
-            // Set the binding and add the "Font Size" combo box to it.
-            fontSize.SetBinding(TextBox.TextProperty, binding);
-            fontPanel.Children.Add(fontSize);
-            // Create "Font Colour" value box.
-            TextBox fontColour = new TextBox();
-            fontColour.Tag = "Font Colour: ";
-            fontColour.Style = valueBox;
-            // Create the "Font Colour" validation binding.
-            binding = new Binding();
-            binding.Path = new PropertyPath("CurrentFont.Foreground");
-            binding.ValidationRules.Add(new StringToHexValidationRule());
-            // Set the binding and add the "Font Colour" combo box to it.
-            fontColour.SetBinding(TextBox.TextProperty, binding);
-            fontPanel.Children.Add(fontColour);
-            // Create the "Font Background" value box.
-            TextBox fontBackground = new TextBox();
-            fontBackground.Tag = "Font BG: ";
-            fontBackground.Style = valueBox;
-            // Create the "Font Background" validation binding.
-            binding = new Binding();
-            binding.Path = new PropertyPath("CurrentFont.Background");
-            binding.ValidationRules.Add(new StringToHexValidationRule());
-            // Set the binding and add the "Font Background" combo box to it.
-            fontBackground.SetBinding(TextBox.TextProperty, binding);
-            fontPanel.Children.Add(fontBackground);
-            // Add the "Font Panel" stackpanel to MenuContent.
-            MenuContent.Add(fontPanel);
         }
     }
 }

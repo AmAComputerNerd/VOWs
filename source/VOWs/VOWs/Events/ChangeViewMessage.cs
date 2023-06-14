@@ -1,5 +1,9 @@
 ﻿namespace VOWs.Events
 {
+    /// <summary>
+    /// The <c>ChangeViewMessage</c> will trigger a change in the <c>CurrentView</c> variable in the
+    /// <c>MainViewModel</c> class.
+    /// </summary>
     public class ChangeViewMessage
     {
         /// <summary>

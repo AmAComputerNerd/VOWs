@@ -54,7 +54,7 @@ namespace VOWs.MVVM.View {
                 return;
             }
             _contentLoaded = true;
-            System.Uri resourceLocater = new System.Uri("/VOWs;V1.0.0.0;component/mvvm/view/pageview.xaml", System.UriKind.Relative);
+            System.Uri resourceLocater = new System.Uri("/VOWs;component/mvvm/view/pageview.xaml", System.UriKind.Relative);
             
             #line 1 "..\..\..\..\..\MVVM\View\PageView.xaml"
             System.Windows.Application.LoadComponent(this, resourceLocater);

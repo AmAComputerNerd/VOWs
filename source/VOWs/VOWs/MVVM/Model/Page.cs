@@ -41,7 +41,7 @@ namespace VOWs.MVVM.Model
             {
                 Collection<object> result = new Collection<object>();
                 Border b = new Border();
-                
+                return result;
             }
         }
 
