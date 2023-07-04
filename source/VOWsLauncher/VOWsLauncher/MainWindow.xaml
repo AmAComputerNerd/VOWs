@@ -4,7 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:VOWsLauncher"
-        xmlns:viewModel="clr-namespace:VOWsLauncher.MVVM.ViewModel"
+        xmlns:viewmodel="clr-namespace:VOWsLauncher.MVVM.ViewModel"
         mc:Ignorable="d"
         Title="VOWsuite Launcher" Height="600" Width="920"
         WindowStyle="None"
@@ -14,12 +14,13 @@
 
     <!--Data context for this window - enabling access to our MainViewModel (ContentControl window section).-->
     <Window.DataContext>
-        <viewModel:MainViewModel/>
+        <viewmodel:MainViewModel/>
     </Window.DataContext>
     
     <!--The border surrounding the application.-->
-    <Border Style="{StaticResource WindowTheme}"
-            MouseDown="AppBorder_MouseDown">
+    <Border Style="{StaticResource ThemedBorder}"
+            CornerRadius="20"
+            MouseDown="MoveApplication">
         
         <!--The grid that contains all content inside the application window, including navigation controls.-->
         <Grid>
@@ -38,88 +39,56 @@
                 <RowDefinition Height="115"/>
             </Grid.RowDefinitions>
 
-            <!--Title text - this is the launcher for the Version Oriented Writing suite program, but this is often abbreviated to VOWsuite or just VOWs.-->
-            <!--<TextBlock Text="VOWsuite"
-                       VerticalAlignment="Center"
-                       HorizontalAlignment="Left"
-                       Foreground="WhiteSmoke"
-                       FontSize="24"
-                       Margin="20,0,0,0"/>-->
-
             <!--Title image - a white, transparent variant of the program's logo. Although VOWsuite, or VOWs for short, is but an acronym for the real program name (Version Oriented Writing suite), it is easier to make use of the VOWsuite acronym as the primary brand name for the program.-->
-            <Image Width="175"
-                   Height="175"
+            <Image Height="30"
                    VerticalAlignment="Center"
                    HorizontalAlignment="Left"
                    Margin="10,0,0,0"
-                   Source="/Images/VOWsuite-logos_white.png"/>
+                   Source="{Binding VOWsuiteLogo.ImageSource}"/>
 
             <!--The row of categories along the left side of the application. This does not include the bottom 3, which are in their own StackPanel.-->
             <StackPanel Grid.Row="1">
-                
+
                 <RadioButton Content="Home"
                              Height="50"
-                             Foreground="White"
                              FontSize="14"
-                             Style="{StaticResource StickyMenuButtonTheme}"
+                             Style="{StaticResource MenuButtonSticky}"
                              IsChecked="True"
                              Command="{Binding HomeViewCommand}"/>
                 <RadioButton Content="New"
                              Height="50"
-                             Foreground="White"
                              FontSize="14"
-                             Style="{StaticResource StickyMenuButtonTheme}"
+                             Style="{StaticResource MenuButtonSticky}"
                              Command="{Binding NewViewCommand}"/>
                 <RadioButton Content="Open"
                              Height="50"
-                             Foreground="White"
                              FontSize="14"
-                             Style="{StaticResource StickyMenuButtonTheme}"
+                             Style="{StaticResource MenuButtonSticky}"
                              Command="{Binding OpenViewCommand}"/>
                 <RadioButton Content="Pinned"
                              Height="50"
-                             Foreground="White"
                              FontSize="14"
-                             Style="{StaticResource StickyMenuButtonTheme}"
+                             Style="{StaticResource MenuButtonSticky}"
                              Command="{Binding PinnedViewCommand}"/>
                 <RadioButton Content="Recent"
                              Height="50"
-                             Foreground="White"
                              FontSize="14"
-                             Style="{StaticResource StickyMenuButtonTheme}"
+                             Style="{StaticResource MenuButtonSticky}"
                              Command="{Binding RecentViewCommand}"/>
-                
-            </StackPanel>
-            
-            <!--The bottom row of categories along the left side of the application. These are special in that their function is to open external windows, not to change-->
-            <!--the view in this window like the others.-->
-            <StackPanel Grid.Row="2">
-                
-                <Button Content="My Account"
-                        Height="35"
-                        Foreground="White"
-                        FontSize="14"
-                        Style="{StaticResource MenuButtonTheme}"/>
-                <Button Content="Settings"
-                        Height="35"
-                        Foreground="White"
-                        FontSize="14"
-                        Style="{StaticResource MenuButtonTheme}"/>
-                <Button Content="About VOWsuite"
-                        Height="35"
-                        Foreground="White"
-                        FontSize="14"
-                        Style="{StaticResource MenuButtonTheme}"/>
-                
+
             </StackPanel>
 
             <!--The window that makes up the middle-lower portion of the application beside the left categories bar. This view dynamically updates depending on what category-->
             <!--is selected, and will default to Home.-->
-            <ContentControl Grid.Row="1" Grid.RowSpan="2"
-                            Grid.Column="1"
-                            Margin="15"
-                            Content="{Binding CurrentView}"/>
-            
+            <ScrollViewer Grid.Row="1" Grid.RowSpan="2"
+                          Grid.Column="1"
+                          HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto">
+
+                <ContentControl Margin="15"
+                                Content="{Binding CurrentView}"/>
+
+            </ScrollViewer>
+
             <!--Windows navigation buttons - close and minimise.-->
             <StackPanel VerticalAlignment="Top"
                         HorizontalAlignment="Right"
@@ -127,16 +96,21 @@
                         Margin="0,5,10,0"
                         Grid.Column="1">
 
+                <Button x:Name="Settings"
+                        Content="⚙️"
+                        Style="{StaticResource WinNavigationButton}"
+                        Command="{Binding SettingsViewCommand}"/>
+
                 <Button x:Name="Minimise"
                         Content="🗕"
                         Margin="0,0,0,7"
-                        Style="{StaticResource WinNavTheme}"
-                        Click="ButtonMinimise_Click"/>
+                        Style="{StaticResource WinNavigationButton}"
+                        Command="{Binding WinNavMinimiseCommand}"/>
 
                 <Button x:Name="Exit"
                         Content="X"
-                        Style="{StaticResource WinNavTheme}"
-                        Click="ButtonExit_Click"/>
+                        Style="{StaticResource WinNavigationButton}"
+                        Command="{Binding WinNavCloseCommand}"/>
 
             </StackPanel>
         

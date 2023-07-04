@@ -10,61 +10,59 @@
     <StackPanel>
 
         <TextBlock Text="New"
-                   Style="{StaticResource TitleTheme}"/>
+                   Style="{StaticResource TextTitle}"/>
 
         <TextBlock Text="Time for a new project? You can create a new document if you're planning for something short and sweet, or&#x0a;for the wild ideas begging to escape the bounds of a single document, use a workspace to lock and store it all&#x0a;in one convenient package!"
                    Margin="0,0,0,20"
-                   Style="{StaticResource DescriptiveTextTheme}"/>
+                   Style="{StaticResource Text}"/>
 
-        <StackPanel Orientation="Horizontal">
+        <StackPanel Orientation="Horizontal"
+                    Margin="0,0,0,20">
             <Button Content="New Document"
-                    Height="100"
-                    Width="150"
-                    Style="{StaticResource StylisedButtonTheme}"
-                    Margin="0,0,20,20"/>
-            <Button Content="Example Template"
-                    Height="100"
-                    Width="150"
-                    Style="{StaticResource StylisedButtonTheme}"
-                    Margin="0,0,5,20"/>
-            <Button Content="Example Template"
-                    Height="100"
-                    Width="150"
-                    Style="{StaticResource StylisedButtonTheme}"
-                    Margin="0,0,5,20"/>
-            <Button Content="Example Template"
-                    Height="100"
-                    Width="150"
-                    Style="{StaticResource StylisedButtonTheme}"
-                    Margin="0,0,5,20"/>
+                    Padding="50"
+                    MaxWidth="220"
+                    Style="{StaticResource StylisedButton}"/>
+
+            <TextBlock Text="OR"
+                       HorizontalAlignment="Center" VerticalAlignment="Center"
+                       Margin="30,0"
+                       Style="{StaticResource TextSubtitle}"/>
+
+            <Button Content="VOWs for Beginners"
+                    Padding="50"
+                    MaxWidth="220"
+                    Style="{StaticResource StylisedButton}"/>
+
+            <TextBlock Text="More templates"
+                       TextDecorations="Underline"
+                       HorizontalAlignment="Center" VerticalAlignment="Center"
+                       Margin="20,0"
+                       Style="{StaticResource Text}"/>
         </StackPanel>
 
-        <StackPanel Orientation="Horizontal">
+        <StackPanel Orientation="Horizontal"
+                    Margin="0,0,0,20">
             <Button Content="New Workspace"
-                    Height="100"
-                    Width="150"
-                    Style="{StaticResource StylisedButtonTheme}"
-                    Margin="0,0,20,10"/>
-            <Button Content="Example Template"
-                    Height="100"
-                    Width="150"
-                    Style="{StaticResource StylisedButtonTheme}"
-                    Margin="0,0,5,10"/>
-            <Button Content="Example Template"
-                    Height="100"
-                    Width="150"
-                    Style="{StaticResource StylisedButtonTheme}"
-                    Margin="0,0,5,10"/>
-            <Button Content="Example Template"
-                    Height="100"
-                    Width="150"
-                    Style="{StaticResource StylisedButtonTheme}"
-                    Margin="0,0,5,10"/>
-        </StackPanel>
+                    Padding="50"
+                    MaxWidth="220"
+                    Style="{StaticResource StylisedButton}"/>
 
-        <TextBlock Text="Show all templates"
-                   HorizontalAlignment="Center"
-                   Style="{StaticResource DescriptiveTextTheme}"/>
+            <TextBlock Text="OR"
+                       HorizontalAlignment="Center" VerticalAlignment="Center"
+                       Margin="30,0"
+                       Style="{StaticResource TextSubtitle}"/>
+
+            <Button Content="VOWs: Workplaces Tutorial"
+                    Padding="50"
+                    MaxWidth="220"
+                    Style="{StaticResource StylisedButton}"/>
+
+            <TextBlock Text="More templates"
+                       TextDecorations="Underline"
+                       HorizontalAlignment="Center" VerticalAlignment="Center"
+                       Margin="20,0"
+                       Style="{StaticResource Text}"/>
+        </StackPanel>
 
     </StackPanel>
 

@@ -11,14 +11,14 @@
 
         <!--Title and descriptive text for this category.-->
         <TextBlock Text="Recent"
-                   Style="{StaticResource TitleTheme}"/>
+                   Style="{StaticResource TextTitle}"/>
         <TextBlock Text="View a list of recently opened workspaces and documents. Click on the desired workspace or document to&#x0a;reopen and continue work on it!"
                    Margin="0,0,0,20"
-                   Style="{StaticResource DescriptiveTextTheme}"/>
+                   Style="{StaticResource Text}"/>
 
         <!--Tab for the recent workspace tab content. This includes the subtitle and tab itself (NOTE: still contains placeholder stack).-->
         <TextBlock Text="Workspaces"
-                   Style="{StaticResource SubTitleTheme}"/>
+                   Style="{StaticResource TextSubtitle}"/>
         <Border x:Name="RecentWorkspaceTab_Border"
                 Height="125"
                 Margin="0,0,0,20">
@@ -94,7 +94,7 @@
 
         <!--Tab for the recent document tab content. This includes the subtitle and tab itself (NOTE: still contains placeholder stack).-->
         <TextBlock Text="Documents"
-                   Style="{StaticResource SubTitleTheme}"/>
+                   Style="{StaticResource TextSubtitle}"/>
         <Border x:Name="RecentDocumentTab_Border"
                 Height="125"
                 Margin="0,0,0,20">

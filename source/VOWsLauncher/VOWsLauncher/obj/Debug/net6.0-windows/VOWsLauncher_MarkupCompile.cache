@@ -4,17 +4,17 @@
 winexe
 C#
 .cs
-D:\Coding\VOWs\source\VOWsLauncher\VOWsLauncher\obj\Debug\net6.0-windows\
+D:\Coding\C#\VOWs\source\VOWsLauncher\VOWsLauncher\obj\Debug\net6.0-windows\
 VOWsLauncher
 none
 false
 TRACE;DEBUG;NET;NET6_0;NETCOREAPP
-D:\Coding\VOWs\source\VOWsLauncher\VOWsLauncher\App.xaml
-81087372794
-3-1368887720
-16-1456054886
-1941709816142
-MainWindow.xaml;MVVM\View\HomeView.xaml;MVVM\View\NewView.xaml;MVVM\View\OpenView.xaml;MVVM\View\PinnedView.xaml;MVVM\View\RecentView.xaml;Theme\DarkTheme.xaml;Theme\LightTheme.xaml;
+D:\Coding\C#\VOWs\source\VOWsLauncher\VOWsLauncher\App.xaml
+8-1553717111
+
+21-868880103
+1951515266371
+MainWindow.xaml;MVVM\View\HomeView.xaml;MVVM\View\NewView.xaml;MVVM\View\OpenView.xaml;MVVM\View\PinnedView.xaml;MVVM\View\RecentView.xaml;MVVM\View\SettingsView.xaml;Resources\Themes\LauncherRootStyles.xaml;
 
 False
 

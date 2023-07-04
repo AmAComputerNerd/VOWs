@@ -5,30 +5,26 @@
     <TargetFramework>net6.0-windows</TargetFramework>
     <Nullable>enable</Nullable>
     <UseWPF>true</UseWPF>
-    <ApplicationIcon>Images\VOWsuite-logos_icon.ico</ApplicationIcon>
+    <ApplicationIcon>Resources\Icons\VOWsuite-logos_icon.ico</ApplicationIcon>
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="Images\example.png" />
-    <None Remove="Images\VOWsuite-logos_icon.ico" />
-    <None Remove="Images\VOWsuite-logos_white.png" />
+    <Resource Include="Resources\Images\example.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Icons\VOWsuite-logos_icon.ico">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Images\VOWsuite-logos_black.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Images\VOWsuite-logos_white.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
   </ItemGroup>
 
   <ItemGroup>
-    <Content Include="Images\example.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Images\VOWsuite-logos_icon.ico">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Images\VOWsuite-logos_white.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="MVVM\Model\" />
-    <Folder Include="Fonts\" />
+    <PackageReference Include="CommunityToolkit.Mvvm" Version="8.2.0" />
   </ItemGroup>
 
 </Project>

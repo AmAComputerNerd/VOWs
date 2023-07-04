@@ -1,0 +1,35 @@
+﻿<UserControl x:Class="VOWsLauncher.MVVM.View.SettingsView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:VOWsLauncher.MVVM.View"
+             mc:Ignorable="d" 
+             d:DesignHeight="495" d:DesignWidth="690">
+
+    <StackPanel>
+
+        <TextBlock Text="Settings"
+                   Style="{StaticResource TextTitle}"/>
+
+        <TextBlock Text="General:"
+                   Style="{StaticResource TextSubtitle}"/>
+        <TextBlock Text="    Theme"
+                   Style="{StaticResource TextSubtitle}"/>
+        <TextBlock Text="    High Contrast"
+                   Style="{StaticResource TextSubtitle}"/>
+        <TextBlock Text="    Larger Text"
+                   Style="{StaticResource TextSubtitle}"/>
+
+        <Line X1="0" X2="800"
+              Y1="4" Y2="4"
+              Style="{StaticResource ThemedShape}"/>
+
+        <TextBlock Text="Editor:"
+                   Style="{StaticResource TextSubtitle}"/>
+        <TextBlock Text="    Version control tab location"
+                   Style="{StaticResource TextSubtitle}"/>
+
+    </StackPanel>
+    
+</UserControl>

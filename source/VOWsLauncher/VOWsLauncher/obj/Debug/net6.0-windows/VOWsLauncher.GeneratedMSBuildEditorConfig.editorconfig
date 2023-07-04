@@ -8,4 +8,4 @@ build_property.PlatformNeutralAssembly =
 build_property.EnforceExtendedAnalyzerRules = 
 build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property.RootNamespace = VOWsLauncher
-build_property.ProjectDir = D:\Coding\VOWs\source\VOWsLauncher\VOWsLauncher\
+build_property.ProjectDir = D:\Coding\C#\VOWs\source\VOWsLauncher\VOWsLauncher\
