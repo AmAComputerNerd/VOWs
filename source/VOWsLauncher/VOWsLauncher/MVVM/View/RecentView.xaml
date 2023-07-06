@@ -16,157 +16,34 @@
                    Margin="0,0,0,20"
                    Style="{StaticResource Text}"/>
 
-        <!--Tab for the recent workspace tab content. This includes the subtitle and tab itself (NOTE: still contains placeholder stack).-->
-        <TextBlock Text="Workspaces"
-                   Style="{StaticResource TextSubtitle}"/>
-        <Border x:Name="RecentWorkspaceTab_Border"
-                Height="125"
-                Margin="0,0,0,20">
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition MinHeight="300"/>
+            </Grid.RowDefinitions>
 
-            <!--Create a background for the border that the recent workspace tab lives within. This will also serve as the background for the left / right buttons.-->
-            <Border.Background>
-                <LinearGradientBrush StartPoint="0,0" EndPoint="1,2">
-                    <GradientStop Color="#58537c" Offset="0.0"/>
-                    <GradientStop Color="#3d3b58" Offset="0.9"/>
-                    <GradientStop Color="#4d4a6f" Offset="2"/>
-                </LinearGradientBrush>
-            </Border.Background>
+            <Border Style="{StaticResource StylisedBorder}"/>
+            <Border Grid.Column="1" Style="{StaticResource StylisedBorder}"/>
+            <Border Grid.Row="1" Grid.ColumnSpan="2" Style="{StaticResource StylisedBorder}"/>
 
-            <Grid>
-                
-                <!--Create columns - the first and last columns are dedicated to the arrow buttons that move the list of recent workspaces along.-->
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="50"/>
-                    <ColumnDefinition/>
-                    <ColumnDefinition Width="50"/>
-                </Grid.ColumnDefinitions>
+            <Button Content="Workspaces"
+                    Style="{StaticResource StylisedButton}"/>
+            <Button Content="Documents"
+                    Grid.Column="1"
+                    Style="{StaticResource StylisedButton}"/>
 
-                <!--Implement buttons to move list of recent workspaces.-->
-                <Button Content="←"
-                        FontSize="30"
-                        Background="Transparent"
-                        Foreground="White"
-                        BorderThickness="0"
-                        Width="50"
-                        Grid.Column="0"/>
-                <Button Content="→"
-                        FontSize="30"
-                        Background="Transparent"
-                        Foreground="White"
-                        BorderThickness="0"
-                        Width="50"
-                        Grid.Column="2"/>
-
-                <!--A placeholder list of workspaces. This will need to be changed once actual data is to be displayed here.-->
-                <StackPanel Orientation="Horizontal"
-                            Grid.Column="1">
-
-                    <Button Content="Example&#x0a;Workspace"
-                            MinWidth="100"
-                            Background="PowderBlue"
-                            BorderThickness="1,0,0,0"/>
-                    <Button Content="Example&#x0a;Workspace"
-                            MinWidth="100"
-                            Background="PowderBlue"
-                            BorderThickness="1,0,0,0"/>
-                    <Button Content="Example&#x0a;Workspace"
-                            MinWidth="100"
-                            Background="PowderBlue"
-                            BorderThickness="1,0,0,0"/>
-                    <Button Content="Example&#x0a;Workspace"
-                            MinWidth="100"
-                            Background="PowderBlue"
-                            BorderThickness="1,0,0,0"/>
-                    <Button Content="Example&#x0a;Workspace"
-                            MinWidth="100"
-                            Background="PowderBlue"
-                            BorderThickness="1,0,0,0"/>
-                    <Button Content="Example&#x0a;Workspace"
-                            MinWidth="100"
-                            Background="PowderBlue"
-                            BorderThickness="1,0,0,0"/>
-
-                </StackPanel>
-                
-            </Grid>
-            
-        </Border>
-
-        <!--Tab for the recent document tab content. This includes the subtitle and tab itself (NOTE: still contains placeholder stack).-->
-        <TextBlock Text="Documents"
-                   Style="{StaticResource TextSubtitle}"/>
-        <Border x:Name="RecentDocumentTab_Border"
-                Height="125"
-                Margin="0,0,0,20">
-
-            <!--Create a background for the border that the recent documents tab lives within. This will also serve as the background for the left / right buttons.-->
-            <Border.Background>
-                <LinearGradientBrush StartPoint="0,0" EndPoint="1,2">
-                    <GradientStop Color="#58537c" Offset="0.0"/>
-                    <GradientStop Color="#3d3b58" Offset="0.9"/>
-                    <GradientStop Color="#4d4a6f" Offset="2"/>
-                </LinearGradientBrush>
-            </Border.Background>
-
-            <Grid>
-
-                <!--Create columns - the first and last columns are dedicated to the arrow buttons that move the list of recent documents along.-->
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="50"/>
-                    <ColumnDefinition/>
-                    <ColumnDefinition Width="50"/>
-                </Grid.ColumnDefinitions>
-
-                <!--Implement buttons to move list of recent documents.-->
-                <Button Content="←"
-                        FontSize="30"
-                        Background="Transparent"
-                        Foreground="White"
-                        BorderThickness="0"
-                        Width="50"
-                        Grid.Column="0"/>
-                <Button Content="→"
-                        FontSize="30"
-                        Background="Transparent"
-                        Foreground="White"
-                        BorderThickness="0"
-                        Width="50"
-                        Grid.Column="2"/>
-
-                <!--A placeholder list of documents. This will need to be changed once actual data is to be displayed here.-->
-                <StackPanel Orientation="Horizontal"
-                            Grid.Column="1">
-
-                    <Button Content="Example&#x0a;Document"
-                            MinWidth="100"
-                            Background="LightSalmon"
-                            BorderThickness="1,0,0,0"/>
-                    <Button Content="Example&#x0a;Document"
-                            MinWidth="100"
-                            Background="LightSalmon"
-                            BorderThickness="1,0,0,0"/>
-                    <Button Content="Example&#x0a;Document"
-                            MinWidth="100"
-                            Background="LightSalmon"
-                            BorderThickness="1,0,0,0"/>
-                    <Button Content="Example&#x0a;Document"
-                            MinWidth="100"
-                            Background="LightSalmon"
-                            BorderThickness="1,0,0,0"/>
-                    <Button Content="Example&#x0a;Document"
-                            MinWidth="100"
-                            Background="LightSalmon"
-                            BorderThickness="1,0,0,0"/>
-                    <Button Content="Example&#x0a;Document"
-                            MinWidth="100"
-                            Background="LightSalmon"
-                            BorderThickness="1,0,0,0"/>
-
-                </StackPanel>
-
-            </Grid>
-
-        </Border>
+            <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center"
+                        Grid.Row="1" Grid.ColumnSpan="2">
+                <TextBlock Text="No workspaces to show!"
+                           Style="{StaticResource TextSubtitle}"/>
+                <TextBlock Text="You haven't opened any recently!"
+                           Style="{StaticResource Text}"/>
+            </StackPanel>
+        </Grid>
 
     </StackPanel>
     

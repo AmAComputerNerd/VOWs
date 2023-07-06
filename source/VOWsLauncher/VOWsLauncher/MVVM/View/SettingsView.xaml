@@ -16,9 +16,20 @@
                    Style="{StaticResource TextSubtitle}"/>
         <TextBlock Text="    Theme"
                    Style="{StaticResource TextSubtitle}"/>
+        <TextBlock Text="    Accent"
+                   Style="{StaticResource TextSubtitle}"/>
         <TextBlock Text="    High Contrast"
                    Style="{StaticResource TextSubtitle}"/>
         <TextBlock Text="    Larger Text"
+                   Style="{StaticResource TextSubtitle}"/>
+
+        <Line X1="0" X2="800"
+              Y1="4" Y2="4"
+              Style="{StaticResource ThemedShape}"/>
+
+        <TextBlock Text="Launcher:"
+                   Style="{StaticResource TextSubtitle}"/>
+        <TextBlock Text="    Show beginners content"
                    Style="{StaticResource TextSubtitle}"/>
 
         <Line X1="0" X2="800"

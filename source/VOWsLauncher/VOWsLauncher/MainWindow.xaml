@@ -7,10 +7,8 @@
         xmlns:viewmodel="clr-namespace:VOWsLauncher.MVVM.ViewModel"
         mc:Ignorable="d"
         Title="VOWsuite Launcher" Height="600" Width="920"
-        WindowStyle="None"
-        ResizeMode="NoResize"
-        Background="Transparent"
-        AllowsTransparency="True">
+        WindowStyle="None" ResizeMode="NoResize" 
+        Background="Transparent" AllowsTransparency="True">
 
     <!--Data context for this window - enabling access to our MainViewModel (ContentControl window section).-->
     <Window.DataContext>
@@ -46,34 +44,38 @@
                    Margin="10,0,0,0"
                    Source="{Binding VOWsuiteLogo.ImageSource}"/>
 
-            <!--The row of categories along the left side of the application. This does not include the bottom 3, which are in their own StackPanel.-->
+            <!--The row of categories along the left side of the application.-->
             <StackPanel Grid.Row="1">
 
                 <RadioButton Content="Home"
                              Height="50"
                              FontSize="14"
                              Style="{StaticResource MenuButtonSticky}"
-                             IsChecked="True"
+                             IsChecked="{Binding HomeIsChecked}"
                              Command="{Binding HomeViewCommand}"/>
                 <RadioButton Content="New"
                              Height="50"
                              FontSize="14"
                              Style="{StaticResource MenuButtonSticky}"
+                             IsChecked="{Binding NewIsChecked}"
                              Command="{Binding NewViewCommand}"/>
                 <RadioButton Content="Open"
                              Height="50"
                              FontSize="14"
                              Style="{StaticResource MenuButtonSticky}"
+                             IsChecked="{Binding OpenIsChecked}"
                              Command="{Binding OpenViewCommand}"/>
                 <RadioButton Content="Pinned"
                              Height="50"
                              FontSize="14"
                              Style="{StaticResource MenuButtonSticky}"
+                             IsChecked="{Binding PinnedIsChecked}"
                              Command="{Binding PinnedViewCommand}"/>
                 <RadioButton Content="Recent"
                              Height="50"
                              FontSize="14"
                              Style="{StaticResource MenuButtonSticky}"
+                             IsChecked="{Binding RecentIsChecked}"
                              Command="{Binding RecentViewCommand}"/>
 
             </StackPanel>

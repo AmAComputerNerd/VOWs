@@ -9,10 +9,14 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Resource Include="Resources\Images\example.png">
+    <None Remove="Resources\Images\VOWs Home Arrow.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Resources\Icons\VOWsuite-logos_icon.ico">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
-    <Resource Include="Resources\Icons\VOWsuite-logos_icon.ico">
+    <Resource Include="Resources\Images\VOWs Home Arrow.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Resources\Images\VOWsuite-logos_black.png">

@@ -19,19 +19,19 @@ namespace VOWs.MVVM.ViewModel
         public Globals Globals { get => Globals.Default; }
 
         /// <summary>
-        /// The <c>DocumentEditVM</c> parameter refers to the current instance of the <c>DocumentEditViewModel</c> and accompanying view.
+        /// The <c>DocumentEditVM</c> property refers to the current instance of the <c>DocumentEditViewModel</c> and accompanying view.
         /// </summary>
         public DocumentEditViewModel DocumentEditVM;
         /// <summary>
-        /// The <c>DocumentEditViewCommand</c> command will trigger a change in the <c>CurrentView</c> parameter, setting it to <c>DocumentEditVM</c>.
+        /// The <c>DocumentEditViewCommand</c> command will trigger a change in the <c>CurrentView</c> property, setting it to <c>DocumentEditVM</c>.
         /// </summary>
         public RelayCommand DocumentEditViewCommand;
         /// <summary>
-        /// The <c>SettingsVM</c> parameter refers to the current instance of the <c>SettingsViewModel</c> and accompanying view.
+        /// The <c>SettingsVM</c> property refers to the current instance of the <c>SettingsViewModel</c> and accompanying view.
         /// </summary>
         public SettingsViewModel SettingsVM;
         /// <summary>
-        /// The <c>SettingsViewCommand</c> command will trigger a change in the <c>CurrentView</c> parameter, setting it to <c>SettingsVM</c>.
+        /// The <c>SettingsViewCommand</c> command will trigger a change in the <c>CurrentView</c> property, setting it to <c>SettingsVM</c>.
         /// </summary>
         public RelayCommand SettingsViewCommand;
 

@@ -19,17 +19,52 @@
               Margin="0,0,0,10"
               Style="{StaticResource ThemedShape}"/>
 
-        <UniformGrid Columns="2">
+        <Grid>
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition MinHeight="325"/>
+            </Grid.RowDefinitions>
+
+            <Border BorderThickness="3,3,0,0"
+                    Style="{StaticResource ThemedBorder}"/>
+            <Border BorderThickness="3,3,3,0"
+                    Grid.Column="1"
+                    Style="{StaticResource ThemedBorder}"/>
+            <Border BorderThickness="3,0,0,3"
+                    Grid.Row="1"
+                    Style="{StaticResource ThemedBorder}"/>
+            <Border BorderThickness="3,0,3,3"
+                    Grid.Row="1" Grid.Column="1"
+                    Style="{StaticResource ThemedBorder}"/>
 
             <TextBlock Text="Workspaces"
-                       HorizontalAlignment="Center"
+                       HorizontalAlignment="Center" VerticalAlignment="Center"
+                       Margin="0" Padding="10"
                        Style="{StaticResource TextSubtitle}"/>
             <TextBlock Text="Documents"
-                       HorizontalAlignment="Center"
+                       HorizontalAlignment="Center" VerticalAlignment="Center"
+                       Margin="0" Padding="10"
                        Grid.Column="1"
                        Style="{StaticResource TextSubtitle}"/>
 
-        </UniformGrid>
+            <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center"
+                        Grid.Row="1">
+                <TextBlock Text="Nothing to show!"
+                           Style="{StaticResource Text}"/>
+            </StackPanel>
+
+            <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center"
+                        Grid.Row="1" Grid.Column="1">
+                <TextBlock Text="Nothing to show!"
+                           Style="{StaticResource Text}"/>
+            </StackPanel>
+
+        </Grid>
 
     </StackPanel>
 </UserControl>

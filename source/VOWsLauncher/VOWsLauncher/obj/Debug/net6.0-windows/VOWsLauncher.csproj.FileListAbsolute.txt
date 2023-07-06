@@ -36,3 +36,9 @@ D:\Coding\C#\VOWs\source\VOWsLauncher\VOWsLauncher\obj\Debug\net6.0-windows\VOWs
 D:\Coding\C#\VOWs\source\VOWsLauncher\VOWsLauncher\obj\Debug\net6.0-windows\ref\VOWsLauncher.dll
 D:\Coding\C#\VOWs\source\VOWsLauncher\VOWsLauncher\obj\Debug\net6.0-windows\MVVM\View\SettingsView.g.cs
 D:\Coding\C#\VOWs\source\VOWsLauncher\VOWsLauncher\obj\Debug\net6.0-windows\MVVM\View\SettingsView.baml
+D:\Coding\C#\VOWs\source\VOWsLauncher\VOWsLauncher\obj\Debug\net6.0-windows\MVVM\View\TemplatesView.g.cs
+D:\Coding\C#\VOWs\source\VOWsLauncher\VOWsLauncher\obj\Debug\net6.0-windows\MVVM\View\TemplatesView.baml
+D:\Coding\C#\VOWs\source\VOWsLauncher\VOWsLauncher\obj\Debug\net6.0-windows\SubWindows\NewDocumentWindow.g.cs
+D:\Coding\C#\VOWs\source\VOWsLauncher\VOWsLauncher\obj\Debug\net6.0-windows\SubWindows\NewDocumentWindow.baml
+D:\Coding\C#\VOWs\source\VOWsLauncher\VOWsLauncher\obj\Debug\net6.0-windows\SubWindows\NewWorkspaceWindow.g.cs
+D:\Coding\C#\VOWs\source\VOWsLauncher\VOWsLauncher\obj\Debug\net6.0-windows\SubWindows\NewWorkspaceWindow.baml
