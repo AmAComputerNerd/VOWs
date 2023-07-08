@@ -82,7 +82,7 @@ namespace VOWsLauncher.MVVM.Model
         public Globals()
         {
             // TODO: Add database access.
-            WrappedTheme = new WrappedItem<string>("application.theme", "Theme", "Dark", true);
+            WrappedTheme = new WrappedItem<string>("application.theme", "Theme", "White", true);
             WrappedUseHighContrast = new WrappedItem<bool>("application.accessibility.highcontrast", "High Contrast", false, true);
             WrappedUseLargeText = new WrappedItem<bool>("application.accessibility.largetext", "Large Text", false, true);
             WrappedShowBeginnersText = new WrappedItem<bool>("application.launcher.beginnerstips", "Beginners Tips", true, true);

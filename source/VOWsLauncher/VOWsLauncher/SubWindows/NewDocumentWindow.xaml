@@ -4,47 +4,132 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:VOWsLauncher.SubWindows"
+        xmlns:viewmodel="clr-namespace:VOWsLauncher.MVVM.ViewModel.SubWindows" d:DataContext="{d:DesignInstance Type=viewmodel:NewDocumentWindowViewModel}"
         mc:Ignorable="d"
         Height="400" Width="300"
         WindowStyle="ToolWindow" ResizeMode="NoResize">
 
-    <Border Padding="10"
-            Style="{StaticResource ThemedBorder}">
+    <!--The grid surrounding this subwindow.-->
+    <Grid Style="{StaticResource ThemedGrid}">
 
-        <StackPanel>
+        <!--The StackPanel containing all of the content of this subwindow, besides the 'Create' and 'Cancel' buttons.-->
+        <StackPanel Margin="10">
 
+            <!--The title and description for this window.-->
             <TextBlock Text="New Document"
                        Style="{StaticResource TextSubtitle}"/>
-
             <TextBlock Text="Create a new document - a canvas for your&#x0a;next essay, presentation or masterpiece!"
                        Style="{StaticResource Text}"/>
 
-            <RibbonTextBox Label="Name"/>
-            <Grid>
+            <!--The full list of settings that can be changed by the user.-->
+            <Grid Margin="0,20,0,0">
+                <!--Column definitions for this grid include the label and the buttons / textboxes for each setting.-->
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition/>
                     <ColumnDefinition/>
                 </Grid.ColumnDefinitions>
+                <!--Row definitions for this grid include a row for every available setting.-->
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
 
-                <Label Content="Location"/>
-                <Button Content="Browse"
-                        FontSize="10"
-                        Grid.Column="1"
-                        HorizontalAlignment="Center"
-                        Padding="15,0"
-                        Style="{StaticResource StylisedButton}"/>
+                <!--The name for this document.-->
+                <TextBlock Text="Document Name"
+                           Style="{StaticResource Text}"/>
+                <TextBox Text="{Binding DocumentName}"
+                         HorizontalContentAlignment="Center" VerticalContentAlignment="Center"
+                         Grid.Column="1"/>
+
+                <!--The location that this new document will be saved in.-->
+                <TextBlock Text="Location"
+                           Grid.Row="1"
+                           Style="{StaticResource Text}"/>
+                <TextBox Text="{Binding RawDirectory}"
+                         HorizontalContentAlignment="Center" VerticalContentAlignment="Center"
+                         Grid.Row="1" Grid.Column="1"/>
+
+                <!--The 'optional' text and line that separates the mandatory settings from the optional settings.-->
+                <Grid Grid.Row="2" Grid.ColumnSpan="2"
+                      Margin="0,10,0,0">
+                    
+                    <Line X1="0" X2="280"
+                          Y1="0" Y2="0"
+                          VerticalAlignment="Center"
+                          Style="{StaticResource InvertedShape}"/>
+                    <TextBlock Text="Optional"
+                               HorizontalAlignment="Center" VerticalAlignment="Center"
+                               Style="{StaticResource Text}"/>
+                    
+                </Grid>
+
+                <!--The template this new document will be modelled off of.-->
+                <TextBlock Text="Selected Template"
+                           Grid.Row="3"
+                           Style="{StaticResource Text}"/>
+                <TextBlock Text="{Binding Template.Name}"
+                           HorizontalAlignment="Right" VerticalAlignment="Center"
+                           Grid.Row="3" Grid.Column="1"
+                           Style="{StaticResource Text}"/>
+
+                <!--The default page size to be applied to the document.-->
+                <TextBlock Text="Default Page Size"
+                           Grid.Row="4"
+                           Style="{StaticResource Text}"/>
+                <ComboBox SelectedItem="{Binding PageSize_Selected}"
+                          ItemsSource="{Binding PageSize_Elements}"
+                          HorizontalAlignment="Right" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"
+                          MinWidth="30"
+                          Grid.Row="4" Grid.Column="1"/>
+                <!--<TextBox Text="A4"
+                         HorizontalAlignment="Right" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"
+                         MinWidth="30"
+                         Grid.Row="4" Grid.Column="1"/>-->
+
+                <!--The default page orientation to be applied to the document.-->
+                <TextBlock Text="Default Page Orientation"
+                           Grid.Row="5" Grid.ColumnSpan="2"
+                           Style="{StaticResource Text}"/>
+                <StackPanel Orientation="Horizontal"
+                            HorizontalAlignment="Right"
+                            Grid.Row="5" Grid.Column="1">
+
+                    <RadioButton Content="Vertical"
+                                 FontSize="10"
+                                 Padding="5,0"
+                                 IsChecked="{Binding IsVerticalSelected}"
+                                 Style="{StaticResource StylisedButtonSticky}"/>
+                    <RadioButton Content="Horizontal"
+                                 FontSize="10"
+                                 Padding="5,0"
+                                 IsChecked="{Binding IsHorizontalSelected}"
+                                 Style="{StaticResource StylisedButtonSticky}"/>
+
+                </StackPanel>
+
             </Grid>
-
-            <UniformGrid Columns="2"
-                         Margin="0,200,0,0">
-                <Button Content="Done"
-                        Style="{StaticResource StylisedButton}"/>
-                <Button Content="Cancel"
-                        Style="{StaticResource StylisedButton}"/>
-            </UniformGrid>
 
         </StackPanel>
 
-    </Border>
-    
+        <!--The UniformGrid containing the 'Create' and 'Cancel' buttons.-->
+        <UniformGrid Columns="2"
+                     VerticalAlignment="Bottom">
+            
+            <Button Content="Create"
+                    FontSize="14"
+                    Style="{StaticResource StylisedButton}"
+                    Command="{Binding CreateCommand}"/>
+            <Button Content="Cancel"
+                    FontSize="14"
+                    Style="{StaticResource StylisedButton}"
+                    Command="{Binding CancelCommand}"/>
+            
+        </UniformGrid>
+
+    </Grid>
+
 </Window>

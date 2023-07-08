@@ -25,7 +25,7 @@
 
         <Line X1="0" X2="800"
               Y1="4" Y2="4"
-              Style="{StaticResource ThemedShape}"/>
+              Style="{StaticResource InvertedShape}"/>
 
         <TextBlock Text="Launcher:"
                    Style="{StaticResource TextSubtitle}"/>
@@ -34,7 +34,7 @@
 
         <Line X1="0" X2="800"
               Y1="4" Y2="4"
-              Style="{StaticResource ThemedShape}"/>
+              Style="{StaticResource InvertedShape}"/>
 
         <TextBlock Text="Editor:"
                    Style="{StaticResource TextSubtitle}"/>

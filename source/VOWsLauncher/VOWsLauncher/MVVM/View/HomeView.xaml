@@ -3,7 +3,8 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:VOWsLauncher.MVVM.View" xmlns:viewmodel="clr-namespace:VOWsLauncher.MVVM.ViewModel" d:DataContext="{d:DesignInstance Type=viewmodel:HomeViewModel}"
+             xmlns:local="clr-namespace:VOWsLauncher.MVVM.View" 
+             xmlns:viewmodel="clr-namespace:VOWsLauncher.MVVM.ViewModel" d:DataContext="{d:DesignInstance Type=viewmodel:HomeViewModel}"
              mc:Ignorable="d" 
              d:DesignHeight="495" d:DesignWidth="690">
 

@@ -13,6 +13,7 @@ namespace VOWs.MVVM.Model
         // Fields.
         private string _name;
         private string _defaultPageSize;
+        private string _defaultPageOrientation;
         private ObservableCollection<Page> _pages;
         private Uri _fileLocation;
         // Properties.
@@ -25,6 +26,11 @@ namespace VOWs.MVVM.Model
         /// For more information on applicable values, see <c>Page.Size</c>.
         /// </summary>
         public string DefaultPageSize { get => _defaultPageSize; set => SetProperty(ref _defaultPageSize, value); }
+        /// <summary>
+        /// The <c>DefaultPageOrientation</c> property represents the default page orientation to give to new Pages associated with it.
+        /// For more information on applicable values, see <c>Page.Orientation</c>
+        /// </summary>
+        public string DefaultPageOrientation { get => _defaultPageOrientation; set => SetProperty(ref _defaultPageOrientation, value); }
         /// <summary>
         /// The <c>Pages</c> property represents the collection of Pages that make up this document.
         /// </summary>

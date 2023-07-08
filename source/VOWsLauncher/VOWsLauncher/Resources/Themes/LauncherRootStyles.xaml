@@ -76,7 +76,7 @@
            TargetType="Grid">
 
         <Style.Setters>
-            <Setter Property="Background" Value="#353b47"/>
+            <Setter Property="Background" Value="#3d3d3d"/>
         </Style.Setters>
 
         <Style.Triggers>
@@ -128,6 +128,37 @@
            TargetType="{x:Type Shape}">
 
         <Style.Setters>
+            <Setter Property="Fill" Value="#3d3d3d"/>
+            <Setter Property="Stroke" Value="#474747"/>
+        </Style.Setters>
+
+        <Style.Triggers>
+            <!--Theming triggers. These are pretty long, annoyingly, because Trigger objects can't be nested.-->
+            <!--Default theming triggers. Anything that changes based ONLY on the theme selected should go in here.-->
+            <DataTrigger Binding="{Binding Globals.Theme}" Value="Black">
+                <Setter Property="Fill" Value="#1e1e1e"/>
+                <Setter Property="Stroke" Value="#262626"/>
+            </DataTrigger>
+            <DataTrigger Binding="{Binding Globals.Theme}" Value="Dark">
+                <Setter Property="Fill" Value="#3d3d3d"/>
+                <Setter Property="Stroke" Value="#474747"/>
+            </DataTrigger>
+            <DataTrigger Binding="{Binding Globals.Theme}" Value="Light">
+                <Setter Property="Fill" Value="#ebebeb"/>
+                <Setter Property="Stroke" Value="#e0e0e0"/>
+            </DataTrigger>
+            <DataTrigger Binding="{Binding Globals.Theme}" Value="White">
+                <Setter Property="Fill" Value="#ffffff"/>
+                <Setter Property="Stroke" Value="#f5f5f5"/>
+            </DataTrigger>
+        </Style.Triggers>
+        
+    </Style>
+
+    <Style x:Key="InvertedShape"
+           TargetType="{x:Type Shape}">
+
+        <Style.Setters>
             <Setter Property="Fill" Value="#e0e0e0"/>
             <Setter Property="Stroke" Value="#ebebeb"/>
         </Style.Setters>
@@ -152,7 +183,7 @@
                 <Setter Property="Stroke" Value="#1e1e1e"/>
             </DataTrigger>
         </Style.Triggers>
-        
+
     </Style>
     
     <Style x:Key="WinNavigationButton"
@@ -771,4 +802,215 @@
 
     </Style>
 
+    <Style x:Key="StylisedButtonSticky"
+           BasedOn="{StaticResource {x:Type ToggleButton}}"
+           TargetType="RadioButton">
+
+        <Style.Setters>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="RadioButton">
+                        <Border Background="{TemplateBinding Background}"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}">
+
+                            <TextBlock Text="{TemplateBinding Property=Content}"
+                                       VerticalAlignment="Center"
+                                       HorizontalAlignment="Center"
+                                       FontSize="{TemplateBinding FontSize}"
+                                       FontWeight="Bold"
+                                       Padding="{TemplateBinding Padding}"
+                                       Foreground="{TemplateBinding Foreground}"/>
+
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+
+            <Setter Property="Foreground" Value="#b8b8b8"/>
+            <Setter Property="Background">
+                <Setter.Value>
+                    <LinearGradientBrush StartPoint="0,0" EndPoint="1,2">
+                        <GradientStop Color="#474747" Offset="0"/>
+                        <GradientStop Color="#3d3d3d" Offset="0.8"/>
+                        <GradientStop Color="#5da1c0" Offset="2"/>
+                    </LinearGradientBrush>
+                </Setter.Value>
+            </Setter>
+            <Setter Property="BorderBrush" Value="#5da1c0"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="FontSize" Value="16"/>
+        </Style.Setters>
+
+        <Style.Triggers>
+
+            <!--Theming triggers. These are pretty long, annoyingly, because Trigger objects can't be nested.-->
+            <!--Default theming triggers. Anything that changes based ONLY on the theme selected should go in here.-->
+            <DataTrigger Binding="{Binding Globals.Theme}" Value="Black">
+                <Setter Property="Foreground" Value="#c6c6c6"/>
+                <Setter Property="Background">
+                    <Setter.Value>
+                        <LinearGradientBrush StartPoint="0,0" EndPoint="1,2">
+                            <GradientStop Color="#262626" Offset="0"/>
+                            <GradientStop Color="#1e1e1e" Offset="0.8"/>
+                            <GradientStop Color="#4084a3" Offset="2"/>
+                        </LinearGradientBrush>
+                    </Setter.Value>
+                </Setter>
+                <Setter Property="BorderBrush" Value="#4084a3"/>
+            </DataTrigger>
+            <DataTrigger Binding="{Binding Globals.Theme}" Value="Dark">
+                <Setter Property="Foreground" Value="#b8b8b8"/>
+                <Setter Property="Background">
+                    <Setter.Value>
+                        <LinearGradientBrush StartPoint="0,0" EndPoint="1,2">
+                            <GradientStop Color="#474747" Offset="0"/>
+                            <GradientStop Color="#3d3d3d" Offset="0.8"/>
+                            <GradientStop Color="#5da1c0" Offset="2"/>
+                        </LinearGradientBrush>
+                    </Setter.Value>
+                </Setter>
+                <Setter Property="BorderBrush" Value="#5da1c0"/>
+            </DataTrigger>
+            <DataTrigger Binding="{Binding Globals.Theme}" Value="Light">
+                <Setter Property="Foreground" Value="#1F1F1F"/>
+                <Setter Property="Background">
+                    <Setter.Value>
+                        <LinearGradientBrush StartPoint="0,0" EndPoint="1,2">
+                            <GradientStop Color="#ebebeb" Offset="0"/>
+                            <GradientStop Color="#e0e0e0" Offset="0.8"/>
+                            <GradientStop Color="#89bbd1" Offset="2"/>
+                        </LinearGradientBrush>
+                    </Setter.Value>
+                </Setter>
+                <Setter Property="BorderBrush" Value="#89bbd1"/>
+            </DataTrigger>
+            <DataTrigger Binding="{Binding Globals.Theme}" Value="White">
+                <Setter Property="Foreground" Value="#0A0A0A"/>
+                <Setter Property="Background">
+                    <Setter.Value>
+                        <LinearGradientBrush StartPoint="0,0" EndPoint="1,2">
+                            <GradientStop Color="#ffffff" Offset="0"/>
+                            <GradientStop Color="#f5f5f5" Offset="0.8"/>
+                            <GradientStop Color="#b6d5e2" Offset="2"/>
+                        </LinearGradientBrush>
+                    </Setter.Value>
+                </Setter>
+                <Setter Property="BorderBrush" Value="#b6d5e2"/>
+            </DataTrigger>
+
+            <!--Theming triggers for the IsMouseOver event, as well as the theme.-->
+            <MultiDataTrigger>
+                <MultiDataTrigger.Conditions>
+                    <Condition Binding="{Binding Globals.Theme}" Value="Black"/>
+                    <!--The condition for IsMouseOver couldn't be defined the simple way, so we need to use this convoluted Binding to access the property.-->
+                    <Condition Binding="{Binding RelativeSource={RelativeSource Mode=Self}, Path=IsMouseOver}" Value="True"/>
+                </MultiDataTrigger.Conditions>
+                <MultiDataTrigger.Setters>
+                    <Setter Property="Background">
+                        <Setter.Value>
+                            <LinearGradientBrush StartPoint="0,0" EndPoint="1,2">
+                                <GradientStop Color="#262626" Offset="0"/>
+                                <GradientStop Color="#1e1e1e" Offset="0.2"/>
+                                <GradientStop Color="#4084a3" Offset="2"/>
+                            </LinearGradientBrush>
+                        </Setter.Value>
+                    </Setter>
+                </MultiDataTrigger.Setters>
+            </MultiDataTrigger>
+            <MultiDataTrigger>
+                <MultiDataTrigger.Conditions>
+                    <Condition Binding="{Binding Globals.Theme}" Value="Dark"/>
+                    <Condition Binding="{Binding RelativeSource={RelativeSource Mode=Self}, Path=IsMouseOver}" Value="True"/>
+                </MultiDataTrigger.Conditions>
+                <MultiDataTrigger.Setters>
+                    <Setter Property="Background">
+                        <Setter.Value>
+                            <LinearGradientBrush StartPoint="0,0" EndPoint="1,2">
+                                <GradientStop Color="#474747" Offset="0"/>
+                                <GradientStop Color="#3d3d3d" Offset="0.2"/>
+                                <GradientStop Color="#5da1c0" Offset="2"/>
+                            </LinearGradientBrush>
+                        </Setter.Value>
+                    </Setter>
+                </MultiDataTrigger.Setters>
+            </MultiDataTrigger>
+            <MultiDataTrigger>
+                <MultiDataTrigger.Conditions>
+                    <Condition Binding="{Binding Globals.Theme}" Value="Light"/>
+                    <Condition Binding="{Binding RelativeSource={RelativeSource Mode=Self}, Path=IsMouseOver}" Value="True"/>
+                </MultiDataTrigger.Conditions>
+                <MultiDataTrigger.Setters>
+                    <Setter Property="Background">
+                        <Setter.Value>
+                            <LinearGradientBrush StartPoint="0,0" EndPoint="1,2">
+                                <GradientStop Color="#ebebeb" Offset="0"/>
+                                <GradientStop Color="#e0e0e0" Offset="0.2"/>
+                                <GradientStop Color="#89bbd1" Offset="2"/>
+                            </LinearGradientBrush>
+                        </Setter.Value>
+                    </Setter>
+                </MultiDataTrigger.Setters>
+            </MultiDataTrigger>
+            <MultiDataTrigger>
+                <MultiDataTrigger.Conditions>
+                    <Condition Binding="{Binding Globals.Theme}" Value="White"/>
+                    <Condition Binding="{Binding RelativeSource={RelativeSource Mode=Self}, Path=IsMouseOver}" Value="True"/>
+                </MultiDataTrigger.Conditions>
+                <MultiDataTrigger.Setters>
+                    <Setter Property="Background">
+                        <Setter.Value>
+                            <LinearGradientBrush StartPoint="0,0" EndPoint="1,2">
+                                <GradientStop Color="#ffffff" Offset="0"/>
+                                <GradientStop Color="#f5f5f5" Offset="0.2"/>
+                                <GradientStop Color="#b6d5e2" Offset="1"/>
+                            </LinearGradientBrush>
+                        </Setter.Value>
+                    </Setter>
+                </MultiDataTrigger.Setters>
+            </MultiDataTrigger>
+
+            <!--Theming triggers for the IsPressed event, as well as the theme.-->
+            <MultiDataTrigger>
+                <MultiDataTrigger.Conditions>
+                    <Condition Binding="{Binding Globals.Theme}" Value="Black"/>
+                    <!--The condition for IsChecked couldn't be defined the simple way, so we need to use this convoluted Binding to access the property.-->
+                    <Condition Binding="{Binding RelativeSource={RelativeSource Mode=Self}, Path=IsChecked}" Value="True"/>
+                </MultiDataTrigger.Conditions>
+                <MultiDataTrigger.Setters>
+                    <Setter Property="Background" Value="#4084a3"/>
+                </MultiDataTrigger.Setters>
+            </MultiDataTrigger>
+            <MultiDataTrigger>
+                <MultiDataTrigger.Conditions>
+                    <Condition Binding="{Binding Globals.Theme}" Value="Dark"/>
+                    <Condition Binding="{Binding RelativeSource={RelativeSource Mode=Self}, Path=IsChecked}" Value="True"/>
+                </MultiDataTrigger.Conditions>
+                <MultiDataTrigger.Setters>
+                    <Setter Property="Background" Value="#5da1c0"/>
+                </MultiDataTrigger.Setters>
+            </MultiDataTrigger>
+            <MultiDataTrigger>
+                <MultiDataTrigger.Conditions>
+                    <Condition Binding="{Binding Globals.Theme}" Value="Light"/>
+                    <Condition Binding="{Binding RelativeSource={RelativeSource Mode=Self}, Path=IsChecked}" Value="True"/>
+                </MultiDataTrigger.Conditions>
+                <MultiDataTrigger.Setters>
+                    <Setter Property="Background" Value="#89bbd1"/>
+                </MultiDataTrigger.Setters>
+            </MultiDataTrigger>
+            <MultiDataTrigger>
+                <MultiDataTrigger.Conditions>
+                    <Condition Binding="{Binding Globals.Theme}" Value="White"/>
+                    <Condition Binding="{Binding RelativeSource={RelativeSource Mode=Self}, Path=IsChecked}" Value="True"/>
+                </MultiDataTrigger.Conditions>
+                <MultiDataTrigger.Setters>
+                    <Setter Property="Background" Value="#b6d5e2"/>
+                </MultiDataTrigger.Setters>
+            </MultiDataTrigger>
+
+        </Style.Triggers>
+
+    </Style>
+    
 </ResourceDictionary>

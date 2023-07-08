@@ -8,19 +8,88 @@
         Height="400" Width="300"
         WindowStyle="ToolWindow" ResizeMode="NoResize">
 
-    <Border Padding="10"
-            Style="{StaticResource ThemedBorder}">
+    <!--The grid surrounding this subwindow.-->
+    <Grid Style="{StaticResource ThemedGrid}">
 
-        <StackPanel>
+        <!--The StackPanel containing all of the content of this subwindow, besides the 'Create' and 'Cancel' buttons.-->
+        <StackPanel Margin="10">
 
+            <!--The title and description for this window.-->
             <TextBlock Text="New Workspace"
                        Style="{StaticResource TextSubtitle}"/>
-
             <TextBlock Text="Create a new workspace - a collection of&#x0a;documents relevant to your topic or&#x0a;project!"
                        Style="{StaticResource Text}"/>
 
+            <!--The full list of settings that can be changed by the user.-->
+            <Grid Margin="0,20,0,0">
+                <!--Column definitions for this grid include the label and the buttons / textboxes for each setting.-->
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <!--Row definitions for this grid include a row for every available setting.-->
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+
+                <!--The name for this document.-->
+                <TextBlock Text="Workspace Name"
+                           Style="{StaticResource Text}"/>
+                <TextBox HorizontalContentAlignment="Center" VerticalContentAlignment="Center"
+                         Grid.Column="1"/>
+
+                <!--The location that this new document will be saved in.-->
+                <TextBlock Text="Location"
+                           Grid.Row="1"
+                           Style="{StaticResource Text}"/>
+                <TextBox HorizontalContentAlignment="Center" VerticalContentAlignment="Center"
+                         Grid.Row="1" Grid.Column="1"/>
+
+                <!--The 'optional' text and line that separates the mandatory settings from the optional settings.-->
+                <Grid Grid.Row="2" Grid.ColumnSpan="2"
+                      Margin="0,10,0,0">
+
+                    <TextBlock Text="Optional"
+                               HorizontalAlignment="Center" VerticalAlignment="Center"
+                               Style="{StaticResource Text}"/>
+                    <Line X1="0" X2="280"
+                          Y1="0" Y2="0"
+                          VerticalAlignment="Center"
+                          Style="{StaticResource ThemedShape}"/>
+
+                </Grid>
+
+                <!--The template this new document will be modelled off of.-->
+                <TextBlock Text="Selected Template"
+                           Grid.Row="3"
+                           Style="{StaticResource Text}"/>
+                <TextBlock Text="None"
+                           HorizontalAlignment="Right" VerticalAlignment="Center"
+                           Grid.Row="3" Grid.Column="1"
+                           Style="{StaticResource Text}"/>
+
+            </Grid>
+
         </StackPanel>
 
-    </Border>
+        <!--The UniformGrid containing the 'Create' and 'Cancel' buttons.-->
+        <UniformGrid Columns="2"
+                     VerticalAlignment="Bottom">
+
+            <Button Content="Create"
+                    FontSize="14"
+                    Style="{StaticResource StylisedButton}"/>
+            <Button Content="Cancel"
+                    FontSize="14"
+                    Style="{StaticResource StylisedButton}"/>
+
+        </UniformGrid>
+
+    </Grid>
 
 </Window>

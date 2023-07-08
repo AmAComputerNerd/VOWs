@@ -23,19 +23,23 @@
                     Style="{StaticResource ThemedBorder}">
                 <ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto">
                     <StackPanel>
-                        <Button Content="📄   VOWs Tutorial"
-                                Padding="0,5"
-                                Style="{StaticResource StylisedButton}"/>
-                        <Button Content="📁   VOWs Workspace Tutorial"
-                                Padding="0,5"
-                                Style="{StaticResource StylisedButton}"/>
+                        <RadioButton Content="📄   VOWs Tutorial"
+                                     Padding="0,5"
+                                     Style="{StaticResource StylisedButtonSticky}"/>
+                        <RadioButton Content="📁   VOWs Workspace Tutorial"
+                                     Padding="0,5"
+                                     Style="{StaticResource StylisedButtonSticky}"/>
                     </StackPanel>
                 </ScrollViewer>
             </Border>
 
-            <Button Content="Done"
-                    Margin="0,20,0,0"
-                    Style="{StaticResource StylisedButton}"/>
+            <UniformGrid Columns="2"
+                        Margin="0,20,0,0">
+                <Button Content="Done"
+                        Style="{StaticResource StylisedButton}"/>
+                <Button Content="Back"
+                        Style="{StaticResource StylisedButton}"/>
+            </UniformGrid>
 
         </StackPanel>
 

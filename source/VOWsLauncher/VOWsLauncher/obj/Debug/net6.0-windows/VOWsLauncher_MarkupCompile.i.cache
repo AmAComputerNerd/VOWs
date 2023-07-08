@@ -12,9 +12,9 @@ TRACE;DEBUG;NET;NET6_0;NETCOREAPP
 D:\Coding\C#\VOWs\source\VOWsLauncher\VOWsLauncher\App.xaml
 11-752214165
 
-30-1899914472
+351158783364
 1951515266371
 MainWindow.xaml;MVVM\View\HomeView.xaml;MVVM\View\NewView.xaml;MVVM\View\OpenView.xaml;MVVM\View\PinnedView.xaml;MVVM\View\RecentView.xaml;MVVM\View\SettingsView.xaml;MVVM\View\TemplatesView.xaml;Resources\Themes\LauncherRootStyles.xaml;SubWindows\NewDocumentWindow.xaml;SubWindows\NewWorkspaceWindow.xaml;
 
-True
+False
 
