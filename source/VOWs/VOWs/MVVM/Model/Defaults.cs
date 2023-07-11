@@ -17,7 +17,7 @@ namespace VOWs.MVVM.Model
         /// <c>size</c> of page with a given <c>orientation</c>. These default dimensions are what would be shown
         /// with 100% zoom (the default).
         /// </summary>
-        /// <param name="size">The size of the page (following standard international printing standard page sizes).</param>
+        /// <param name="size">The size of the page (following international printing standard page sizes).</param>
         /// <param name="orientation">The orientation of the page (horizontal or vertical).</param>
         /// <returns>The array of dimensions, in pixels.</returns>
         public static int[] GetUnscaledPageDimensions(string size, string orientation)
@@ -47,18 +47,18 @@ namespace VOWs.MVVM.Model
         {
             try
             {
-                //double[] scaleFactor = WeakReferenceMessenger.Default.Send<RequestScaleFactorMessage>();
-                double[] scaleFactor = new double[] { 1, 1 };
+                double[] scaleFactor = WeakReferenceMessenger.Default.Send<RequestScaleFactorMessage>();
+                //double[] scaleFactor = new double[] { 1, 1 };
                 pageDimensions = GetUnscaledPageDimensions(size, orientation);
                 for (int i = 0; i < 2; i++)
                 {
-                    pageDimensions[i] = (int)(pageDimensions[i] * scaleFactor[i]);
+                    pageDimensions[i] = (int)((pageDimensions[i] / scaleFactor[i])*100);
                 }
                 return true;
             } 
             catch (Exception)
             {
-                pageDimensions = null;
+                pageDimensions = GetUnscaledPageDimensions(size, orientation);
                 return false;
             }
         }

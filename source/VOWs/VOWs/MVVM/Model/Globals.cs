@@ -20,35 +20,68 @@ namespace VOWs.MVVM.Model
         public static readonly Globals Default = new Globals();
 
         // Fields.
-        private WrappedItem<string> _wrappedTheme;
-        private EnvironmentArgs _commandLineArgs;
-        private Logger _logger;
         private Font _font;
+        private double _zoomLevel;
         
-        // Properties.
+        // Properties (database).
         /// <summary>
         /// The <c>WrappedTheme</c> property will return the theme with extra database information attached (<c>WrappedItem</c>).
         /// </summary>
-        public WrappedItem<string> WrappedTheme { get { return _wrappedTheme; } }
+        public WrappedItem<string> WrappedTheme { get; }
         /// <summary>
         /// The <c>Theme</c> property exposes the value of the theme.
         /// Typically, unless you really need database information, it makes more sense to use this property over <c>WrappedTheme</c>.
         /// </summary>
-        public string Theme { get => _wrappedTheme.Item; set => _wrappedTheme.Set(value); }
+        public string Theme { get => WrappedTheme.Item; set => WrappedTheme.Set(value); }
+        /// <summary>
+        /// The <c>WrappedUseHighContrast</c> property will return the boolean setting with extra database information attached (<c>WrappedItem</c>).
+        /// </summary>
+        public WrappedItem<bool> WrappedUseHighContrast { get; }
+        /// <summary>
+        /// The <c>UseHighContrast</c> property exposes the value of the boolean setting dictating whether elements should use a high contrast colour scheme.
+        /// Typically, unless you really need database information, it makes more sense to use this property over <c>WrappedUseHighContrast</c>.
+        /// </summary>
+        public bool UseHighContrast { get => WrappedUseHighContrast.Item; set => WrappedUseHighContrast.Set(value); }
+        /// <summary>
+        /// The <c>WrappedUseLargeText</c> property will return the boolean setting with extra database information attached (<c>WrappedItem</c>).
+        /// </summary>
+        public WrappedItem<bool> WrappedUseLargeText { get; }
+        /// <summary>
+        /// The <c>UseLargeText</c> property exposes the value of the boolean setting dictating whether text should be enlarged for easier vision.
+        /// Typically, unless you really need database information, it makes more sense to use this property over <c>WrappedUseLargeText</c>.
+        /// </summary>
+        public bool UseLargeText { get => WrappedUseLargeText.Item; set => WrappedUseLargeText.Set(value); }
+        /// <summary>
+        /// The <c>WrappedUseTabsForVersionControl</c> property will return the boolean setting with extra database information attached (<c>WrappedItem</c>).
+        /// </summary>
+        public WrappedItem<bool> WrappedUseTabsForVersionControl { get; }
+        /// <summary>
+        /// The <c>UseTabsForVersionControl</c> property exposes the value of the boolean setting dictating whether the version control actions should be stored in the tabs menu
+        /// (true) or as a seperate window (false).
+        /// Typically, unless you really need database information, it makes more sense to use this property over <c>WrappedUseTabsForVersionControl</c>.
+        /// </summary>
+        public bool UseTabsForVersionControl { get => WrappedUseTabsForVersionControl.Item; set => WrappedUseTabsForVersionControl.Set(value); }
+        
+        // Properties (local).
         /// <summary>
         /// The <c>CommandLineArgs</c> property will return an object that exposes properties obtained from command line arguments.
         /// This includes anything from a document source to debug status.
         /// </summary>
-        public EnvironmentArgs CommandLineArgs { get => _commandLineArgs; }
+        public EnvironmentArgs CommandLineArgs { get; }
         /// <summary>
         /// The <c>Logger</c> property will return the Logger object for the current session.
         /// This Logger may also be written to by sending <c>LogMessage</c> messages.
         /// </summary>
-        public Logger Logger { get => _logger; }
+        public Logger Logger { get; }
         /// <summary>
         /// The <c>Font</c> property exposes the currently set Font settings from DocumentEditView(Model).
         /// </summary>
         public Font Font { get => _font; set => SetProperty(ref _font, value); }
+        /// <summary>
+        /// The <c>ZoomLevel</c> property exposes the currently set zoom level for the Editor.
+        /// It will contribute to the sizing of the page.
+        /// </summary>
+        public double ZoomLevel { get => _zoomLevel; set => SetProperty(ref _zoomLevel, value); }
 
         /// <summary>
         /// The constructor for <c>Global</c> will initialise a new instance.
@@ -59,9 +92,15 @@ namespace VOWs.MVVM.Model
         public Globals()
         {
             // TODO: Add database access.
-            _wrappedTheme = new WrappedItem<string>("application.theme", "Theme", "Black", false);
-            _commandLineArgs = new EnvironmentArgs();
-            _logger = Logger.New();
+            WrappedTheme = new("application.theme", "Theme", "Black", false);
+            WrappedUseHighContrast = new("application.accessibility.highcontrast", "High Contrast", false, false);
+            WrappedUseLargeText = new("application.accessibility.largetext", "Large Text", false, false);
+            WrappedUseTabsForVersionControl = new("application.editor.versioncontrol", "Use Tabs for Version Control", true, false);
+            // Set local properties.
+            CommandLineArgs = new();
+            Logger = Logger.New();
+            Font = Font.Default();
+            ZoomLevel = 0.3;
         }
     }
 }

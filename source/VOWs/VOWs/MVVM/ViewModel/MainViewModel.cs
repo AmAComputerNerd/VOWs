@@ -2,6 +2,7 @@
 using CommunityToolkit.Mvvm.Input;
 using CommunityToolkit.Mvvm.Messaging;
 using System;
+using System.Windows;
 using VOWs.Events;
 using VOWs.MVVM.Model;
 
@@ -50,14 +51,14 @@ namespace VOWs.MVVM.ViewModel
             IsActive = true;
 
             // Assign values for DocumentEdit view.
-            DocumentEditVM = new DocumentEditViewModel();
-            DocumentEditViewCommand = new RelayCommand(() =>
+            DocumentEditVM = new();
+            DocumentEditViewCommand = new(() =>
             {
                 CurrentView = DocumentEditVM;
             });
             // Assign values for Settings view.
-            SettingsVM = new SettingsViewModel();
-            SettingsViewCommand = new RelayCommand(() =>
+            SettingsVM = new();
+            SettingsViewCommand = new(() =>
             {
                 CurrentView = SettingsVM;
             });
@@ -71,8 +72,10 @@ namespace VOWs.MVVM.ViewModel
         /// </summary>
         protected override void OnActivated()
         {
-            // Register the class to receive ChangeViewEvent messages.
+            // Register the class to receive ChangeViewMessage messages.
             Messenger.Register<MainViewModel, ChangeViewMessage>(this, (r, m) => r.Receive(m));
+            // Register the class to reply to RequestScaleFactorMessage messages.
+            Messenger.Register<MainViewModel, RequestScaleFactorMessage>(this, (r, m) => r.Reply(m));
         }
 
         /// <summary>
@@ -81,6 +84,8 @@ namespace VOWs.MVVM.ViewModel
         /// <param name="message">The event that was sent, with data.</param>
         private void Receive(ChangeViewMessage message)
         {
+            // Check if the ChangeViewMessage is explicit (in that it specifies an exact ViewModel to switch to).
+            // If so, we'll just set the CurrentView to the ViewModel matching the numeric ID.
             if(message.IsExplicit)
             {
                 CurrentView = GetViewModel(message.Id);
@@ -92,6 +97,24 @@ namespace VOWs.MVVM.ViewModel
             // Attempt to toggle them.
             if (CurrentView == vm1) CurrentView = vm2;
             else if (CurrentView == vm2) CurrentView = vm1;
+        }
+
+        /// <summary>
+        /// The <c>Reply</c> method will be called whenever the <c>RequestScaleFactorMessage</c> is sent.
+        /// </summary>
+        /// <param name="message">The event that was sent.</param>
+        private void Reply(RequestScaleFactorMessage message)
+        {
+            // Retrieve the current size of the application.
+            double width = Application.Current.MainWindow.Width;
+            double height = Application.Current.MainWindow.Height;
+            // Retrieve the current zoom level, where 1.0 is the default (100%).
+            double zoomLevel = Globals.ZoomLevel;
+            // Calculate the scale factors.
+            double width_scaleFactor = width * zoomLevel;
+            double height_scaleFactor = height * zoomLevel;
+            // Reply to the message.
+            message.Reply(new double[] {width_scaleFactor, height_scaleFactor});
         }
 
         /// <summary>

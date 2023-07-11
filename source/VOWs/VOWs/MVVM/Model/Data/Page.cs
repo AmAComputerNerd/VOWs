@@ -52,15 +52,14 @@ namespace VOWs.MVVM.Model
         {
             get
             {
-                Collection<object> result = new Collection<object>();
-                Border b = new Border();
-                int[] dimensions = new int[2];
-                if(Defaults.GetScaledPageDimensions(Size, Orientation, out dimensions))
+                Collection<object> result = new();
+                Border b = new();
+                if (Defaults.GetScaledPageDimensions(Size, Orientation, out int[] dimensions))
                 {
                     b.Width = dimensions[0];
                     b.Height = dimensions[1];
                 }
-                b.Padding = new Thickness(20);
+                b.Padding = new(20);
                 b.Background = new SolidColorBrush(PageColour);
                 b.Child = Text;
                 result.Add(b);
