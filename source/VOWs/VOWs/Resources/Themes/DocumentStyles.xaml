@@ -59,7 +59,9 @@
            TargetType="UniformGrid">
 
         <Style.Setters>
-            
+
+            <Setter Property="VerticalAlignment" Value="Bottom"/>
+
         </Style.Setters>
         
     </Style>

@@ -3,7 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:VOWsLauncher.MVVM.View"
+             xmlns:local="clr-namespace:VOWsLauncher.MVVM.View" xmlns:viewmodel="clr-namespace:VOWsLauncher.MVVM.ViewModel" d:DataContext="{d:DesignInstance Type=viewmodel:RecentViewModel}"
              mc:Ignorable="d" 
              d:DesignHeight="495" d:DesignWidth="690">
 
@@ -30,11 +30,13 @@
             <Border Grid.Column="1" Style="{StaticResource StylisedBorder}"/>
             <Border Grid.Row="1" Grid.ColumnSpan="2" Style="{StaticResource StylisedBorder}"/>
 
-            <Button Content="Workspaces"
-                    Style="{StaticResource StylisedButton}"/>
-            <Button Content="Documents"
-                    Grid.Column="1"
-                    Style="{StaticResource StylisedButton}"/>
+            <RadioButton Content="Workspaces"
+                         IsChecked="{Binding IsWorkspaceSelected}"
+                         Style="{StaticResource StylisedButtonSticky}"/>
+            <RadioButton Content="Documents"
+                         IsChecked="{Binding IsDocumentSelected}"
+                         Grid.Column="1"
+                         Style="{StaticResource StylisedButtonSticky}"/>
 
             <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center"
                         Grid.Row="1" Grid.ColumnSpan="2">

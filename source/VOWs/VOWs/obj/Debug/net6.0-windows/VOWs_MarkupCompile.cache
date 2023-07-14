@@ -4,17 +4,17 @@
 winexe
 C#
 .cs
-D:\Coding\VOWs\source\VOWs\VOWs\obj\Debug\net6.0-windows\
+D:\Coding\C#\VOWs\source\VOWs\VOWs\obj\Debug\net6.0-windows\
 VOWs
 none
 false
 TRACE;DEBUG;NET;NET6_0;NETCOREAPP
-D:\Coding\VOWs\source\VOWs\VOWs\App.xaml
-6-1412727547
+D:\Coding\C#\VOWs\source\VOWs\VOWs\App.xaml
+5-1393293335
 
-26-1320989711
-195785729555
-MainWindow.xaml;MVVM\View\DocumentEditView.xaml;MVVM\View\PageView.xaml;MVVM\View\SettingsView.xaml;Resources\Themes\DocumentStyles.xaml;Resources\Themes\RootStyles.xaml;
+24-1788223465
+1951515266371
+MainWindow.xaml;MVVM\View\DocumentEditView.xaml;MVVM\View\PageView.xaml;Resources\Themes\DocumentStyles.xaml;Resources\Themes\RootStyles.xaml;
 
 False
 

@@ -1,26 +1,26 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using System;
 using System.Collections.ObjectModel;
+using System.Windows.Media;
 
-namespace VOWs.MVVM.Model
+namespace VOWs.MVVM.Model.Data
 {
-    /// <summary>
-    /// The <c>Document</c> class is a data representation of a VOWsuite document.
-    /// This includes all information from the location of the document on a user's computer to it's pages and (eventually) a version control object.
-    /// </summary>
-    public partial class Document : ObservableRecipient
+    public class Document : ObservableRecipient
     {
-        // Fields.
         private string _name;
+        private Uri _location;
         private string _defaultPageSize;
         private string _defaultPageOrientation;
         private ObservableCollection<Page> _pages;
-        private Uri _fileLocation;
-        // Properties.
+
         /// <summary>
         /// The <c>Name</c> property represents the given name to this Document.
         /// </summary>
         public string Name { get => _name; set => SetProperty(ref _name, value); }
+        /// <summary>
+        /// The <c>Location</c> property represents the location of this Document on the computer.
+        /// </summary>
+        public Uri Location { get => _location; set => SetProperty(ref _location, value); }
         /// <summary>
         /// The <c>DefaultPageSize</c> property represents the default page size to give to new Pages associated with it.
         /// For more information on applicable values, see <c>Page.Size</c>.
@@ -35,58 +35,23 @@ namespace VOWs.MVVM.Model
         /// The <c>Pages</c> property represents the collection of Pages that make up this document.
         /// </summary>
         public ObservableCollection<Page> Pages { get => _pages; set => SetProperty(ref _pages, value); }
-        /// <summary>
-        /// The <c>FileLocation</c> property represents the location of this Document on the computer.
-        /// </summary>
-        public Uri FileLocation { get => _fileLocation; set => SetProperty(ref _fileLocation, value); }
-        /// <summary>
-        /// The <c>DisplayPages</c> attribute represents the display objects (Border, TextBlock, etc.) that make up the Pages of this document.
-        /// </summary>
-        public ObservableCollection<object> DisplayPages
-        {
-            get
-            {
-                Collection<object> result = new Collection<object>();
-                foreach (Page page in Pages) 
-                {
-                    foreach (object obj in page.DisplayElements)
-                    {
-                        result.Add(obj);
-                    }
-                }
-                return new ObservableCollection<object>(result);
-            }
-        }
 
         /// <summary>
         /// The constructor for <c>Document</c> constructs the object based off the Uri pointing to a VOWsuite
         /// "Document" file.
         /// </summary>
-        /// <param name="fileLocation">The Uri pointing to the VOWsuite "Document" file.</param>
-        public Document(Uri fileLocation)
+        /// <param name="location">The Uri pointing to the VOWsuite "Document" file.</param>
+        public Document(Uri location)
         {
-            // TODO: Load document pages through Uri, if exists.
-            Name = "ExampleName";
-            DefaultPageSize = "A4";
+            Location = location;
+            // TODO: Load data from location 'settings.yml' file.
+            Name = "Example Document";
+            DefaultPageSize = "a4";
+            DefaultPageOrientation = "vertical";
             Pages = new()
             {
-                Page.Default()
+                new Page("a4")
             };
-            FileLocation = fileLocation;
-        }
-
-        /// <summary>
-        /// Create a new Document at the defined <c>fileLocation</c>.
-        /// If the <c>fileLocation</c> ends in a fileName, that name will be used as the name for this Document.
-        /// If not, the Document will be named "UntitledX", where X is a number determined by the lowest
-        /// available number that wouldn't conflict with other Document names in that directory.
-        /// </summary>
-        /// <param name="fileLocation">The string representing the file location. Rules for this variable are as defined above.</param>
-        /// <returns>The created Document object.</returns>
-        public static Document CreateNew(string fileLocation)
-        {
-            // TODO: Create a new Document in the specified location.
-            return null;
         }
 
         /// <summary>
@@ -99,7 +64,7 @@ namespace VOWs.MVVM.Model
         /// <returns>The created Document object.</returns>
         public static Document CreateNew(Uri fileDirectory, string fileName)
         {
-            // TODO: Create a new Document in the specified location.
+            // TODO: Create a document in the specified location.
             return null;
         }
     }

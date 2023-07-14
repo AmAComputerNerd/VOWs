@@ -5,10 +5,12 @@
     <TargetFramework>net6.0-windows</TargetFramework>
     <Nullable>enable</Nullable>
     <UseWPF>true</UseWPF>
+	<UseWindowsForms>true</UseWindowsForms>
     <ApplicationIcon>Resources\Icons\VOWsuite-logos_icon.ico</ApplicationIcon>
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="MVVM\Model\DynamicURIResolver.cs~RF11b0648.TMP" />
     <None Remove="Resources\Images\VOWs Home Arrow.png" />
   </ItemGroup>
 

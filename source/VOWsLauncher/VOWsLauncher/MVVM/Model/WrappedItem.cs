@@ -52,7 +52,9 @@ namespace VOWsLauncher.MVVM.Model
         /// <exception cref="ArgumentException">This variable cannot be edited due to <c>RuntimeCanEdit</c> being set to <c>false</c>.</exception>
         public void Set(T item)
         {
+#pragma warning disable CS8602 // Dereference of a possibly null reference.
             if (!RuntimeCanEdit) throw new ArgumentException("Cannot edit WrappedItem of " + Item.ToString() + " during runtime.");
+#pragma warning restore CS8602 // Dereference of a possibly null reference.
             Item = item;
         }
 

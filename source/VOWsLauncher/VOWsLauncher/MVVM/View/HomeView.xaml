@@ -57,7 +57,7 @@
                                Style="{StaticResource TextSubtitle}"/>
 
                     <Rectangle Height="200"
-                               Style="{StaticResource ThemedShape}"/>
+                               Style="{StaticResource AccentedShape}"/>
                 </StackPanel>
 
                 <StackPanel>
@@ -65,7 +65,7 @@
                                Style="{StaticResource TextSubtitle}"/>
 
                     <Rectangle Height="200"
-                               Style="{StaticResource ThemedShape}"/>
+                               Style="{StaticResource AccentedShape}"/>
                 </StackPanel>
 
             </UniformGrid>

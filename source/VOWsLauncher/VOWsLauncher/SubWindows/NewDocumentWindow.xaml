@@ -42,16 +42,22 @@
                 <TextBlock Text="Document Name"
                            Style="{StaticResource Text}"/>
                 <TextBox Text="{Binding DocumentName}"
-                         HorizontalContentAlignment="Center" VerticalContentAlignment="Center"
-                         Grid.Column="1"/>
+                         Grid.Column="1"
+                         Style="{StaticResource UserInput}"/>
 
                 <!--The location that this new document will be saved in.-->
                 <TextBlock Text="Location"
                            Grid.Row="1"
                            Style="{StaticResource Text}"/>
-                <TextBox Text="{Binding RawDirectory}"
-                         HorizontalContentAlignment="Center" VerticalContentAlignment="Center"
-                         Grid.Row="1" Grid.Column="1"/>
+                <Grid Grid.Row="1" Grid.Column="1">
+                    <TextBox Text="{Binding RawDirectory}"
+                             Style="{StaticResource UserInput}"/>
+                    <Button Content="📂"
+                            HorizontalAlignment="Right"
+                            Padding="2"
+                            Style="{StaticResource SimplisticButton}"
+                            Command="{Binding BrowseDirCommand}"/>
+                </Grid>
 
                 <!--The 'optional' text and line that separates the mandatory settings from the optional settings.-->
                 <Grid Grid.Row="2" Grid.ColumnSpan="2"

@@ -14,13 +14,14 @@ namespace VOWsLauncher.MVVM.ViewModel.SubWindows
     {
         public Globals Globals { get => Globals.Default; }
 
+        public RelayCommand BrowseDirCommand { get; }
         public RelayCommand CreateCommand { get; }
         public RelayCommand CancelCommand { get; }
 
         #region XAMLBindings
 
         // Fields
-        private string _documentName = "Unnamed";
+        private string _documentName = "Unnamed Document";
         private string _rawDirectory = "";
         private bool _isVerticalSelected = true;
         private bool _isHorizontalSelected = false;
@@ -57,8 +58,12 @@ namespace VOWsLauncher.MVVM.ViewModel.SubWindows
         {
             get
             {
+#pragma warning disable CS8600 // Converting null literal or possible null value to non-nullable type.
                 Uri.TryCreate(RawDirectory, UriKind.Absolute, out Uri uri);
+#pragma warning restore CS8600 // Converting null literal or possible null value to non-nullable type.
+#pragma warning disable CS8603 // Possible null reference return.
                 return uri;
+#pragma warning restore CS8603 // Possible null reference return.
             }
         }
         /// <summary>
@@ -128,9 +133,17 @@ namespace VOWsLauncher.MVVM.ViewModel.SubWindows
         }
 
         #endregion
-    
+
+#pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
         public NewDocumentWindowViewModel(Window w)
+#pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
         {
+            BrowseDirCommand = new(() =>
+            {
+#pragma warning disable CS8601 // Possible null reference assignment.
+                RawDirectory = WeakReferenceMessenger.Default.Send(new DisplayOpenSubmenuMessage(TargetType.DIRECTORY)) ?? "";
+#pragma warning restore CS8601 // Possible null reference assignment.
+            });
             CreateCommand = new(() =>
             {
                 // TODO: Validation of data.

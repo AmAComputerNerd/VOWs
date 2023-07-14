@@ -1,5 +1,6 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using VOWs.MVVM.Model;
+using VOWs.MVVM.Model.Data;
 
 namespace VOWs.MVVM.ViewModel
 {

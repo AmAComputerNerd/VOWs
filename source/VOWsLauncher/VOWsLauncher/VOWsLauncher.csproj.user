@@ -69,5 +69,8 @@
     <Page Update="SubWindows\NewWorkspaceWindow.xaml">
       <SubType>Designer</SubType>
     </Page>
+    <Page Update="CustomXAML\Themes\Generic.xaml">
+      <SubType>Designer</SubType>
+    </Page>
   </ItemGroup>
 </Project>

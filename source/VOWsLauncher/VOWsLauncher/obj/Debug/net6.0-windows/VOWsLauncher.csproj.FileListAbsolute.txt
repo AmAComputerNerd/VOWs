@@ -42,3 +42,4 @@ D:\Coding\C#\VOWs\source\VOWsLauncher\VOWsLauncher\obj\Debug\net6.0-windows\SubW
 D:\Coding\C#\VOWs\source\VOWsLauncher\VOWsLauncher\obj\Debug\net6.0-windows\SubWindows\NewDocumentWindow.baml
 D:\Coding\C#\VOWs\source\VOWsLauncher\VOWsLauncher\obj\Debug\net6.0-windows\SubWindows\NewWorkspaceWindow.g.cs
 D:\Coding\C#\VOWs\source\VOWsLauncher\VOWsLauncher\obj\Debug\net6.0-windows\SubWindows\NewWorkspaceWindow.baml
+D:\Coding\C#\VOWs\source\VOWsLauncher\VOWsLauncher\obj\Debug\net6.0-windows\CustomXAML\Themes\Generic.baml

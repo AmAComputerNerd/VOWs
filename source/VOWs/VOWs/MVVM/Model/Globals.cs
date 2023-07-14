@@ -1,4 +1,5 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
+using VOWs.MVVM.Model.Data;
 
 namespace VOWs.MVVM.Model
 {
@@ -100,7 +101,6 @@ namespace VOWs.MVVM.Model
             CommandLineArgs = new();
             Logger = Logger.New();
             Font = Font.Default();
-            ZoomLevel = 0.3;
         }
     }
 }

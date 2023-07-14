@@ -106,10 +106,12 @@
                     Grid.Row="1">
 
             <StackPanel>
+                <TextBlock Text="Font"
+                           Style="{StaticResource MenuSectionTitle}"/>
                 <UniformGrid Rows="3"
                              Style="{StaticResource MenuSection}">
 
-                    <TextBox Tag="Font Size:"
+                    <TextBox Tag="Size:"
                              Text="{Binding Globals.Font.Size, Converter={StaticResource strToInt}}"
                              Style="{StaticResource MenuValueBox}"/>
 
@@ -129,8 +131,6 @@
                     </Button>
 
                 </UniformGrid>
-                <TextBlock Text="Font Options"
-                           Style="{StaticResource MenuSectionTitle}"/>
             </StackPanel>
 
         </StackPanel>

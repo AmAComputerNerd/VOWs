@@ -1,4 +1,5 @@
-﻿using CommunityToolkit.Mvvm.Messaging;
+﻿using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Messaging;
 using System;
 using System.IO;
 using VOWsLauncher.Events;
@@ -9,40 +10,37 @@ namespace VOWsLauncher.MVVM.Model
     /// The <c>Logger</c> class handles all logging actions in the application.
     /// It can be written to with a <c>LogMessage</c> message, or through direct references to the object with the various utility methods.
     /// </summary>
-    public class Logger : IRecipient<LogMessage>
+    public class Logger : ObservableRecipient
     {
         /// <summary>
         /// The <c>LogUri</c> parameter represents the location of the log file in the system.
-        /// It should be used in conjunction with the <c>File</c> class to save the steam to the system,
+        /// It should be used in conjunction with the <c>LogFileInfo</c> to save the stream to the system,
         /// when required.
         /// </summary>
-        private Uri LogUri;
+        public Uri LogUri;
         /// <summary>
         /// The <c>LogFileInfo</c> parameter represents the up-to-date info of the log file in the system.
         /// It is automatically updated whenever the <c>LogStream</c> is saved.
         /// </summary>
-        private FileInfo LogFileInfo;
-        /// <summary>
-        /// The <c>LogStream</c> parameter represents a stream providing read-write access to the log file.
-        /// </summary>
-        private StreamWriter LogStream;
+        public FileInfo LogFileInfo;
 
         /// <summary>
         /// The constructor for <c>Logger</c> will create a new instance that will log all received messages
         /// to a file, called <c>launcher.txt</c>, within the <c>log/</c> directory. If a file exists, it will be
         /// be renamed to avoid conflict.
         /// </summary>
-        private Logger(Uri LogUri, FileInfo LogFileInfo, StreamWriter LogStream)
+        private Logger(Uri LogUri, FileInfo LogFileInfo)
         {
+            // Activate Logger to receive messages.
+            IsActive = true;
             // Initialise variables
-            this.LogStream = LogStream;
             this.LogUri = LogUri;
             this.LogFileInfo = LogFileInfo;
         }
 
         /// <summary>
         /// The <c>Debug</c> method writes a new Debug log message to the log file.
-        /// <c>Debug</c> represents a message that is added for flow purposes; more for the developer than the user.
+        /// <c>Debug</c> represents a message that is added for flow management / development purposes; more for the developer than the user.
         /// </summary>
         /// <param name="message">The message to append to the Debug log.</param>
         public void Debug(string message)
@@ -100,21 +98,31 @@ namespace VOWsLauncher.MVVM.Model
         /// <param name="message"></param>
         private void Write(string message)
         {
-            using (LogStream)
+            // Write the message.
+            using(StreamWriter w = LogFileInfo.AppendText())
             {
-                LogStream.WriteLine(DateTime.Now.ToString("(HH:mm:ss) ") + message);
+                w.WriteLine(DateTime.Now.ToString("(HH:mm:ss) ") + message);
             }
-            LogStream = File.CreateText(LogUri.AbsolutePath);
+            // Refresh the FileInfo object.
+            LogFileInfo.Refresh();
+        }
+
+        /// <summary>
+        /// The overriden <c>OnActivated</c> method registers the class with a variety of messages from the Messenger object.
+        /// </summary>
+        protected override void OnActivated()
+        {
+            Messenger.Register<Logger, LogMessage>(this, (r, m) => r.Receive(m));
         }
 
         /// <summary>
         /// The <c>Receive</c> method will be called whenever the <c>LogMessage</c> is sent.
         /// </summary>
         /// <param name="message">The event that was sent, with data.</param>
-        public void Receive(LogMessage message)
+        private void Receive(LogMessage message)
         {
             string sentMessage;
-            if (message != null && message.Message != null && message.LogLevel != null)
+            if (message != null && message.Message != null)
             {
                 sentMessage = message.LogLevel + ": " + message.Message;
                 if (message.SendingClassDescriptor != null) sentMessage += " (" + message.SendingClassDescriptor + ")";
@@ -133,7 +141,9 @@ namespace VOWsLauncher.MVVM.Model
             try
             {
                 // Define the directory path, and create the directory if it doesn't exist.
+#pragma warning disable CS8602 // Dereference of a possibly null reference.
                 string logDirectoryPath = Directory.GetParent(AppDomain.CurrentDomain.BaseDirectory).FullName + "/logs";
+#pragma warning restore CS8602 // Dereference of a possibly null reference.
                 if (!Directory.Exists(logDirectoryPath))
                 {
                     Directory.CreateDirectory(logDirectoryPath);
@@ -142,10 +152,11 @@ namespace VOWsLauncher.MVVM.Model
                 string logPath = logDirectoryPath + "/launcher.txt";
                 if (File.Exists(logPath) && (new FileInfo(logPath)).Length != 0)
                 {
-                    File.Copy(logPath, logDirectoryPath + "/launcher-" + File.GetCreationTime(logPath).ToString("yyyy-MM-dd@HH.mm.ss") + ".txt");
+                    File.Copy(logPath, logDirectoryPath + "/launcher-" + DateTime.Now.ToString("yyyy-MM-dd@HH.mm.ss") + ".txt");
                 }
+                File.WriteAllText(logPath, string.Empty);
                 // Return a Logger.
-                return new(new(logPath), new(logPath), File.CreateText(logPath));
+                return new(new(logPath), new(logPath));
             }
             catch (Exception)
             {

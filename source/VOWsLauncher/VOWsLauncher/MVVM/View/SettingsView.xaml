@@ -3,25 +3,87 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:VOWsLauncher.MVVM.View"
+             xmlns:local="clr-namespace:VOWsLauncher.MVVM.View" xmlns:viewmodel="clr-namespace:VOWsLauncher.MVVM.ViewModel" d:DataContext="{d:DesignInstance Type=viewmodel:SettingsViewModel}"
              mc:Ignorable="d" 
              d:DesignHeight="495" d:DesignWidth="690">
 
     <StackPanel>
 
-        <TextBlock Text="Settings"
-                   Style="{StaticResource TextTitle}"/>
+        <Grid>
+            <TextBlock Text="Settings"
+                       Style="{StaticResource TextTitle}"/>
+            <StackPanel Orientation="Horizontal"
+                        HorizontalAlignment="Right" VerticalAlignment="Center">
+                <TextBlock Text="Your changes will not be saved until you click the 'Save' button!"
+                           VerticalAlignment="Center"
+                           Margin="0,0,10,0"
+                           Style="{StaticResource Text}"/>
+                <Button Content="Save"
+                        FontSize="12"
+                        Padding="5" BorderThickness="1"
+                        Style="{StaticResource SimplisticButton}"
+                        Command="{Binding SaveSettingsCommand}"/>
+            </StackPanel>
+        </Grid>
 
         <TextBlock Text="General:"
                    Style="{StaticResource TextSubtitle}"/>
-        <TextBlock Text="    Theme"
-                   Style="{StaticResource TextSubtitle}"/>
-        <TextBlock Text="    Accent"
-                   Style="{StaticResource TextSubtitle}"/>
-        <TextBlock Text="    High Contrast"
-                   Style="{StaticResource TextSubtitle}"/>
-        <TextBlock Text="    Larger Text"
-                   Style="{StaticResource TextSubtitle}"/>
+        <Grid>
+            <TextBlock Text="    Theme"
+                       Style="{StaticResource TextSubtitle}"/>
+            <StackPanel Orientation="Horizontal"
+                        HorizontalAlignment="Right" VerticalAlignment="Center">
+                <RadioButton Content="Black"
+                             IsChecked="{Binding IsBlackTheme}"
+                             Padding="10,5"
+                             Style="{StaticResource SimplisticButtonSticky}"/>
+                <RadioButton Content="Dark"
+                             IsChecked="{Binding IsDarkTheme}"
+                             Padding="10,5"
+                             Style="{StaticResource SimplisticButtonSticky}"/>
+                <RadioButton Content="Light"
+                             IsChecked="{Binding IsLightTheme}"
+                             Padding="10,5"
+                             Style="{StaticResource SimplisticButtonSticky}"/>
+                <RadioButton Content="White"
+                             IsChecked="{Binding IsWhiteTheme}"
+                             Padding="10,5"
+                             Style="{StaticResource SimplisticButtonSticky}"/>
+            </StackPanel>
+        </Grid>
+        <Grid>
+            <TextBlock Text="    Accent"
+                       Style="{StaticResource TextSubtitle}"/>
+            <StackPanel Orientation="Horizontal"
+                        HorizontalAlignment="Right" VerticalAlignment="Center">
+                <TextBlock Text="Requires a valid hex code - leave blank for defaults:"
+                           VerticalAlignment="Center"
+                           Margin="0,0,20,0"
+                           Style="{StaticResource Text}"/>
+                <TextBox Text="{Binding AccentHex}"
+                         VerticalAlignment="Center"
+                         Padding="10,5"
+                         Style="{StaticResource UserInput}"/>
+            </StackPanel>
+        </Grid>
+        <Grid>
+            <TextBlock Text="    High Contrast"
+                       Style="{StaticResource TextSubtitle}"/>
+            <ToggleButton IsChecked="{Binding IsHighContrast}"
+                          MinWidth="30"
+                          Padding="10,5"
+                          HorizontalAlignment="Right" VerticalAlignment="Center"
+                          Style="{StaticResource SimplisticButtonToggle}"/>
+        </Grid>
+        <Grid>
+            <TextBlock Text="    Larger Text"
+                       Style="{StaticResource TextSubtitle}"/>
+            <ToggleButton IsChecked="{Binding IsLargerText}"
+                          MinWidth="30"
+                          Padding="10,5"
+                          HorizontalAlignment="Right" VerticalAlignment="Center"
+                          Style="{StaticResource SimplisticButtonToggle}"/>
+        </Grid>
 
         <Line X1="0" X2="800"
               Y1="4" Y2="4"
@@ -29,8 +91,15 @@
 
         <TextBlock Text="Launcher:"
                    Style="{StaticResource TextSubtitle}"/>
-        <TextBlock Text="    Show beginners content"
-                   Style="{StaticResource TextSubtitle}"/>
+        <Grid>
+            <TextBlock Text="    Show beginners tips"
+                       Style="{StaticResource TextSubtitle}"/>
+            <ToggleButton IsChecked="{Binding IsBeginnerTips}"
+                          MinWidth="30"
+                          Padding="5,5"
+                          HorizontalAlignment="Right" VerticalAlignment="Center"
+                          Style="{StaticResource SimplisticButtonToggle}"/>
+        </Grid>
 
         <Line X1="0" X2="800"
               Y1="4" Y2="4"
@@ -38,8 +107,21 @@
 
         <TextBlock Text="Editor:"
                    Style="{StaticResource TextSubtitle}"/>
-        <TextBlock Text="    Version control tab location"
-                   Style="{StaticResource TextSubtitle}"/>
+        <Grid>
+            <TextBlock Text="    Version control tab location"
+                       Style="{StaticResource TextSubtitle}"/>
+            <StackPanel Orientation="Horizontal"
+                        HorizontalAlignment="Right" VerticalAlignment="Center">
+                <RadioButton Content="Ribbon"
+                             IsChecked="{Binding IsRibbonVersionControl}"
+                             Padding="10,5"
+                             Style="{StaticResource SimplisticButtonSticky}"/>
+                <RadioButton Content="Docked"
+                             IsChecked="{Binding IsDockedVersionControl}"
+                             Padding="10,5"
+                             Style="{StaticResource SimplisticButtonSticky}"/>
+            </StackPanel>
+        </Grid>
 
     </StackPanel>
     

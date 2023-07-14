@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CommunityToolkit.Mvvm.ComponentModel;
+using System;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 
@@ -9,18 +10,19 @@ namespace VOWsLauncher.MVVM.Model
     /// When created, up to four different (string) URIs can be entered to be used depending on the selected theme, as well as a backup URI which must exist to display in case the 
     /// selected URI cannot be created.
     /// </summary>
-    public class DynamicURIResolver
+    public class DynamicURIResolver : ObservableObject
     {
+        // External variables
+        private Globals Globals { get => Globals.Default; }
         // URI variables
-        private string _uri;
+        private string? _uri;
         private Uri _resolveUri;
         // Theme-related variables.
         private bool _usesThemes;
-        private string _currentTheme;
-        private string _blackUri;
-        private string _darkUri;
-        private string _lightUri;
-        private string _whiteUri;
+        private string? _blackUri;
+        private string? _darkUri;
+        private string? _lightUri;
+        private string? _whiteUri;
 
         /// <summary>
         /// The <c>Uri</c> property will return the appropriate URI depending on the theme.
@@ -28,12 +30,13 @@ namespace VOWsLauncher.MVVM.Model
         /// </summary>
         public Uri Uri
         {
+#pragma warning disable CS8600 // Converting null literal or possible null value to non-nullable type.
             get
             {
                 Uri validUri;
-                if (_usesThemes && _currentTheme != null)
+                if (_usesThemes && Globals.Theme != null)
                 {
-                    switch (_currentTheme.ToLower())
+                    switch (Globals.Theme.ToLower())
                     {
                         case "black":
                             Uri.TryCreate(_blackUri, new UriCreationOptions(), out validUri);
@@ -62,6 +65,7 @@ namespace VOWsLauncher.MVVM.Model
                 // Time to use the resolve uri.
                 return _resolveUri;
             }
+#pragma warning restore CS8600 // Converting null literal or possible null value to non-nullable type.
         }
 
         /// <summary>
@@ -100,7 +104,6 @@ namespace VOWsLauncher.MVVM.Model
             _lightUri = lightUri;
             _whiteUri = lightUri;
             _resolveUri = resolveUri;
-            _currentTheme = Globals.Default.Theme;
         }
 
         /// <summary>
@@ -120,7 +123,6 @@ namespace VOWsLauncher.MVVM.Model
             _lightUri = lightUri;
             _whiteUri = whiteUri;
             _resolveUri = resolveUri;
-            _currentTheme = Globals.Default.Theme;
         }
     }
 }

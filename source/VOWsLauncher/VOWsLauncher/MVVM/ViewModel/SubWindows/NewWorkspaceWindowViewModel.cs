@@ -1,9 +1,11 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
 using CommunityToolkit.Mvvm.Messaging;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Windows;
 using System.Windows.Controls;
 using VOWsLauncher.Events;
 using VOWsLauncher.MVVM.Model;
@@ -12,8 +14,16 @@ namespace VOWsLauncher.MVVM.ViewModel.SubWindows
 {
     public class NewWorkspaceWindowViewModel : ObservableObject
     {
+        public Globals Globals { get => Globals.Default; }
+
+        public RelayCommand BrowseDirCommand { get; }
+        public RelayCommand CreateCommand { get; }
+        public RelayCommand CancelCommand { get; }
+
+        #region XAMLBindings
+
         // Fields
-        private string _workspaceName = "Unnamed";
+        private string _workspaceName = "Unnamed Workspace";
         private string _rawDirectory = "";
 
         // Modifiable properties
@@ -38,8 +48,12 @@ namespace VOWsLauncher.MVVM.ViewModel.SubWindows
         {
             get
             {
+#pragma warning disable CS8600 // Converting null literal or possible null value to non-nullable type.
                 Uri.TryCreate(RawDirectory, UriKind.Absolute, out Uri uri);
+#pragma warning restore CS8600 // Converting null literal or possible null value to non-nullable type.
+#pragma warning disable CS8603 // Possible null reference return.
                 return uri;
+#pragma warning restore CS8603 // Possible null reference return.
             }
         }
         /// <summary>
@@ -47,5 +61,28 @@ namespace VOWsLauncher.MVVM.ViewModel.SubWindows
         /// It is retrieved using inter-app messaging, and will default to an empty Template object if none is set.
         /// </summary>
         public Template Template { get => WeakReferenceMessenger.Default.Send(new RetrieveSelectedTemplateMessage()); }
+
+        #endregion XAMLBindings
+
+        public NewWorkspaceWindowViewModel(Window w)
+        {
+            BrowseDirCommand = new(() =>
+            {
+#pragma warning disable CS8601 // Possible null reference assignment.
+                RawDirectory = WeakReferenceMessenger.Default.Send(new DisplayOpenSubmenuMessage(TargetType.DIRECTORY)) ?? "";
+#pragma warning restore CS8601 // Possible null reference assignment.
+            });
+            CreateCommand = new(() =>
+            {
+                // TODO: Validation of data.
+                w.DialogResult = true;
+                w.Close();
+            });
+            CancelCommand = new(() =>
+            {
+                w.DialogResult = false;
+                w.Close();
+            });
+        }
     }
 }

@@ -129,7 +129,7 @@ namespace VOWs.MVVM.ViewModel
             // Set relay commands.
             VOWsuiteLogoCommand = new(() =>
             {
-                Messenger.Send(new ChangeViewMessage(1));
+                
             });
             ToggleHomeTabCommand = new(() =>
             {

@@ -27,14 +27,6 @@ namespace VOWs.MVVM.ViewModel
         /// The <c>DocumentEditViewCommand</c> command will trigger a change in the <c>CurrentView</c> property, setting it to <c>DocumentEditVM</c>.
         /// </summary>
         public RelayCommand DocumentEditViewCommand;
-        /// <summary>
-        /// The <c>SettingsVM</c> property refers to the current instance of the <c>SettingsViewModel</c> and accompanying view.
-        /// </summary>
-        public SettingsViewModel SettingsVM;
-        /// <summary>
-        /// The <c>SettingsViewCommand</c> command will trigger a change in the <c>CurrentView</c> property, setting it to <c>SettingsVM</c>.
-        /// </summary>
-        public RelayCommand SettingsViewCommand;
 
         /// <summary>
         /// The <c>CurrentView</c> property exposes the currently assigned ViewModel to the program, linking to the View to display.
@@ -55,12 +47,6 @@ namespace VOWs.MVVM.ViewModel
             DocumentEditViewCommand = new(() =>
             {
                 CurrentView = DocumentEditVM;
-            });
-            // Assign values for Settings view.
-            SettingsVM = new();
-            SettingsViewCommand = new(() =>
-            {
-                CurrentView = SettingsVM;
             });
 
             // Set CurrentView to default menu (DocumentEditVM).
@@ -124,15 +110,13 @@ namespace VOWs.MVVM.ViewModel
         /// <returns>The ViewModel</returns>
         private object GetViewModel(int id)
         {
-            switch(id)
+#pragma warning disable CS8603 // Possible null reference return.
+            return id switch
             {
-                case 0:
-                    return DocumentEditVM;
-                case 1:
-                    return SettingsVM;
-                default:
-                    return null;
-            }
+                0 => DocumentEditVM,
+                _ => null,
+            };
+#pragma warning restore CS8603 // Possible null reference return.
         }
     }
 }

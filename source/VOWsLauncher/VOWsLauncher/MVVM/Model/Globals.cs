@@ -29,7 +29,32 @@ namespace VOWsLauncher.MVVM.Model
         /// The <c>Theme</c> property exposes the value of the theme.
         /// Typically, unless you really need database information, it makes more sense to use this property over <c>WrappedTheme</c>.
         /// </summary>
-        public string Theme { get => WrappedTheme.Item; set => WrappedTheme.Set(value); }
+        public string Theme 
+        { 
+            get => WrappedTheme.Item;
+            set
+            {
+                WrappedTheme.Set(value);
+                OnPropertyChanged(nameof(Theme));
+            }
+        }
+        /// <summary>
+        /// The <c>WrappedAccent</c> property will return the accent colour with extra database information attached (<c>WrappedItem</c>).
+        /// </summary>
+        public WrappedItem<string> WrappedAccent { get; }
+        /// <summary>
+        /// The <c>Accent</c> property exposes the value of the accent.
+        /// Typically, unless you really need database information, it makes more sense to use this property over <c>WrappedAccent</c>.
+        /// </summary>
+        public string Accent
+        {
+            get => WrappedAccent.Item;
+            set
+            {
+                WrappedAccent.Set(value);
+                OnPropertyChanged(nameof(Accent));
+            }
+        }
         /// <summary>
         /// The <c>WrappedUseHighContrast</c> property will return the boolean setting with extra database information attached (<c>WrappedItem</c>).
         /// </summary>
@@ -38,7 +63,15 @@ namespace VOWsLauncher.MVVM.Model
         /// The <c>UseHighContrast</c> property exposes the value of the boolean setting dictating whether elements should use a high contrast colour scheme.
         /// Typically, unless you really need database information, it makes more sense to use this property over <c>WrappedUseHighContrast</c>.
         /// </summary>
-        public bool UseHighContrast { get => WrappedUseHighContrast.Item; set => WrappedUseHighContrast.Set(value); }
+        public bool UseHighContrast 
+        { 
+            get => WrappedUseHighContrast.Item;
+            set
+            {
+                WrappedUseHighContrast.Set(value);
+                OnPropertyChanged(nameof(UseHighContrast));
+            }
+        }
         /// <summary>
         /// The <c>WrappedUseLargeText</c> property will return the boolean setting with extra database information attached (<c>WrappedItem</c>).
         /// </summary>
@@ -47,7 +80,15 @@ namespace VOWsLauncher.MVVM.Model
         /// The <c>UseLargeText</c> property exposes the value of the boolean setting dictating whether text should be enlarged for easier vision.
         /// Typically, unless you really need database information, it makes more sense to use this property over <c>WrappedUseLargeText</c>.
         /// </summary>
-        public bool UseLargeText { get => WrappedUseLargeText.Item; set => WrappedUseLargeText.Set(value); }
+        public bool UseLargeText 
+        { 
+            get => WrappedUseLargeText.Item;
+            set
+            {
+                WrappedUseLargeText.Set(value);
+                OnPropertyChanged(nameof(UseLargeText));
+            }
+        }
         /// <summary>
         /// The <c>WrappedShowBeginnersText</c> property will return the boolean setting with extra database information attached (<c>WrappedItem</c>).
         /// </summary>
@@ -56,7 +97,15 @@ namespace VOWsLauncher.MVVM.Model
         /// The <c>ShowBeginnersText</c> property exposes the value of the boolean setting dictating whether beginners information should be shown in the launcher.
         /// Typically, unless you really need database information, it makes more sense to use this property over <c>WrappedShowBeginnersText</c>.
         /// </summary>
-        public bool ShowBeginnersText { get => WrappedShowBeginnersText.Item; set => WrappedShowBeginnersText.Set(value); }
+        public bool ShowBeginnersText 
+        { 
+            get => WrappedShowBeginnersText.Item; 
+            set 
+            {
+                WrappedShowBeginnersText.Set(value);
+                OnPropertyChanged(nameof(ShowBeginnersText));
+            } 
+        }
         /// <summary>
         /// The <c>WrappedUseTabsForVersionControl</c> property will return the boolean setting with extra database information attached (<c>WrappedItem</c>).
         /// </summary>
@@ -66,7 +115,15 @@ namespace VOWsLauncher.MVVM.Model
         /// (true) or as a seperate window (false).
         /// Typically, unless you really need database information, it makes more sense to use this property over <c>WrappedUseTabsForVersionControl</c>.
         /// </summary>
-        public bool UseTabsForVersionControl { get => WrappedUseTabsForVersionControl.Item; set => WrappedUseTabsForVersionControl.Set(value); }
+        public bool UseTabsForVersionControl 
+        { 
+            get => WrappedUseTabsForVersionControl.Item; 
+            set 
+            {
+                WrappedUseTabsForVersionControl.Set(value);
+                OnPropertyChanged(nameof(UseTabsForVersionControl));
+            } 
+        }
         /// <summary>
         /// The <c>Logger</c> property will return the Logger object for the current session.
         /// This Logger may also be written to by sending <c>LogMessage</c> messages.
@@ -79,16 +136,21 @@ namespace VOWsLauncher.MVVM.Model
         /// <br></br><br></br>
         /// <i>Looking for the Globals instance? Use <c>Globals.Default</c> and read the description there for more info!</i>
         /// </summary>
+#pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
         public Globals()
+#pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
         {
             // TODO: Add database access.
-            WrappedTheme = new("application.theme", "Theme", "White", true);
+            WrappedTheme = new("application.theme", "Theme", "Black", true);
+            WrappedAccent = new("application.accent", "Accent", "#5da1c0", true);
             WrappedUseHighContrast = new("application.accessibility.highcontrast", "High Contrast", false, true);
             WrappedUseLargeText = new("application.accessibility.largetext", "Large Text", false, true);
             WrappedShowBeginnersText = new("application.launcher.beginnerstips", "Beginners Tips", true, true);
             WrappedUseTabsForVersionControl = new("application.editor.versioncontrol", "Use Tabs for Version Control", true, true);
             // Set local properties.
+#pragma warning disable CS8601 // Possible null reference assignment.
             Logger = Logger.New();
+#pragma warning restore CS8601 // Possible null reference assignment.
         }
     }
 }

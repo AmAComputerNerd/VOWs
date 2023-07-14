@@ -2,7 +2,7 @@
 using System;
 using System.Collections.ObjectModel;
 
-namespace VOWs.MVVM.Model
+namespace VOWs.MVVM.Model.Data
 {
     /// <summary>
     /// The <c>Workspace</c> class is a data representation of a VOWsuite workspace - a collection of documents that are in some ways related to each other, grouped by the user.

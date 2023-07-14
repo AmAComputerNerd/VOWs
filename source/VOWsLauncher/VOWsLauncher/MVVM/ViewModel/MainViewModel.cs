@@ -122,7 +122,9 @@ namespace VOWsLauncher.MVVM.ViewModel
         /// <summary>
         /// A constructor for <c>MainViewModel</c> that assigns default values to all class variables.
         /// </summary>
-        public MainViewModel() 
+#pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
+        public MainViewModel()
+#pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
         {
             // Activate MainViewModel to receive messages.
             IsActive = true;
@@ -183,6 +185,7 @@ namespace VOWsLauncher.MVVM.ViewModel
                 }
                 else
                 {
+                    SettingsVM.ResetValues();
                     CurrentView = SettingsVM;
                     UpdateMenuButtonSelection(5);
                 }
@@ -202,7 +205,7 @@ namespace VOWsLauncher.MVVM.ViewModel
         }
 
         /// <summary>
-        /// The overriden <c>OnActivated</c> method registers the class with a variety of messagers from the Messenger object.
+        /// The overriden <c>OnActivated</c> method registers the class with a variety of messages from the Messenger object.
         /// </summary>
         protected override void OnActivated()
         {
@@ -224,8 +227,10 @@ namespace VOWsLauncher.MVVM.ViewModel
             }
             // Fetch both viewmodels.
             object vm1 = GetViewModel(message.Id);
+#pragma warning disable CS8629 // Nullable value type may be null.
             object vm2 = GetViewModel((int)message.OtherId);
-            // Attempt to toggle them.
+#pragma warning restore CS8629 // Nullable value type may be null.
+                              // Attempt to toggle them.
             if (CurrentView == vm1)
             {
                 CurrentView = vm2;

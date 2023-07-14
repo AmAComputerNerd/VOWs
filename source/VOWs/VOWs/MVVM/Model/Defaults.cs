@@ -1,8 +1,4 @@
-﻿using CommunityToolkit.Mvvm.Messaging;
-using System;
-using System.Windows;
-using System.Windows.Interop;
-using VOWs.Events;
+﻿using System;
 
 namespace VOWs.MVVM.Model
 {
@@ -25,7 +21,7 @@ namespace VOWs.MVVM.Model
             switch(size.ToLower())
             {
                 case "a4":
-                    if (orientation.ToLower().Equals("horizontal")) return new int[] { 0, 0 };
+                    if (orientation.ToLower().Equals("horizontal")) return new int[] { 877, 620 };
                     else return new int[] { 620, 877 };
                 case "a3":
                     if (orientation.ToLower().Equals("horizontal")) return new int[] { 0, 0 };
@@ -47,8 +43,8 @@ namespace VOWs.MVVM.Model
         {
             try
             {
-                double[] scaleFactor = WeakReferenceMessenger.Default.Send<RequestScaleFactorMessage>();
-                //double[] scaleFactor = new double[] { 1, 1 };
+                //double[] scaleFactor = WeakReferenceMessenger.Default.Send<RequestScaleFactorMessage>();
+                double[] scaleFactor = new double[] { 1, 1 };
                 pageDimensions = GetUnscaledPageDimensions(size, orientation);
                 for (int i = 0; i < 2; i++)
                 {

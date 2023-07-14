@@ -1,4 +1,5 @@
-﻿using CommunityToolkit.Mvvm.Messaging;
+﻿using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Messaging;
 using System;
 using System.IO;
 using VOWs.Events;
@@ -9,33 +10,30 @@ namespace VOWs.MVVM.Model
     /// The <c>Logger</c> class handles all logging actions in the application.
     /// It can be written to with a <c>LogMessage</c> message, or through direct references to the object with the various utility methods.
     /// </summary>
-    public class Logger : IRecipient<LogMessage>
+    public class Logger : ObservableRecipient
     {
         /// <summary>
         /// The <c>LogUri</c> parameter represents the location of the log file in the system.
-        /// It should be used in conjunction with the <c>File</c> class to save the steam to the system,
+        /// It should be used in conjunction with the <c>LogFileInfo</c> to save the stream to the system,
         /// when required.
         /// </summary>
-        private Uri LogUri;
+        public Uri LogUri;
         /// <summary>
         /// The <c>LogFileInfo</c> parameter represents the up-to-date info of the log file in the system.
         /// It is automatically updated whenever the <c>LogStream</c> is saved.
         /// </summary>
-        private FileInfo LogFileInfo;
-        /// <summary>
-        /// The <c>LogStream</c> parameter represents a stream providing read-write access to the log file.
-        /// </summary>
-        private StreamWriter LogStream;
+        public FileInfo LogFileInfo;
 
         /// <summary>
         /// The constructor for <c>Logger</c> will create a new instance that will log all received messages
-        /// to a file, called <c>log.txt</c>, within the <c>log/</c> directory. If a file exists, it will be
+        /// to a file, called <c>editor.txt</c>, within the <c>log/</c> directory. If a file exists, it will be
         /// be renamed to avoid conflict.
         /// </summary>
-        private Logger(Uri LogUri, FileInfo LogFileInfo, StreamWriter LogStream)
+        private Logger(Uri LogUri, FileInfo LogFileInfo)
         {
+            // Activate Logger to receive messages.
+            IsActive = true;
             // Initialise variables
-            this.LogStream = LogStream;
             this.LogUri = LogUri;
             this.LogFileInfo = LogFileInfo;
         }
@@ -63,7 +61,7 @@ namespace VOWs.MVVM.Model
         /// <summary>
         /// The <c>Warn</c> method writes a new Warning log message to the log file.
         /// <c>Warning</c> represents a message for an unsuccessful operation that shouldn't interupt the flow of
-        /// the application - it is a guide message in a way.
+        /// the application - it intends to notify the user of any issues that may have been encountered.
         /// </summary>
         /// <param name="message">The message to append to the Warning log.</param>
         public void Warn(string message)
@@ -100,31 +98,41 @@ namespace VOWs.MVVM.Model
         /// <param name="message"></param>
         private void Write(string message)
         {
-            using(LogStream)
+            // Write the message.
+            using (StreamWriter w = LogFileInfo.AppendText())
             {
-                LogStream.WriteLine(DateTime.Now.ToString("(HH:mm:ss) ") + message);
+                w.WriteLine(DateTime.Now.ToString("(HH:mm:ss) ") + message);
             }
-            LogStream = File.CreateText(LogUri.AbsolutePath);
+            // Refresh the FileInfo object.
+            LogFileInfo.Refresh();
+        }
+
+        /// <summary>
+        /// The overriden <c>OnActivated</c> method registers the class with a variety of messages from the Messenger object.
+        /// </summary>
+        protected override void OnActivated()
+        {
+            Messenger.Register<Logger, LogMessage>(this, (r, m) => r.Receive(m));
         }
 
         /// <summary>
         /// The <c>Receive</c> method will be called whenever the <c>LogMessage</c> is sent.
         /// </summary>
         /// <param name="message">The event that was sent, with data.</param>
-        public void Receive(LogMessage message)
+        private void Receive(LogMessage message)
         {
             string sentMessage;
-            if(message != null && message.Message != null && message.LogLevel != null)
+            if (message != null && message.Message != null && message.LogLevel != null)
             {
                 sentMessage = message.LogLevel + ": " + message.Message;
-                if (message.SendingClassDescriptor != null) sentMessage += " (" + message.SendingClassDescriptor + ")";
+                if (!message.SendingClassDescriptor.Equals("null")) sentMessage += " (" + message.SendingClassDescriptor + ")";
                 Write(sentMessage);
             }
         }
 
         /// <summary>
         /// The <c>New</c> static method creates a new Logger instance that will log all received messages
-        /// to a file, called <c>log.txt</c>, within the <c>log/</c> directory. If a file exists, it will be
+        /// to a file, called <c>editor.txt</c>, within the <c>log/</c> directory. If a file exists, it will be
         /// be renamed to avoid conflict.
         /// </summary>
         /// <returns>A new <c>Logger</c>, or null if files cannot be resolved.</returns>
@@ -139,14 +147,16 @@ namespace VOWs.MVVM.Model
                     Directory.CreateDirectory(logDirectoryPath);
                 }
                 // Define the path to the log file, and copy any existing one to another name.
-                string logPath = logDirectoryPath + "/latest.txt";
+                string logPath = logDirectoryPath + "/editor.txt";
                 if (File.Exists(logPath) && (new FileInfo(logPath)).Length != 0)
                 {
-                    File.Copy(logPath, logDirectoryPath + "/log-" + File.GetCreationTime(logPath).ToString("yyyy-MM-dd@HH.mm.ss") + ".txt");
+                    File.Copy(logPath, logDirectoryPath + "/editor-" + DateTime.Now.ToString("yyyy-MM-dd@HH.mm.ss") + ".txt");
                 }
+                File.WriteAllText(logPath, string.Empty);
                 // Return a Logger.
-                return new(new(logPath), new(logPath), File.CreateText(logPath));
-            } catch(Exception)
+                return new(new(logPath), new(logPath));
+            }
+            catch (Exception)
             {
                 return null;
             }
