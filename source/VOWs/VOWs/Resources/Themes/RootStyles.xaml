@@ -38,7 +38,7 @@
            TargetType="Grid">
 
         <Style.Setters>
-            <Setter Property="Background" Value="#353b47"/>
+            <Setter Property="Background" Value="#3d3d3d"/>
         </Style.Setters>
 
         <Style.Triggers>

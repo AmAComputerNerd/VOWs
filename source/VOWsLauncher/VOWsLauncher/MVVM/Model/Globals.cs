@@ -1,5 +1,6 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using System.Windows;
+using VOWsLauncher.Events;
 
 namespace VOWsLauncher.MVVM.Model
 {
@@ -18,9 +19,9 @@ namespace VOWsLauncher.MVVM.Model
         /// <br></br><br></br>
         /// Keep it simple, stick with the Default!
         /// </summary>
-        public static readonly Globals Default = new Globals();
+        public static readonly Globals Default = new();
 
-        // Properties.
+        // Properties (database).
         /// <summary>
         /// The <c>WrappedTheme</c> property will return the theme with extra database information attached (<c>WrappedItem</c>).
         /// </summary>
@@ -124,11 +125,18 @@ namespace VOWsLauncher.MVVM.Model
                 OnPropertyChanged(nameof(UseTabsForVersionControl));
             } 
         }
+        
+        // Properties (local).
         /// <summary>
         /// The <c>Logger</c> property will return the Logger object for the current session.
         /// This Logger may also be written to by sending <c>LogMessage</c> messages.
         /// </summary>
         public Logger Logger { get; }
+        /// <summary>
+        /// The <c>CommandLineArgs</c> property will return an object that exposes properties obtained from command line arguments.
+        /// This notably includes a debug status.
+        /// </summary>
+        public EnvironmentArgs CommandLineArgs { get; }
 
         /// <summary>
         /// The constructor for <c>Global</c> will initialise a new instance.
@@ -140,6 +148,14 @@ namespace VOWsLauncher.MVVM.Model
         public Globals()
 #pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
         {
+            // Set local properties.
+#pragma warning disable CS8601 // Possible null reference assignment.
+#pragma warning disable CS8602 // Dereference of a possibly null reference.
+            Logger = Logger.New();
+            CommandLineArgs = new();
+            if (CommandLineArgs.Debug) Logger.MinimumLogLevel = (int)LogLevel.DEBUG; // If the 'Debug' property was set, we should display Debug-level messages in the log.
+#pragma warning restore CS8602 // Dereference of a possibly null reference.
+#pragma warning restore CS8601 // Possible null reference assignment.
             // TODO: Add database access.
             WrappedTheme = new("application.theme", "Theme", "Black", true);
             WrappedAccent = new("application.accent", "Accent", "#5da1c0", true);
@@ -147,10 +163,6 @@ namespace VOWsLauncher.MVVM.Model
             WrappedUseLargeText = new("application.accessibility.largetext", "Large Text", false, true);
             WrappedShowBeginnersText = new("application.launcher.beginnerstips", "Beginners Tips", true, true);
             WrappedUseTabsForVersionControl = new("application.editor.versioncontrol", "Use Tabs for Version Control", true, true);
-            // Set local properties.
-#pragma warning disable CS8601 // Possible null reference assignment.
-            Logger = Logger.New();
-#pragma warning restore CS8601 // Possible null reference assignment.
         }
     }
 }

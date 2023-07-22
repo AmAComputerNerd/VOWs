@@ -1,7 +1,6 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using CommunityToolkit.Mvvm.Messaging;
-using System;
 using System.Windows;
 using VOWs.Events;
 using VOWs.MVVM.Model;
@@ -23,10 +22,13 @@ namespace VOWs.MVVM.ViewModel
         /// The <c>DocumentEditVM</c> property refers to the current instance of the <c>DocumentEditViewModel</c> and accompanying view.
         /// </summary>
         public DocumentEditViewModel DocumentEditVM;
+        public ExampleViewModel ExampleVM;
+
         /// <summary>
         /// The <c>DocumentEditViewCommand</c> command will trigger a change in the <c>CurrentView</c> property, setting it to <c>DocumentEditVM</c>.
         /// </summary>
         public RelayCommand DocumentEditViewCommand;
+        public RelayCommand ExampleViewCommand;
 
         /// <summary>
         /// The <c>CurrentView</c> property exposes the currently assigned ViewModel to the program, linking to the View to display.
@@ -47,6 +49,12 @@ namespace VOWs.MVVM.ViewModel
             DocumentEditViewCommand = new(() =>
             {
                 CurrentView = DocumentEditVM;
+            });
+            // Assign values for temporary Example view.
+            ExampleVM = new();
+            ExampleViewCommand = new(() =>
+            {
+                CurrentView = ExampleVM;
             });
 
             // Set CurrentView to default menu (DocumentEditVM).
@@ -95,7 +103,7 @@ namespace VOWs.MVVM.ViewModel
             double width = Application.Current.MainWindow.Width;
             double height = Application.Current.MainWindow.Height;
             // Retrieve the current zoom level, where 1.0 is the default (100%).
-            double zoomLevel = Globals.ZoomLevel;
+            double zoomLevel = 1.0;
             // Calculate the scale factors.
             double width_scaleFactor = width * zoomLevel;
             double height_scaleFactor = height * zoomLevel;
@@ -114,6 +122,7 @@ namespace VOWs.MVVM.ViewModel
             return id switch
             {
                 0 => DocumentEditVM,
+                1 => ExampleVM,
                 _ => null,
             };
 #pragma warning restore CS8603 // Possible null reference return.

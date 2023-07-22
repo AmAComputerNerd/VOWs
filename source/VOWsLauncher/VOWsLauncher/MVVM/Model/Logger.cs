@@ -20,42 +20,48 @@ namespace VOWsLauncher.MVVM.Model
         public Uri LogUri;
         /// <summary>
         /// The <c>LogFileInfo</c> parameter represents the up-to-date info of the log file in the system.
-        /// It is automatically updated whenever the <c>LogStream</c> is saved.
+        /// It is automatically updated whenever the log is saved.
         /// </summary>
         public FileInfo LogFileInfo;
+        /// <summary>
+        /// The <c>MinimumLogLevel</c> parameter refers to the lowest <c>LogLevel</c> to save messages for.
+        /// Any <c>LogMessage</c> received, or log saved using <c>Logger</c> methods that isn't at this level or above will not be saved to file.
+        /// </summary>
+        public int MinimumLogLevel;
 
         /// <summary>
         /// The constructor for <c>Logger</c> will create a new instance that will log all received messages
         /// to a file, called <c>launcher.txt</c>, within the <c>log/</c> directory. If a file exists, it will be
         /// be renamed to avoid conflict.
         /// </summary>
-        private Logger(Uri LogUri, FileInfo LogFileInfo)
+        private Logger(Uri logUri, FileInfo logFileInfo, int minimumLogLevel)
         {
             // Activate Logger to receive messages.
             IsActive = true;
             // Initialise variables
-            this.LogUri = LogUri;
-            this.LogFileInfo = LogFileInfo;
+            LogUri = logUri;
+            LogFileInfo = logFileInfo;
+            MinimumLogLevel = minimumLogLevel;
         }
 
         /// <summary>
         /// The <c>Debug</c> method writes a new Debug log message to the log file.
         /// <c>Debug</c> represents a message that is added for flow management / development purposes; more for the developer than the user.
         /// </summary>
-        /// <param name="message">The message to append to the Debug log.</param>
+        /// <param name="message">The message to append to the log.</param>
         public void Debug(string message)
         {
-            Write("DEBUG: " + message);
+            if (MinimumLogLevel >= (int)LogLevel.DEBUG) Write("DEBUG: " + message);
         }
 
         /// <summary>
         /// The <c>Info</c> method writes a new Info log message to the log file.
         /// <c>Info</c> represents a message for any successful operation, e.g. a file pull.
         /// </summary>
-        /// <param name="message">The message to append to the Info log.</param>
+        /// <param name="message">The message to append to the log.</param>
         public void Info(string message)
         {
-            Write("INFO: " + message);
+            if (MinimumLogLevel >= (int)LogLevel.INFO) Write("INFO: " + message);
         }
 
         /// <summary>
@@ -63,10 +69,10 @@ namespace VOWsLauncher.MVVM.Model
         /// <c>Warning</c> represents a message for an unsuccessful operation that shouldn't interupt the flow of
         /// the application - it is a guide message in a way.
         /// </summary>
-        /// <param name="message">The message to append to the Warning log.</param>
+        /// <param name="message">The message to append to the log.</param>
         public void Warn(string message)
         {
-            Write("WARN: " + message);
+            if (MinimumLogLevel >= (int)LogLevel.WARNING) Write("WARN: " + message);
         }
 
         /// <summary>
@@ -74,10 +80,10 @@ namespace VOWsLauncher.MVVM.Model
         /// <c>Error</c> represents a message for an unsuccessful operation that DOES interupt the flow of the
         /// application. It should be considered a bug most of the time.
         /// </summary>
-        /// <param name="message">The message to append to the Error log.</param>
+        /// <param name="message">The message to append to the log.</param>
         public void Error(string message)
         {
-            Write("ERROR: " + message);
+            if (MinimumLogLevel >= (int)LogLevel.ERROR) Write("ERROR: " + message);
         }
 
         /// <summary>
@@ -86,16 +92,16 @@ namespace VOWsLauncher.MVVM.Model
         /// It is expected behaviour that the application or a subprocess terminates after this error is logged,
         /// but why the error was logged in the first place should be identified.
         /// </summary>
-        /// <param name="message">The message to append to the Severe log.</param>
+        /// <param name="message">The message to append to the log.</param>
         public void Severe(string message)
         {
-            Write("SEVERE: " + message);
+            if (MinimumLogLevel >= (int)LogLevel.SEVERE) Write("SEVERE: " + message);
         }
 
         /// <summary>
         /// The private method <c>Write</c> writes the specified message to the log file.
         /// </summary>
-        /// <param name="message"></param>
+        /// <param name="message">The message to append to the log.</param>
         private void Write(string message)
         {
             // Write the message.
@@ -112,6 +118,7 @@ namespace VOWsLauncher.MVVM.Model
         /// </summary>
         protected override void OnActivated()
         {
+            // Register the class to receive LogMessage messages.
             Messenger.Register<Logger, LogMessage>(this, (r, m) => r.Receive(m));
         }
 
@@ -156,7 +163,7 @@ namespace VOWsLauncher.MVVM.Model
                 }
                 File.WriteAllText(logPath, string.Empty);
                 // Return a Logger.
-                return new(new(logPath), new(logPath));
+                return new(new(logPath), new(logPath), (int)LogLevel.INFO);
             }
             catch (Exception)
             {

@@ -10,11 +10,11 @@ none
 false
 TRACE;DEBUG;NET;NET6_0;NETCOREAPP
 D:\Coding\C#\VOWs\source\VOWsLauncher\VOWsLauncher\App.xaml
-12515282557
+11-752214165
 
-36652171789
+36-359712331
 204-506238706
-CustomXAML\Themes\Generic.xaml;MainWindow.xaml;MVVM\View\HomeView.xaml;MVVM\View\NewView.xaml;MVVM\View\OpenView.xaml;MVVM\View\PinnedView.xaml;MVVM\View\RecentView.xaml;MVVM\View\SettingsView.xaml;MVVM\View\TemplatesView.xaml;Resources\Themes\LauncherRootStyles.xaml;SubWindows\NewDocumentWindow.xaml;SubWindows\NewWorkspaceWindow.xaml;
+MainWindow.xaml;MVVM\View\HomeView.xaml;MVVM\View\NewView.xaml;MVVM\View\OpenView.xaml;MVVM\View\PinnedView.xaml;MVVM\View\RecentView.xaml;MVVM\View\SettingsView.xaml;MVVM\View\TemplatesView.xaml;Resources\Themes\LauncherRootStyles.xaml;SubWindows\NewDocumentWindow.xaml;SubWindows\NewWorkspaceWindow.xaml;
 
 False
 

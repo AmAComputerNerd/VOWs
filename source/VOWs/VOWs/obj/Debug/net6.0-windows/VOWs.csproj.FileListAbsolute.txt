@@ -62,3 +62,5 @@ D:\Coding\VOWs\source\VOWs\VOWs\obj\Debug\net6.0-windows\refint\VOWs.dll
 D:\Coding\VOWs\source\VOWs\VOWs\obj\Debug\net6.0-windows\VOWs.pdb
 D:\Coding\VOWs\source\VOWs\VOWs\obj\Debug\net6.0-windows\VOWs.genruntimeconfig.cache
 D:\Coding\VOWs\source\VOWs\VOWs\obj\Debug\net6.0-windows\ref\VOWs.dll
+D:\Coding\C#\VOWs\source\VOWs\VOWs\obj\Debug\net6.0-windows\MVVM\View\ExampleView.g.cs
+D:\Coding\C#\VOWs\source\VOWs\VOWs\obj\Debug\net6.0-windows\MVVM\View\ExampleView.baml

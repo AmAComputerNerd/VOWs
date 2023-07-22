@@ -209,7 +209,7 @@ namespace VOWsLauncher.MVVM.ViewModel
         /// </summary>
         protected override void OnActivated()
         {
-            // Register the class to receive ChangeViewMessage events.
+            // Register the class to receive ChangeViewMessage messages.
             Messenger.Register<MainViewModel, ChangeViewMessage>(this, (r, m) => r.Receive(m));
         }
 

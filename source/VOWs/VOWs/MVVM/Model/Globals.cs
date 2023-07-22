@@ -18,11 +18,7 @@ namespace VOWs.MVVM.Model
         /// <br></br><br></br>
         /// Keep it simple, stick with the Default!
         /// </summary>
-        public static readonly Globals Default = new Globals();
-
-        // Fields.
-        private Font _font;
-        private double _zoomLevel;
+        public static readonly Globals Default = new();
         
         // Properties (database).
         /// <summary>
@@ -65,24 +61,15 @@ namespace VOWs.MVVM.Model
         
         // Properties (local).
         /// <summary>
-        /// The <c>CommandLineArgs</c> property will return an object that exposes properties obtained from command line arguments.
-        /// This includes anything from a document source to debug status.
-        /// </summary>
-        public EnvironmentArgs CommandLineArgs { get; }
-        /// <summary>
         /// The <c>Logger</c> property will return the Logger object for the current session.
         /// This Logger may also be written to by sending <c>LogMessage</c> messages.
         /// </summary>
         public Logger Logger { get; }
         /// <summary>
-        /// The <c>Font</c> property exposes the currently set Font settings from DocumentEditView(Model).
+        /// The <c>CommandLineArgs</c> property will return an object that exposes properties obtained from command line arguments.
+        /// This includes anything from a document source to debug status.
         /// </summary>
-        public Font Font { get => _font; set => SetProperty(ref _font, value); }
-        /// <summary>
-        /// The <c>ZoomLevel</c> property exposes the currently set zoom level for the Editor.
-        /// It will contribute to the sizing of the page.
-        /// </summary>
-        public double ZoomLevel { get => _zoomLevel; set => SetProperty(ref _zoomLevel, value); }
+        public EnvironmentArgs CommandLineArgs { get; }
 
         /// <summary>
         /// The constructor for <c>Global</c> will initialise a new instance.
@@ -92,15 +79,14 @@ namespace VOWs.MVVM.Model
         /// </summary>
         public Globals()
         {
+            // Set local properties.
+            Logger = Logger.New();
+            CommandLineArgs = new();
             // TODO: Add database access.
             WrappedTheme = new("application.theme", "Theme", "Black", false);
             WrappedUseHighContrast = new("application.accessibility.highcontrast", "High Contrast", false, false);
             WrappedUseLargeText = new("application.accessibility.largetext", "Large Text", false, false);
             WrappedUseTabsForVersionControl = new("application.editor.versioncontrol", "Use Tabs for Version Control", true, false);
-            // Set local properties.
-            CommandLineArgs = new();
-            Logger = Logger.New();
-            Font = Font.Default();
         }
     }
 }

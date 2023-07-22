@@ -1,9 +1,9 @@
 ﻿using CommunityToolkit.Mvvm.Messaging;
 using System;
 using System.Linq;
-using VOWs.Events;
+using VOWsLauncher.Events;
 
-namespace VOWs.MVVM.Model
+namespace VOWsLauncher.MVVM.Model
 {
     /// <summary>
     /// The <c>EnvironmentArgs</c> class contains information on the command line arguments that were used to launch VOWsuite.
@@ -16,11 +16,6 @@ namespace VOWs.MVVM.Model
         /// </summary>
         private readonly string[] environmentInput;
 
-        /// <summary>
-        /// The <c>SourcePath</c> parameter will point to the currently open Document or Workspace.
-        /// If no Document or Workspace is open, it will simply be null.
-        /// </summary>
-        public Uri? SourcePath { get; private set; }
         /// <summary>
         /// The <c>Debug</c> parameter is a flag for other areas of the application to show Debug
         /// values while enabled.
@@ -94,37 +89,8 @@ namespace VOWs.MVVM.Model
         /// <param name="success">Whether the variable was successfully set or not.</param>
         private void TrySet(string key, string value, out bool success)
         {
-            switch(key.ToLower())
+            switch (key.ToLower())
             {
-                case "-w":
-                case "-workspace":
-                    // Try to convert value to a Uri.
-                    if (value.EndsWith(".vwsp") || value.EndsWith(""))
-                    {
-                        success = Uri.TryCreate(value, new UriCreationOptions(), out Uri validUri);
-                        if (success) SourcePath = validUri;
-                        return;
-                    }
-                    break;
-                case "-d":
-                case "-document":
-                    // Try to convert value to a Uri.
-                    if (value.EndsWith(".vdoc") || value.EndsWith(""))
-                    {
-                        success = Uri.TryCreate(value, new UriCreationOptions(), out Uri validUri);
-                        if (success) SourcePath = validUri;
-                        return;
-                    }
-                    break;
-                case "-path":
-                    // Try to convert value to a Uri.
-                    if(value.EndsWith(".vdoc") || value.EndsWith(".vwsp"))
-                    {
-                        success = Uri.TryCreate(value, new UriCreationOptions(), out Uri validUri);
-                        if (success) SourcePath = validUri;
-                        return;
-                    }
-                    break;
                 case "-debug":
                     // Try to convert value to a bool.
                     success = bool.TryParse(value, out bool validBool);

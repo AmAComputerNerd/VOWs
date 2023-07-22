@@ -1,0 +1,17 @@
+﻿<UserControl x:Class="VOWs.MVVM.View.ExampleView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:VOWs.MVVM.View" 
+             xmlns:viewmodel="clr-namespace:VOWs.MVVM.ViewModel" d:DataContext="{d:DesignInstance Type=viewmodel:ExampleViewModel}"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    
+    <Grid Style="{StaticResource ThemedGrid}">
+
+        <Ribbon Style="{StaticResource ThemedRibbon}"/>
+
+    </Grid>
+    
+</UserControl>
