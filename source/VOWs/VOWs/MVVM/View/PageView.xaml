@@ -7,12 +7,35 @@
              xmlns:viewmodel="clr-namespace:VOWs.MVVM.ViewModel" d:DataContext="{d:DesignInstance Type=viewmodel:PageViewModel}"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
-    
+
     <ScrollViewer>
-        <!--<RichTextBox Margin="100,0">
-            <FlowDocument/>
-        </RichTextBox>-->
-        <Binding Path="OpenDocument.Pages"/>
+        <StackPanel Margin="200,20,200,0">
+            <Border Background="White"
+                    Padding="30"
+                    Height="500">
+                <StackPanel>
+                    <TextBlock Text="Still working on the page display, but I can demonstrate a few things I've been working on in here for now."
+                               TextWrapping="Wrap"/>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="You currently have open a: "/>
+                        <TextBlock Text="{Binding Example_Type}"
+                                   TextWrapping="Wrap"
+                                   FontWeight="Bold"/>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="The URI (location) of this file is: "/>
+                        <TextBlock Text="{Binding Example_Location}"
+                                   TextWrapping="Wrap"
+                                   FontWeight="Bold"/>
+                    </StackPanel>
+                    <TextBlock Text="Unfortunately, there is no way to change the accent colour directly in the editor without a settings file (elements don't refresh their colour as they should when the variable is changed - it requires a restart, which would then reset the variable back to it's default state). This system is somewhat functional in the launcher, though!"
+                               TextWrapping="Wrap"/>
+                </StackPanel>
+            </Border>
+            <Border Background="White"
+                    Margin="0,20,0,0" Padding="30"
+                    Height="500"/>
+        </StackPanel>
     </ScrollViewer>
 
 </UserControl>

@@ -98,7 +98,7 @@
            TargetType="StackPanel">
 
         <Style.Setters>
-            <Setter Property="Background" Value="#353b47"/>
+            <Setter Property="Background" Value="#3d3d3d"/>
         </Style.Setters>
 
         <Style.Triggers>
@@ -335,10 +335,10 @@
                 <Setter Property="Foreground" Value="#b8b8b8"/>
             </DataTrigger>
             <DataTrigger Binding="{Binding Globals.Theme}" Value="Light">
-                <Setter Property="Foreground" Value="#1F1F1F"/>
+                <Setter Property="Foreground" Value="#1f1f1f"/>
             </DataTrigger>
             <DataTrigger Binding="{Binding Globals.Theme}" Value="White">
-                <Setter Property="Foreground" Value="#0A0A0A"/>
+                <Setter Property="Foreground" Value="#0a0a0a"/>
             </DataTrigger>
         </Style.Triggers>
 
