@@ -28,10 +28,13 @@ namespace VOWsLauncher.MVVM.Model
         /// </summary>
         public EnvironmentArgs()
         {
+            // Initialise a temporary cache for log messages.
+            // Since the Logger will log all messages until EnvironmentArgs are read, we should not print any messages until after this file has been initialised.
+            List<LogMessage> cache = new();
             // Retrieve command line arguments, except for the first argument which contains the executable file name.
             environmentInput = Environment.GetCommandLineArgs().Skip(1).ToArray();
-            // For debug purposes, we'll print the array to the logs file.
-            WeakReferenceMessenger.Default.Send(new LogMessage("EnvironmentArgs has retrieved command line arguments: " + environmentInput, ToString(), LogLevel.DEBUG));
+            // For debug purposes, we'll enter a log stating that EnvironmentArgs has retrieved command line arguments.
+            if (environmentInput.Length > 0) cache.Add(new("EnvironmentArgs has retrieved command line arguments: " + string.Join(", ", environmentInput), ToString(), LogLevel.DEBUG));
             // Begin iteration to set variables.
             int i = 0;
             while (i < environmentInput.Length)
@@ -40,7 +43,7 @@ namespace VOWsLauncher.MVVM.Model
                 if (!extension.StartsWith("-"))
                 {
                     // This isn't a valid extension. We should ignore it.
-                    WeakReferenceMessenger.Default.Send(new LogMessage("Ignored extension '" + extension + "' due to invalid format (extensions must start with '-').", ToString(), LogLevel.WARNING));
+                    cache.Add(new("Ignored extension '" + extension + "' due to invalid format (extensions must start with '-').", ToString(), LogLevel.WARNING));
                     i++;
                     continue;
                 }
@@ -72,11 +75,15 @@ namespace VOWsLauncher.MVVM.Model
                 // We've (probably) found the value. First we'll use the TrySet method to see if the extension / key and value equate to any of the settings in this file.
                 TrySet(extension, value, out bool success);
                 // If this set was unsuccessful, we'll submit a log message.
-                if (!success) WeakReferenceMessenger.Default.Send(new LogMessage("Ignored extension '" + extension + "' due to invalid value format (value '" + value + "' could not be converted to the required type).", ToString(), LogLevel.WARNING));
-                else WeakReferenceMessenger.Default.Send(new LogMessage("Extension '" + extension + "' with value '" + value + "' was recognised and read.", ToString(), LogLevel.DEBUG));
+                if (!success) cache.Add(new("Ignored extension '" + extension + "' due to invalid value format (value '" + value + "' could not be converted to the required type).", ToString(), LogLevel.WARNING));
+                else cache.Add(new("Extension '" + extension + "' with value '" + value + "' was recognised and read.", ToString(), LogLevel.DEBUG));
                 // We'll set i to the value of j (the index of the final part of the value) plus one to continue iterating the loop.
                 i = j + 1;
             }
+            // For any values that weren't already set, we'll apply defaults.
+            ApplyDefaults();
+            // Submit the collected LogMessages to the Logger.
+            cache.ForEach(lm => WeakReferenceMessenger.Default.Send(lm));
         }
 
         /// <summary>
@@ -98,6 +105,14 @@ namespace VOWsLauncher.MVVM.Model
                     return;
             }
             success = false;
+        }
+
+        /// <summary>
+        /// The <c>ApplyDefaults</c> method will set all variables that are yet to be set to their default
+        /// values. This does <b>not</b> override any values already set, so is safe to use at any point.
+        /// </summary>
+        private void ApplyDefaults()
+        {
         }
     }
 }

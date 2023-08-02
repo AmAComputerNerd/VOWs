@@ -294,5 +294,20 @@
         </Style.Setters>
 
     </Style>
+
+    <Style x:Key="PageViewer"
+           TargetType="ItemsControl">
+
+        <Style.Setters>
+            <Setter Property="ItemsSource" Value="{Binding Document.Pages}"/>
+        </Style.Setters>
+
+        <Style.Triggers>
+            <DataTrigger Binding="{Binding Globals.EnvironmentArgs.IsDocument}" Value="False">
+                <Setter Property="ItemsSource" Value="{Binding Workspace.SelectedDocument.Pages}"/>
+            </DataTrigger>
+        </Style.Triggers>
+        
+    </Style>
     
 </ResourceDictionary>

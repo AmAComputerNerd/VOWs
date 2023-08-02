@@ -15,55 +15,27 @@ namespace VOWs.MVVM.ViewModel
         /// </summary>
         public Globals Globals { get => Globals.Default; }
 
-        public string Example_Type
-        {
-            get
-            {
-                if (Globals.CommandLineArgs.SourcePath == null)
-                {
-                    return "null - you opened the application by itself!";
-                }
-                else if (Globals.CommandLineArgs.SourcePath.AbsolutePath.EndsWith(".vdoc"))
-                {
-                    return "Document! (.vdoc)";
-                }
-                else if (Globals.CommandLineArgs.SourcePath.AbsolutePath.EndsWith(".vwsp"))
-                {
-                    return "Workspace! (.vwsp)";
-                }
-                else
-                {
-                    return "Something random! (" + new FileInfo(Globals.CommandLineArgs.SourcePath.AbsolutePath).Extension + ")";
-                }
-            }
-        }
-        public string Example_Location { get => Globals.CommandLineArgs.SourcePath == null ? "Nowhere!" : Globals.CommandLineArgs.SourcePath.AbsolutePath; }
-        public RelayCommand Example_DefaultAccentCommand;
-        public RelayCommand Example_RedAccentCommand;
-        public RelayCommand Example_GreenAccentCommand;
-        public RelayCommand Example_YellowAccentCommand;
+        // Fields.
+        private Document _document;
+        private Workspace _workspace;
+        // Properties.
+        /// <summary>
+        /// The <c>Document</c> property refers to the currently open document and it's info.
+        /// Either <c>Document</c> or <c>Workspace</c> must hold a value.
+        /// </summary>
+        public Document Document { get => _document; set => SetProperty(ref _document, value); }
+        /// <summary>
+        /// The <c>Workspace</c> property refers to the currently open workspace and it's info.
+        /// Either <c>Document</c> or <c>Workspace</c> must hold a value.
+        /// </summary>
+        public Workspace Workspace { get => _workspace; set => SetProperty(ref _workspace, value); }
 
         /// <summary>
         /// The constructor for <c>PageViewModel</c> initialises variables relevant to <c>PageView</c>.
         /// </summary>
         public PageViewModel()
         {
-            Example_DefaultAccentCommand = new(() =>
-            {
-                Globals.Accent = "#5da1c0";
-            });
-            Example_RedAccentCommand = new(() =>
-            {
-                Globals.Accent = "#f47174";
-            });
-            Example_GreenAccentCommand = new(() =>
-            {
-                Globals.Accent = "#bfe3b4";
-            });
-            Example_YellowAccentCommand = new(() =>
-            {
-                Globals.Accent = "#f4f186";
-            });
+            
         }
     }
 }

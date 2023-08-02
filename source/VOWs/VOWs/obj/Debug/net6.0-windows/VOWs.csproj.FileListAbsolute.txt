@@ -41,7 +41,6 @@ D:\Coding\VOWs\source\VOWs\VOWs\obj\Debug\net6.0-windows\Resources\Themes\RootSt
 D:\Coding\VOWs\source\VOWs\VOWs\obj\Debug\net6.0-windows\MainWindow.g.cs
 D:\Coding\VOWs\source\VOWs\VOWs\obj\Debug\net6.0-windows\MVVM\View\DocumentEditView.g.cs
 D:\Coding\VOWs\source\VOWs\VOWs\obj\Debug\net6.0-windows\MVVM\View\PageView.g.cs
-D:\Coding\VOWs\source\VOWs\VOWs\obj\Debug\net6.0-windows\MVVM\View\SettingsView.g.cs
 D:\Coding\VOWs\source\VOWs\VOWs\obj\Debug\net6.0-windows\App.g.cs
 D:\Coding\VOWs\source\VOWs\VOWs\obj\Debug\net6.0-windows\GeneratedInternalTypeHelper.g.cs
 D:\Coding\VOWs\source\VOWs\VOWs\obj\Debug\net6.0-windows\VOWs_MarkupCompile.cache
@@ -50,7 +49,6 @@ D:\Coding\VOWs\source\VOWs\VOWs\obj\Debug\net6.0-windows\App.baml
 D:\Coding\VOWs\source\VOWs\VOWs\obj\Debug\net6.0-windows\MainWindow.baml
 D:\Coding\VOWs\source\VOWs\VOWs\obj\Debug\net6.0-windows\MVVM\View\DocumentEditView.baml
 D:\Coding\VOWs\source\VOWs\VOWs\obj\Debug\net6.0-windows\MVVM\View\PageView.baml
-D:\Coding\VOWs\source\VOWs\VOWs\obj\Debug\net6.0-windows\MVVM\View\SettingsView.baml
 D:\Coding\VOWs\source\VOWs\VOWs\obj\Debug\net6.0-windows\VOWs.g.resources
 D:\Coding\VOWs\source\VOWs\VOWs\obj\Debug\net6.0-windows\VOWs.GeneratedMSBuildEditorConfig.editorconfig
 D:\Coding\VOWs\source\VOWs\VOWs\obj\Debug\net6.0-windows\VOWs.AssemblyInfoInputs.cache
@@ -63,3 +61,4 @@ D:\Coding\VOWs\source\VOWs\VOWs\obj\Debug\net6.0-windows\VOWs.pdb
 D:\Coding\VOWs\source\VOWs\VOWs\obj\Debug\net6.0-windows\VOWs.genruntimeconfig.cache
 D:\Coding\VOWs\source\VOWs\VOWs\obj\Debug\net6.0-windows\ref\VOWs.dll
 D:\Coding\C#\VOWs\source\VOWs\VOWs\obj\Debug\net6.0-windows\Custom\Themes\Generic.baml
+D:\Coding\VOWs\source\VOWs\VOWs\obj\Debug\net6.0-windows\Custom\Themes\Generic.baml

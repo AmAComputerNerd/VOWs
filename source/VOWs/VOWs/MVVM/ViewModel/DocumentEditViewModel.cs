@@ -1,8 +1,13 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using CommunityToolkit.Mvvm.Messaging;
 using System;
+using System.Diagnostics;
+using System.IO;
 using System.Windows;
+using VOWs.Events;
 using VOWs.MVVM.Model;
+using VOWs.MVVM.Model.Data;
 
 namespace VOWs.MVVM.ViewModel
 {
@@ -428,9 +433,19 @@ namespace VOWs.MVVM.ViewModel
         public Visibility Content_Video { get => _content_Video; set => SetProperty(ref _content_Video, value); }
         #endregion
         #region Commands
-        public RelayCommand ToggleDockableSideMenuCommand;
+        public RelayCommand SideMenu_HomeCommand { get; }
+        public RelayCommand SideMenu_InfoCommand { get; }
+        public RelayCommand SideMenu_SaveCommand { get; }
+        public RelayCommand SideMenu_PrintCommand { get; }
+        public RelayCommand SideMenu_ExportCommand { get; }
+        public RelayCommand SideMenu_DirCommand { get; }
         #endregion
         #region Other Properties & Fields
+        /// <summary>
+        /// The <c>CurrentFont</c> property refers to the currently active font options.
+        /// This is where all new text entries should pull data from regarding their style.
+        /// </summary>
+        public Font CurrentFont { get; }
         /// <summary>
         /// The <c>PageVM</c> property refers to the instance of the Page View and ViewModel.
         /// It holds data about the current open document, as well as handling display and related issues.
@@ -443,6 +458,9 @@ namespace VOWs.MVVM.ViewModel
         public DynamicURIResolver Logo { get; }
         #endregion
 
+        /// <summary>
+        /// A constructor for <c>DocumentEditViewModel</c> that assigns default values to all class variables.
+        /// </summary>
         public DocumentEditViewModel()
         {
             #region Set "Binding Properties & Fields" region variables.
@@ -454,9 +472,70 @@ namespace VOWs.MVVM.ViewModel
             VOWs_Selected = false;
             #endregion
             #region Set "Commands" region variables.
-            ToggleDockableSideMenuCommand = new(() =>
+            SideMenu_HomeCommand = new(() =>
             {
-                // TODO: Add DockableSideMenu binding properties.
+                // TODO: Check if content is saved, display a confirmation message if it hasn't been saved.
+                try
+                {
+                    // Attempt to open the launcher.
+                    Process.Start(new ProcessStartInfo("./VOWsLauncher.exe"));
+                    Application.Current.Shutdown();
+                }
+                catch (Exception e)
+                {
+                    // Something went wrong! We'll notify the user with a small dialogue window.
+                    WeakReferenceMessenger.Default.Send(new LogMessage(e.Message, ToString(), LogLevel.ERROR));
+                    MessageBox.Show("An error occurred when trying to open the VOWs Launcher!\nPlease read the 'editor.txt' log for more information!", "Home - Failed");
+                }
+            });
+            SideMenu_InfoCommand = new(() =>
+            {
+                // TODO: Retrieve information on the currently open document / workspace.
+                WeakReferenceMessenger.Default.Send(new LogMessage("User tried to use an unimplemented function (SideMenu_InfoCommand)", ToString(), LogLevel.WARNING));
+                MessageBox.Show("This isn't implemented yet! Check back in a later version!", "Oops!");
+            });
+            SideMenu_SaveCommand = new(() =>
+            {
+                // TODO: Save any changes to the currently open document / workspace.
+                WeakReferenceMessenger.Default.Send(new LogMessage("User tried to use an unimplemented function (SideMenu_SaveCommand)", ToString(), LogLevel.WARNING));
+                MessageBox.Show("This isn't implemented yet! Check back in a later version!", "Oops!");
+            });
+            SideMenu_PrintCommand = new(() =>
+            {
+                // TODO: Print the contents of the currently open document.
+                WeakReferenceMessenger.Default.Send(new LogMessage("User tried to use an unimplemented function (SideMenu_PrintCommand)", ToString(), LogLevel.WARNING));
+                MessageBox.Show("This isn't implemented yet! Check back in a later version!", "Oops!");
+            });
+            SideMenu_ExportCommand = new(() =>
+            {
+                // TODO: Show a window of export options and allow the user to export the content in the currently
+                // open document.
+                WeakReferenceMessenger.Default.Send(new LogMessage("User tried to use an unimplemented function (SideMenu_ExportCommand)", ToString(), LogLevel.WARNING));
+                MessageBox.Show("This isn't implemented yet! Check back in a later version!", "Oops!");
+            });
+            SideMenu_DirCommand = new(() =>
+            {
+                // Get the URI of the open document or workspace.
+                Uri source = Globals.CommandLineArgs.SourcePath;
+                if (source == null)
+                {
+                    // There isn't anything open, so we'll just show an error message.
+                    WeakReferenceMessenger.Default.Send(new LogMessage("Couldn't open the directory of the open document or workspace, as EnvironmentArgs.SourcePath is null.", ToString(), LogLevel.ERROR));
+                    MessageBox.Show("An error occurred when executing this function!\nThere is no document or workspace currently open!", "Directory - Failed");
+                    return;
+                }
+                try
+                {
+                    // Retrieve it's parent directory and open it.
+                    DirectoryInfo parent = Directory.GetParent(source.AbsolutePath);
+                    Process.Start(new ProcessStartInfo("explorer.exe", parent.FullName));
+                }
+                catch (Exception e)
+                {
+                    // Something went wrong! We'll notify the user with a small dialogue window.
+                    WeakReferenceMessenger.Default.Send(new LogMessage(e.Message, ToString(), LogLevel.ERROR));
+                    MessageBox.Show("An error occurred when executing this function!\nPlease read the 'editor.txt' log for more information!", "Directory - Failed");
+                }
             });
             #endregion
             #region Set "Other Properties & Fields" region variables.

@@ -7,7 +7,8 @@
         xmlns:viewmodel="clr-namespace:VOWs.MVVM.ViewModel"
         mc:Ignorable="d"
         Icon="pack://application:,,,/Resources/Icons/VOWsuite-logos_transparent.ico"
-        Title="VOWs" Height="450" Width="800">
+        Title="VOWs" Height="450" Width="800"
+        WindowState="Maximized">
 
     <Window.DataContext>
         <viewmodel:MainViewModel/>

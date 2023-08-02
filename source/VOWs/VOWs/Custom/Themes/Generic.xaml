@@ -62,6 +62,7 @@
             <Setter Property="BorderThickness" Value="1"/>
             <Setter Property="HorizontalContentAlignment" Value="Center"/>
             <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Setter Property="AcceptsReturn" Value="True"/>
         </Style.Setters>
 
         <Style.Triggers>
@@ -121,7 +122,7 @@
 
                                 <Grid Grid.Column="1"
                                       Margin="5,2"
-                                      HorizontalAlignment="Right" VerticalAlignment="Center">
+                                      HorizontalAlignment="Right">
 
                                     <ToggleButton x:Name="ToggleButton"
                                                   Focusable="False"
@@ -182,8 +183,9 @@
                                              HorizontalAlignment="Left" VerticalAlignment="Center"
                                              Focusable="True"
                                              Background="Transparent" Foreground="{TemplateBinding Foreground}"
+                                             CaretBrush="{TemplateBinding Foreground}"
                                              BorderThickness="0"
-                                             Visibility="Hidden"
+                                             Visibility="Collapsed"
                                              IsReadOnly="{TemplateBinding IsReadOnly}"/>
 
                                     <Popup x:Name="Popup"
@@ -237,7 +239,7 @@
                             <Trigger Property="IsEditable" Value="True">
                                 <Setter Property="IsTabStop" Value="False"/>
                                 <Setter TargetName="PART_EditableTextBox" Property="Visibility" Value="Visible"/>
-                                <Setter TargetName="ContentSite" Property="Visibility" Value="Hidden"/>
+                                <Setter TargetName="ContentSite" Property="Visibility" Value="Collapsed"/>
                             </Trigger>
                         </ControlTemplate.Triggers>
                     </ControlTemplate>
@@ -276,6 +278,48 @@
                 <Setter Property="Background" Value="#ffffff"/>
                 <Setter Property="Foreground" Value="#141414"/>
             </DataTrigger>
+        </Style.Triggers>
+        
+    </Style>
+
+    <Style TargetType="{x:Type custom:Page}">
+
+        <Style.Setters>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type custom:Page}">
+                        <Border Background="{TemplateBinding Background}"
+                                Width="{TemplateBinding PageWidth}" Height="{TemplateBinding PageHeight}"
+                                BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}"
+                                Margin="{TemplateBinding Margin}"
+                                HorizontalAlignment="{TemplateBinding HorizontalAlignment}" VerticalAlignment="{TemplateBinding VerticalAlignment}">
+
+                            <RichTextBox Margin="{TemplateBinding Padding}"
+                                         Foreground="{TemplateBinding Foreground}" Background="{TemplateBinding Background}"
+                                         AcceptsReturn="True" AcceptsTab="True"
+                                         AllowDrop="True"
+                                         CaretBrush="{TemplateBinding Foreground}"
+                                         FlowDirection="{TemplateBinding FlowDirection}"
+                                         FontFamily="{TemplateBinding FontFamily}" FontSize="{TemplateBinding FontSize}"
+                                         FontStyle="{TemplateBinding FontStyle}" FontStretch="{TemplateBinding FontStretch}" FontWeight="{TemplateBinding FontWeight}"
+                                         IsUndoEnabled="False"/>
+
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+
+            <Setter Property="Background" Value="White"/>
+            <Setter Property="Foreground" Value="Black"/>
+            <Setter Property="BorderBrush" Value="{Binding Globals.Accent}"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="HorizontalAlignment" Value="Center"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="Padding" Value="20"/>
+        </Style.Setters>
+
+        <Style.Triggers>
+            
         </Style.Triggers>
         
     </Style>

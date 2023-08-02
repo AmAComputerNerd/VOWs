@@ -128,6 +128,12 @@ namespace VOWs.MVVM.Model
         /// <param name="message">The event that was sent, with data.</param>
         private void Receive(LogMessage message)
         {
+            // First, we'll do a check on the message to see if it's above our MinimumLogLevel.
+            if (MinimumLogLevel < (int)message.LogLevel)
+            {
+                // It was below the MinimumLogLevel, so we'll just ignore it.
+                return;
+            }
             string sentMessage;
             if (message != null && message.Message != null)
             {

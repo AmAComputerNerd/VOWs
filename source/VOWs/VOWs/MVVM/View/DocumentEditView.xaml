@@ -12,10 +12,11 @@
     <!--Create the grid to hold this View's content.-->
     <Grid Style="{StaticResource ThemedGrid}">
         <!--Create the main page content. This includes the Page view, categories and associated category content.-->
-        <StackPanel>
+        <DockPanel>
 
             <!--Create the category buttons. Some of these buttons only appear under certain context.-->
-            <Border Height="30"
+            <Border DockPanel.Dock="Top"
+                    Height="30"
                     Style="{StaticResource MenuBorder}">
                 <StackPanel Orientation="Horizontal">
                     <!--Create the Logo button. This links to a command that will open a overlaying menu from the left of the screen, containing file settings.-->
@@ -63,7 +64,8 @@
             </Border>
 
             <!--Create the category content display area. This area itself can be "docked"; it is linked to a variable in the code-behind that can completely remove it when docked.-->
-            <Border Visibility="{Binding Content}"
+            <Border DockPanel.Dock="Top"
+                    Visibility="{Binding Content}"
                     Height="90"
                     Style="{StaticResource MenuBorder}">
                 <Grid>
@@ -121,15 +123,17 @@
                                             <ComboBoxItem Content="72"/>
                                         </custom:MenuComboBox.Items>
                                     </custom:MenuComboBox>
+                                    <custom:MenuTextBox Source="/Resources/Images/menu_colour.png"
+                                                        Descriptor="Colour"/>
                                     <!--<Button Content="/Resources/Images/menu_font-family.png"
                                             Tag="Family"
                                             Style="{StaticResource MenuButton}"/>-->
                                     <!--<Button Content="/Resources/Images/menu_font-family.png"
                                             Tag="Size"
                                             Style="{StaticResource MenuButton}"/>-->
-                                    <Button Content="/Resources/Images/menu_colour.png"
+                                    <!--<Button Content="/Resources/Images/menu_colour.png"
                                             Tag="Colour"
-                                            Style="{StaticResource MenuButton}"/>
+                                            Style="{StaticResource MenuButton}"/>-->
                                 </UniformGrid>
                             </Grid>
                         </Border>
@@ -184,14 +188,15 @@
             </Border>
 
             <!--Create the PageVM display area. This contains the ViewModel responsible for handling all document / workspace related display purposes.-->
-            <ContentControl Content="{Binding PageVM}"/>
+            <ContentControl Content="{Binding PageVM}"
+                            VerticalAlignment="Stretch"/>
 
-        </StackPanel>
+        </DockPanel>
 
         <!--Create the dockable side bar. This border contains all of the content for this submenu, and by default is closed.-->
-        <Border Width="75"
-                HorizontalAlignment="Left"
-                Visibility="{Binding SideBar}"
+        <Border HorizontalAlignment="Left"
+                Width="75"
+                Visibility="{Binding SideBar, FallbackValue=Collapsed}"
                 Style="{StaticResource ThemedBorder}">
 
             <UniformGrid Rows="7">
@@ -199,17 +204,23 @@
                               IsChecked="{Binding VOWs_Selected}"
                               Style="{StaticResource ThemedToggleButton}"/>
                 <Button Content="Home"
-                        Style="{StaticResource ThemedButton}"/>
+                        Style="{StaticResource ThemedButton}"
+                        Command="{Binding SideMenu_HomeCommand}"/>
                 <Button Content="Info"
-                        Style="{StaticResource ThemedButton}"/>
+                        Style="{StaticResource ThemedButton}"
+                        Command="{Binding SideMenu_InfoCommand}"/>
                 <Button Content="Save"
-                        Style="{StaticResource ThemedButton}"/>
+                        Style="{StaticResource ThemedButton}"
+                        Command="{Binding SideMenu_SaveCommand}"/>
                 <Button Content="Print"
-                        Style="{StaticResource ThemedButton}"/>
+                        Style="{StaticResource ThemedButton}"
+                        Command="{Binding SideMenu_PrintCommand}"/>
                 <Button Content="Export"
-                        Style="{StaticResource ThemedButton}"/>
+                        Style="{StaticResource ThemedButton}"
+                        Command="{Binding SideMenu_ExportCommand}"/>
                 <Button Content="Dir."
-                        Style="{StaticResource ThemedButton}"/>
+                        Style="{StaticResource ThemedButton}"
+                        Command="{Binding SideMenu_DirCommand}"/>
             </UniformGrid>
 
         </Border>
