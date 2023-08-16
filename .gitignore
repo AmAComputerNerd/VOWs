@@ -1,0 +1,7 @@
+# Ignore logs.
+**/logs
+# Ignore the 'obj' and 'bin' folders.
+**/obj
+**/bin
+# Ignore Visual Studio '.vs' (cache / options) folder.
+**/.vs

@@ -22,6 +22,18 @@
     <Compile Update="MVVM\View\RecentView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="MVVM\View\SettingsView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="MVVM\View\TemplatesView.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="SubWindows\NewDocumentWindow.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="SubWindows\NewWorkspaceWindow.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Page Update="MainWindow.xaml">
@@ -42,10 +54,19 @@
     <Page Update="MVVM\View\RecentView.xaml">
       <SubType>Designer</SubType>
     </Page>
-    <Page Update="Theme\DarkTheme.xaml">
+    <Page Update="MVVM\View\SettingsView.xaml">
       <SubType>Designer</SubType>
     </Page>
-    <Page Update="Theme\LightTheme.xaml">
+    <Page Update="MVVM\View\TemplatesView.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Resources\Themes\LauncherRootStyles.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="SubWindows\NewDocumentWindow.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="SubWindows\NewWorkspaceWindow.xaml">
       <SubType>Designer</SubType>
     </Page>
   </ItemGroup>

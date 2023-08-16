@@ -3,45 +3,46 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:VOWsLauncher.MVVM.View"
+             xmlns:local="clr-namespace:VOWsLauncher.MVVM.View" xmlns:viewmodel="clr-namespace:VOWsLauncher.MVVM.ViewModel" d:DataContext="{d:DesignInstance Type=viewmodel:OpenViewModel}"
              mc:Ignorable="d" 
              d:DesignHeight="495" d:DesignWidth="690">
     
     <StackPanel>
 
         <TextBlock Text="Open"
-                   Style="{StaticResource TitleTheme}"/>
+                   Style="{StaticResource TextTitle}"/>
 
         <TextBlock Text="Open an existing workspace or document to continue work on your masterpiece!"
                    Margin="0,0,0,20"
-                   Style="{StaticResource DescriptiveTextTheme}"/>
+                   Style="{StaticResource Text}"/>
 
         <Button Content="Browse for Workspace"
                 Height="50"
                 Margin="0,0,0,10"
-                Style="{StaticResource StylisedButtonTheme}"/>
+                Style="{StaticResource StylisedButton}"
+                Command="{Binding OpenWorkspaceWindowCommand}"/>
 
         <Button Content="Browse for Document(s)"
                 Height="50"
                 Margin="0,0,0,20"
-                Style="{StaticResource StylisedButtonTheme}"/>
+                Style="{StaticResource StylisedButton}"
+                Command="{Binding OpenDocumentWindowCommand}"/>
 
         <TextBlock Text="Edit Templates"
-                   Style="{StaticResource SubTitleTheme}"/>
+                   Style="{StaticResource TextSubtitle}"/>
 
         <TextBlock Text="Made a mistake in one of your templates, or feeling the need to fix that singular speck on an otherwise perfect&#x0a;template? Browse the list of installed templates below and select one to open the template and edit it as you&#x0a;see fit!"
-                   Style="{StaticResource DescriptiveTextTheme}"/>
+                   Style="{StaticResource Text}"/>
 
         <StackPanel Orientation="Horizontal"
                     Height="125"
-                    Width="660"
                     Margin="0,10,0,0"
-                    Background="DarkMagenta">
+                    Background="Gray">
 
             <StackPanel.Clip>
                 <RectangleGeometry RadiusX="20"
                                    RadiusY="20"
-                                   Rect="0,0,660,125"/>
+                                   Rect="0,0,690,125"/>
             </StackPanel.Clip>
             
         </StackPanel>

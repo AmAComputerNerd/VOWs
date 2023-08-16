@@ -13,22 +13,12 @@ namespace VOWsLauncher
             InitializeComponent();
         }
 
-        private void AppBorder_MouseDown(object sender, MouseButtonEventArgs e)
+        private void MoveApplication(object sender, MouseButtonEventArgs e)
         {
             if(e.LeftButton == MouseButtonState.Pressed)
             {
                 DragMove();
             }
-        }
-
-        private void ButtonMinimise_Click(object sender, RoutedEventArgs e)
-        {
-            Application.Current.MainWindow.WindowState = WindowState.Minimized;
-        }
-
-        private void ButtonExit_Click(object sender, RoutedEventArgs e)
-        {
-            Application.Current.Shutdown();
         }
     }
 }

@@ -9,31 +9,60 @@
     <StackPanel>
 
         <TextBlock Text="Pinned"
-                   Style="{StaticResource TitleTheme}"/>
+                   Style="{StaticResource TextTitle}"/>
         <TextBlock Text="Take a look at all your favourite projects! You can pin or unpin documents and workspaces in the 'Open' or&#x0a;'Recent' tabs!"
-                   Margin="0,0,0,20"
-                   Style="{StaticResource DescriptiveTextTheme}"/>
+                   Margin="0,0,0,10"
+                   Style="{StaticResource Text}"/>
 
-        <Grid Margin="0,20,0,0">
-            
+        <Line X1="0" X2="800"
+              Y1="4" Y2="4"
+              Margin="0,0,0,10"
+              Style="{StaticResource InvertedShape}"/>
+
+        <Grid>
+
             <Grid.ColumnDefinitions>
                 <ColumnDefinition/>
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
                 <RowDefinition/>
-                <RowDefinition/>
+                <RowDefinition MinHeight="325"/>
             </Grid.RowDefinitions>
 
+            <Border BorderThickness="3,3,0,0"
+                    Style="{StaticResource ThemedBorder}"/>
+            <Border BorderThickness="3,3,3,0"
+                    Grid.Column="1"
+                    Style="{StaticResource ThemedBorder}"/>
+            <Border BorderThickness="3,0,0,3"
+                    Grid.Row="1"
+                    Style="{StaticResource ThemedBorder}"/>
+            <Border BorderThickness="3,0,3,3"
+                    Grid.Row="1" Grid.Column="1"
+                    Style="{StaticResource ThemedBorder}"/>
+
             <TextBlock Text="Workspaces"
-                       HorizontalAlignment="Center"
-                       Style="{StaticResource SubTitleTheme}"/>
+                       HorizontalAlignment="Center" VerticalAlignment="Center"
+                       Margin="0" Padding="10"
+                       Style="{StaticResource TextSubtitle}"/>
             <TextBlock Text="Documents"
-                       HorizontalAlignment="Center"
+                       HorizontalAlignment="Center" VerticalAlignment="Center"
+                       Margin="0" Padding="10"
                        Grid.Column="1"
-                       Style="{StaticResource SubTitleTheme}"/>
-            
-            <!--TODO: Add automatic loading of items using ListView. These items should be of either type Button or a custom type meant to represent a WorkspaceDocumentLoadButton.-->
+                       Style="{StaticResource TextSubtitle}"/>
+
+            <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center"
+                        Grid.Row="1">
+                <TextBlock Text="Nothing to show!"
+                           Style="{StaticResource Text}"/>
+            </StackPanel>
+
+            <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center"
+                        Grid.Row="1" Grid.Column="1">
+                <TextBlock Text="Nothing to show!"
+                           Style="{StaticResource Text}"/>
+            </StackPanel>
 
         </Grid>
 

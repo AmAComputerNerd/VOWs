@@ -1,8 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "2kyOE/lhq8iPU2lv8+OClFK0b3N7x1P/yZuC0LnaWoCnHpcGpFCTJ8dkNXQSDGT3A9isq5J4gdQI+wcW+GQljQ==",
+  "dgSpecHash": "8etM778lZo9fTeM1MQMldlhP9xnBTHb2arktYhB5uf9ioQykg9IW93qX/q4l5zE8v9QcAFGrZS+NlelEaL9BRg==",
   "success": true,
-  "projectFilePath": "D:\\Coding\\VOWs\\source\\VOWsLauncher\\VOWsLauncher\\VOWsLauncher.csproj",
-  "expectedPackageFiles": [],
+  "projectFilePath": "D:\\Coding\\C#\\VOWs\\source\\VOWsLauncher\\VOWsLauncher\\VOWsLauncher.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\thoms\\.nuget\\packages\\communitytoolkit.mvvm\\8.2.0\\communitytoolkit.mvvm.8.2.0.nupkg.sha512"
+  ],
   "logs": []
 }

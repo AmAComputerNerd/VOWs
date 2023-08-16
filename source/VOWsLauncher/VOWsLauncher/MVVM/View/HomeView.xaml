@@ -3,153 +3,73 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:VOWsLauncher.MVVM.View"
+             xmlns:local="clr-namespace:VOWsLauncher.MVVM.View" 
+             xmlns:viewmodel="clr-namespace:VOWsLauncher.MVVM.ViewModel" d:DataContext="{d:DesignInstance Type=viewmodel:HomeViewModel}"
              mc:Ignorable="d" 
              d:DesignHeight="495" d:DesignWidth="690">
-    
-    <StackPanel>
-        
-        <TextBlock Text="Ready to begin?"
-                   Style="{StaticResource TitleTheme}"/>
 
-        <StackPanel Orientation="Horizontal">
-            
-            <Border Width="400"
-                    Height="200">
-
-                <Border.Background>
-                    <LinearGradientBrush StartPoint="0,0" EndPoint="1,2">
-                        <GradientStop Color="#5bc3ff" Offset="0.0"/>
-                        <GradientStop Color="#3aa0ff" Offset="1"/>
-                    </LinearGradientBrush>
-                </Border.Background>
-
-                <Border.Clip>
-                    <RectangleGeometry RadiusX="10"
-                                       RadiusY="10"
-                                       Rect="0,0,400,200"/>
-                </Border.Clip>
-
-                <Grid>
-                    
-                    <StackPanel>
-                        <TextBlock Text="Top 10 templates&#x0a;for Writing Pros"
-                                   Foreground="White"
-                                   FontSize="28"
-                                   Margin="20,10,10,0"/>
-
-                        <TextBlock Text="Find your perfect pick today!"
-                                   Foreground="White"
-                                   FontSize="18"
-                                   Margin="20,10,10,0"/>
-                    </StackPanel>
-
-                    <Image Width="250"
-                           Height="250"
-                           Source="/Images/example.png"
-                           HorizontalAlignment="Right"
-                           VerticalAlignment="Bottom" Margin="0,0,-113,-29" RenderTransformOrigin="0.5,0.5">
-                        <Image.RenderTransform>
-                            <TransformGroup>
-                                <ScaleTransform/>
-                                <SkewTransform/>
-                                <RotateTransform Angle="6.434"/>
-                                <TranslateTransform/>
-                            </TransformGroup>
-                        </Image.RenderTransform>
-                    </Image>
-                    
-                </Grid>
-                
-            </Border>
-
-            <Border Width="200"
-                    Height="200"
-                    CornerRadius="10"
-                    Margin="45,0,0,0">
-
-                <Border.Background>
-                    <LinearGradientBrush StartPoint="0,0" EndPoint="1,2">
-                        <GradientStop Color="#ffc554" Offset="0.0"/>
-                        <GradientStop Color="#ffb738" Offset="1"/>
-                    </LinearGradientBrush>
-                </Border.Background>
-                
-            </Border>
-        
-        </StackPanel>
+    <Grid>
 
         <StackPanel>
-            <TextBlock Text="Quick Actions"
-                       Style="{StaticResource SubTitleTheme}"/>
+
+            <TextBlock Text="Ready to begin?"
+                       Style="{StaticResource TextTitle}"/>
+
+            <TextBlock Text="There's a variety of things to explore - here's a taste!"
+                       Margin="0,0,0,30"
+                       Style="{StaticResource Text}"/>
 
             <StackPanel Orientation="Horizontal">
-                
-                <Button Content="New Workspace"
-                        FontSize="14"
-                        Foreground="White"
-                        Background="#ff5d5d"
-                        Height="40"
-                        Width="150"
-                        Margin="0,0,10,10"/>
-                <Button Content="Recent Workspaces"
-                        FontSize="14"
-                        Foreground="White"
-                        Background="#ffb75d"
-                        Height="40"
-                        Width="150"
-                        Margin="0,0,10,10"/>
-                <Button Content="Pinned Workspaces"
-                        FontSize="14"
-                        Foreground="White"
-                        Background="#58c3fe"
-                        Height="40"
-                        Width="150"
-                        Margin="0,0,10,10"/>
-                <Button Content="Open Workspace"
-                        FontSize="14"
-                        Foreground="White"
-                        Background="#6b50ff"
-                        Height="40"
-                        Width="150"
-                        Margin="0,0,10,10"/>
-                
+
+                <StackPanel>
+                    <Button Content="New Document"
+                            Margin="0,0,0,5" Padding="15"
+                            Style="{StaticResource StylisedButton}"
+                            Command="{Binding NewDocumentCommand}"/>
+                    <Button Content="New Workspace"
+                            Padding="15"
+                            Style="{StaticResource StylisedButton}"
+                            Command="{Binding NewWorkspaceCommand}"/>
+                </StackPanel>
+
+                <Button Content="Open"
+                        Margin="30,0,0,0" Padding="50,30"
+                        Style="{StaticResource StylisedButton}"
+                        Command="{Binding OpenCommand}"/>
+
+                <Button Content="Templates"
+                        Margin="30,0,0,0" Padding="30"
+                        Style="{StaticResource StylisedButton}"
+                        Command="{Binding TemplatesCommand}"/>
+
+                <Image Source="/Resources/Images/VOWs Home Arrow.png"
+                       Height="80"
+                       Margin="20,0,0,0"
+                       Visibility="{Binding BeginnersTipsVisibility}"/>
+
             </StackPanel>
 
-            <StackPanel Orientation="Horizontal">
-                
-                <Button Content="New Document"
-                        FontSize="14"
-                        Foreground="White"
-                        Background="#ff1717"
-                        Height="40"
-                        Width="150"
-                        Margin="0,0,10,0"/>
-                <Button Content="Recent Documents"
-                        FontSize="14"
-                        Foreground="White"
-                        Background="#ff9817"
-                        Height="40"
-                        Width="150"
-                        Margin="0,0,10,0"/>
-                <Button Content="Pinned Documents"
-                        FontSize="14"
-                        Foreground="White"
-                        Background="#14aafd"
-                        Height="40"
-                        Width="150"
-                        Margin="0,0,10,0"/>
-                <Button Content="Open Document"
-                        FontSize="14"
-                        Foreground="White"
-                        Background="#320dfe"
-                        Height="40"
-                        Width="150"
-                        Margin="0,0,10,0"/>
-                
-            </StackPanel>
+            <UniformGrid Columns="2"
+                         Margin="0,30,0,0">
+
+                <StackPanel>
+                    <TextBlock Text="Pinned"
+                               Style="{StaticResource TextSubtitle}"/>
+
+                    <Rectangle Height="200"
+                               Style="{StaticResource AccentedShape}"/>
+                </StackPanel>
+
+                <StackPanel>
+                    <TextBlock Text="Recent"
+                               Style="{StaticResource TextSubtitle}"/>
+
+                    <Rectangle Height="200"
+                               Style="{StaticResource AccentedShape}"/>
+                </StackPanel>
+
+            </UniformGrid>
 
         </StackPanel>
-    
-    </StackPanel>
+    </Grid>
 </UserControl>

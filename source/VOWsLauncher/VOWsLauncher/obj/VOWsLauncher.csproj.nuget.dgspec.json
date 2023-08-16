@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "D:\\Coding\\VOWs\\source\\VOWsLauncher\\VOWsLauncher\\VOWsLauncher.csproj": {}
+    "D:\\Coding\\C#\\VOWs\\source\\VOWsLauncher\\VOWsLauncher\\VOWsLauncher.csproj": {}
   },
   "projects": {
-    "D:\\Coding\\VOWs\\source\\VOWsLauncher\\VOWsLauncher\\VOWsLauncher.csproj": {
+    "D:\\Coding\\C#\\VOWs\\source\\VOWsLauncher\\VOWsLauncher\\VOWsLauncher.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Coding\\VOWs\\source\\VOWsLauncher\\VOWsLauncher\\VOWsLauncher.csproj",
+        "projectUniqueName": "D:\\Coding\\C#\\VOWs\\source\\VOWsLauncher\\VOWsLauncher\\VOWsLauncher.csproj",
         "projectName": "VOWsLauncher",
-        "projectPath": "D:\\Coding\\VOWs\\source\\VOWsLauncher\\VOWsLauncher\\VOWsLauncher.csproj",
-        "packagesPath": "C:\\Users\\jonathon.thompson3\\.nuget\\packages\\",
-        "outputPath": "D:\\Coding\\VOWs\\source\\VOWsLauncher\\VOWsLauncher\\obj\\",
+        "projectPath": "D:\\Coding\\C#\\VOWs\\source\\VOWsLauncher\\VOWsLauncher\\VOWsLauncher.csproj",
+        "packagesPath": "C:\\Users\\thoms\\.nuget\\packages\\",
+        "outputPath": "D:\\Coding\\C#\\VOWs\\source\\VOWsLauncher\\VOWsLauncher\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\jonathon.thompson3\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\thoms\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -39,6 +39,12 @@
       "frameworks": {
         "net6.0-windows7.0": {
           "targetAlias": "net6.0-windows",
+          "dependencies": {
+            "CommunityToolkit.Mvvm": {
+              "target": "Package",
+              "version": "[8.2.0, )"
+            }
+          },
           "imports": [
             "net461",
             "net462",
@@ -54,11 +60,11 @@
             "Microsoft.NETCore.App": {
               "privateAssets": "all"
             },
-            "Microsoft.WindowsDesktop.App.WPF": {
+            "Microsoft.WindowsDesktop.App": {
               "privateAssets": "none"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.203\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.306\\RuntimeIdentifierGraph.json"
         }
       }
     }
