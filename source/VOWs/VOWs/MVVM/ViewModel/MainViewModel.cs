@@ -22,12 +22,10 @@ namespace VOWs.MVVM.ViewModel
         /// The <c>DocumentEditVM</c> property refers to the current instance of the <c>DocumentEditViewModel</c> and accompanying view.
         /// </summary>
         public DocumentEditViewModel DocumentEditVM;
-
         /// <summary>
         /// The <c>DocumentEditViewCommand</c> command will trigger a change in the <c>CurrentView</c> property, setting it to <c>DocumentEditVM</c>.
         /// </summary>
         public RelayCommand DocumentEditViewCommand;
-
         /// <summary>
         /// The <c>CurrentView</c> property exposes the currently assigned ViewModel to the program, linking to the View to display.
         /// </summary>

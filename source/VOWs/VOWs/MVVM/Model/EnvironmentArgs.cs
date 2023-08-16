@@ -1,8 +1,10 @@
 ﻿using CommunityToolkit.Mvvm.Messaging;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using VOWs.Events;
+using VOWs.MVVM.Model.Data;
 
 namespace VOWs.MVVM.Model
 {
@@ -23,19 +25,21 @@ namespace VOWs.MVVM.Model
         /// </summary>
         public Uri? SourcePath { get; private set; }
         /// <summary>
-        /// The <c>ReadOnly</c> parameter is a flag to indicate whether the editor should run in a read
-        /// only mode, which disables all editing aspects of the editor until a user saves and reopens the
-        /// editor.
-        /// This defaults to <c>true</c> when the editor is opened with a file in the '.pdf' file type.
+        /// The <c>EnforceCompatibilityMode</c> parameter is a flag to enforce whether the editor should run in
+        /// a legacy compatibility mode, which disables custom VOWs features such as version control.
         /// </summary>
-        public bool ReadOnly { get; private set; }
+        public bool EnforceCompatibilityMode { get; private set; }
         /// <summary>
-        /// The <c>Legacy</c> parameter is a flag to indicate whether the editor should run in legacy 
-        /// compatibility mode, which disables certain features until a user saves and reopens the editor.
-        /// This defaults to <c>true</c> when the editor is opened with a file in the '.rtf' and '.txt' file
-        /// types.
+        /// The <c>EnforceTextOnlyMode</c> parameter is a flag to enforce whether the editor should run in a
+        /// limited text-only mode, which disables all media-related features.
         /// </summary>
-        public bool Legacy { get; private set; }
+        public bool EnforceTextOnlyMode { get; private set; }
+        /// <summary>
+        /// The <c>EnforceReadOnlyMode</c> parameter is a flag to enforce whether the editor should run in a
+        /// limited read-only mode, which disables all editing features. Export functions, along with some version
+        /// control features are still available.
+        /// </summary>
+        public bool EnforceReadOnlyMode { get; private set; }
         /// <summary>
         /// The <c>Debug</c> parameter is a flag for other areas of the application to show Debug
         /// values while enabled.
@@ -120,9 +124,10 @@ namespace VOWs.MVVM.Model
             {
                 case "-w":
                 case "-workspace":
-                    // Try to convert value to a Uri.
-                    if (value.EndsWith(".vwsp") || value.EndsWith(".zip"))
+                    // To certify that this is a valid workspace, we'll check it's extension.
+                    if (ExtensionUtils.WorkspaceExtensions.ContainsKey(ExtensionUtils.GetType("." + value.Split('.').Last())))
                     {
+                        // This is a valid Workspace extension, so we'll try converting it to a Uri.
                         success = Uri.TryCreate(value, new UriCreationOptions(), out Uri workspaceUri);
                         if (success) SourcePath = workspaceUri;
                         return;
@@ -130,29 +135,36 @@ namespace VOWs.MVVM.Model
                     break;
                 case "-d":
                 case "-document":
-                    // Try to convert value to a Uri.
-                    if (value.EndsWith(".vdoc") || value.EndsWith(".rtf") || value.EndsWith(".txt") || value.EndsWith(".pdf"))
+                    // To certify that this is a valid document, we'll check it's extension.
+                    if (ExtensionUtils.DocumentExtensions.ContainsKey(ExtensionUtils.GetType("." + value.Split('.').Last())))
                     {
+                        // This is a valid Document extension, so we'll try converting it to a Uri.
                         success = Uri.TryCreate(value, new UriCreationOptions(), out Uri documentUri);
                         if (success) SourcePath = documentUri;
                         return;
                     }
                     break;
                 case "-path":
+                case "-source":
                     // The source uri for the document or workspace is left ambiguous.
-                    // We'll call this function with both '-d' or '-w' and see if any match.
-                    TrySet("-d", value, out success);
-                    if (!success) TrySet("-w", value, out success);
+                    // We'll just try to convert it to a Uri and set the value without doing any checking.
+                    success = Uri.TryCreate(value, new UriCreationOptions(), out Uri ambiguousUri);
+                    if (success) SourcePath = ambiguousUri;
                     return;
-                case "-readonly":
+                case "-enforceCompatibility":
                     // Try to convert value to a bool.
-                    success = bool.TryParse(value, out bool readonlyBool);
-                    if (success) ReadOnly = readonlyBool;
+                    success = bool.TryParse(value, out bool compatibilityBool);
+                    if (success) EnforceCompatibilityMode = compatibilityBool;
                     return;
-                case "-legacy":
+                case "-enforceTextOnly":
                     // Try to convert value to a bool.
-                    success = bool.TryParse(value, out bool legacyBool);
-                    if (success) Legacy = legacyBool;
+                    success = bool.TryParse(value, out bool textOnlyBool);
+                    if (success) EnforceTextOnlyMode = textOnlyBool;
+                    return;
+                case "-enforceReadOnly":
+                    // Try to convert value to a bool.
+                    success = bool.TryParse(value, out bool readOnlyBool);
+                    if (success) EnforceReadOnlyMode = readOnlyBool;
                     return;
                 case "-debug":
                     // Try to convert value to a bool.

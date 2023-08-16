@@ -1,71 +1,100 @@
-﻿using CommunityToolkit.Mvvm.ComponentModel;
+﻿using CommunityToolkit.Mvvm.Messaging;
 using System;
 using System.Collections.ObjectModel;
-using System.Windows.Media;
+using System.IO;
+using VOWs.Custom;
+using VOWs.Events;
 
 namespace VOWs.MVVM.Model.Data
 {
-    public class Document : ObservableRecipient
+    public class Document : DataObject
     {
-        private string _name;
+        // Fields.
         private Uri _location;
-        private string _defaultPageSize;
-        private string _defaultPageOrientation;
         private ObservableCollection<Page> _pages;
 
+        // Properties.
         /// <summary>
-        /// The <c>Name</c> property represents the given name to this Document.
+        /// The <c>Info</c> property stores information about this <c>Document</c>.
         /// </summary>
-        public string Name { get => _name; set => SetProperty(ref _name, value); }
+        public override DataObjectInfo Info { get; }
         /// <summary>
-        /// The <c>Location</c> property represents the location of this Document on the computer.
+        /// The <c>Location</c> property holds a Uri to the location of this <c>Document</c> on the computer.
         /// </summary>
-        public Uri Location { get => _location; set => SetProperty(ref _location, value); }
+        public override Uri Location { get => _location; set => SetProperty(ref _location, value); }
         /// <summary>
-        /// The <c>DefaultPageSize</c> property represents the default page size to give to new Pages associated with it.
-        /// For more information on applicable values, see <c>Page.Size</c>.
-        /// </summary>
-        public string DefaultPageSize { get => _defaultPageSize; set => SetProperty(ref _defaultPageSize, value); }
-        /// <summary>
-        /// The <c>DefaultPageOrientation</c> property represents the default page orientation to give to new Pages associated with it.
-        /// For more information on applicable values, see <c>Page.Orientation</c>
-        /// </summary>
-        public string DefaultPageOrientation { get => _defaultPageOrientation; set => SetProperty(ref _defaultPageOrientation, value); }
-        /// <summary>
-        /// The <c>Pages</c> property represents the collection of Pages that make up this document.
+        /// The <c>Pages</c> property refers to the current collection of <c>Page</c> objects in this <c>Document</c>.
         /// </summary>
         public ObservableCollection<Page> Pages { get => _pages; set => SetProperty(ref _pages, value); }
 
         /// <summary>
-        /// The constructor for <c>Document</c> constructs the object based off the Uri pointing to a VOWsuite
-        /// "Document" file.
+        /// The constructor for <c>Document</c> initialises variables based off the provided <c>location</c>.
         /// </summary>
-        /// <param name="location">The Uri pointing to the VOWsuite "Document" file.</param>
+        /// <param name="location">A Uri pointing to the location of this <c>Document</c> on the computer.</param>
         public Document(Uri location)
         {
-            Location = location;
-            // TODO: Load data from location 'settings.yml' file.
-            Name = "Example Document";
-            DefaultPageSize = "a4";
-            DefaultPageOrientation = "vertical";
-            Pages = new()
+            // TODO: Load the contents of the 'info.yml' file in the zipped folder.
+            Info = new()
             {
-                new Page("a4")
+                Name = new FileInfo(location.AbsolutePath).Name,
+                Description = "This is an example description!",
+                Extension = ExtensionUtils.GetType(new FileInfo(location.AbsolutePath).Extension)
             };
+            Location = location;
+            Pages = new();
+            // For now, we'll just set the mode settings to the 'EnforceXXXMode' settings defined in EnvironmentArgs.
+            CompatibilityMode = Globals.Default.CommandLineArgs.EnforceCompatibilityMode;
+            TextOnlyMode = Globals.Default.CommandLineArgs.EnforceTextOnlyMode;
+            ReadOnlyMode = Globals.Default.CommandLineArgs.EnforceReadOnlyMode;
         }
 
         /// <summary>
-        /// Create a new Document at the defined <c>fileDirectory</c> under a defined <c>fileName</c>.
-        /// The <c>fileDirectory</c> must point to an accessible directory, and the <c>fileName</c>
-        /// must be a valid name for a file and must follow all Windows File Subsystem syntax rules.
+        /// The <c>Save</c> method will save the data within this <c>Document</c> object back to a file format.
+        /// Depending on the <c>ExtensionType</c>, some elements may be excluded or changed in this process.
         /// </summary>
-        /// <param name="fileDirectory">The Uri pointing to the directory to store this Document in.</param>
-        /// <param name="fileName">The name that will be used as the file name, as well the Document name.</param>
-        /// <returns>The created Document object.</returns>
-        public static Document CreateNew(Uri fileDirectory, string fileName)
+        public void Save()
         {
-            // TODO: Create a document in the specified location.
-            return null;
+            Save(Location);
+        }
+
+        /// <summary>
+        /// The <c>Save</c> method will save the data within this <c>Document</c> object back to a file format
+        /// within a new location. Depending on the <c>ExtensionType</c>, some elements may be excluded or changed
+        /// in this process.
+        /// </summary>
+        /// <param name="newLocation">A Uri pointing to the new location for the Document.</param>
+        public void Save(Uri newLocation)
+        {
+            if (!newLocation.IsFile)
+            {
+                // Failure to save - log an error.
+                Messenger.Send(new LogMessage("Expected a 'File' type Uri - got 'Directory'. This may be related to a faulty method call.", ToString(), LogLevel.ERROR));
+                // Then we'll throw an exception.
+                throw new ArgumentException("Expected a 'File' type Uri - got 'Directory'. This may be related to a faulty method call.");
+            }
+            Save(newLocation, Path.GetFileNameWithoutExtension(newLocation.AbsolutePath), ExtensionUtils.GetType(new FileInfo(newLocation.AbsolutePath).Extension));
+        }
+
+        /// <summary>
+        /// The <c>Save</c> method will save the data within this <c>Document</c> object back to a file format
+        /// within a new location. Depending on the <c>ExtensionType</c>, some elements may be excluded or changed
+        /// in this process.
+        /// </summary>
+        /// <param name="directory">A Uri pointing to the directory intended to house this Document.</param>
+        /// <param name="fileName">A valid Windows file name for this new file, excl. the extension.</param>
+        /// <param name="extensionType">An ExtensionType dictating what extension logic to use for saving this Document.</param>
+        public bool Save(Uri directory, string fileName, ExtensionType extensionType)
+        {
+            if (directory.IsFile)
+            {
+                // We'll have to use the parent directory to the Uri we were given.
+                // We'll log a warning to acknowledge this is happening.
+                Messenger.Send(new LogMessage("Expected a 'Directory' type Uri - got 'File'. Using parent directory instead.", ToString(), LogLevel.WARNING));
+                // Set 'directory' to the parent directory of the current Uri.
+                directory = new(Directory.GetParent(directory.AbsolutePath).FullName);
+            }
+            // TODO: Save the file.
+            return false;
         }
     }
 }

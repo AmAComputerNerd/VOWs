@@ -137,7 +137,7 @@ namespace VOWs.MVVM.Model
 #pragma warning restore CS8602 // Dereference of a possibly null reference.
 #pragma warning restore CS8601 // Possible null reference assignment.
             // TODO: Add database access.
-            WrappedTheme = new("application.theme", "Theme", "Black", true);
+            WrappedTheme = new("application.theme", "Theme", "Dark", true);
             WrappedAccent = new("application.accent", "Accent", "#5da1c0", true);
             WrappedUseHighContrast = new("application.accessibility.highcontrast", "High Contrast", false, true);
             WrappedUseLargeText = new("application.accessibility.largetext", "Large Text", false, true);

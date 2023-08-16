@@ -11,12 +11,8 @@
 
     <Grid>
         <ScrollViewer>
-            <ItemsControl Style="{StaticResource PageViewer}">
-                <custom:Page Width="400" Height="900"
-                             PageWidth="400" PageHeight="900"/>
-                <custom:Page Width="900" Height="400"
-                             PageWidth="900" PageHeight="400"/>
-            </ItemsControl>
+            <ItemsControl ItemsSource="{Binding Pages}"
+                          Style="{StaticResource PageViewer}"/>
         </ScrollViewer>
     </Grid>
 

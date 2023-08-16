@@ -71,9 +71,8 @@
                 <Grid>
 
                     <!--Create a StackPanel with content for the 'Home' category. This panel's visibility is connected to a variable in the code-behind that can completely remove it when 'Home' is unselected, or the border it sits in is docked.-->
-                    <StackPanel Name="HomeContent"
-                                Orientation="Horizontal"
-                                Visibility="{Binding Content_Home}">
+                    <StackPanel Orientation="Horizontal"
+                                Visibility="{Binding Content_Home, FallbackValue=Visible}">
                         <Border Style="{StaticResource MenuSection}">
                             <Grid>
                                 <Grid.RowDefinitions>
@@ -88,6 +87,7 @@
                                              Grid.Row="1">
                                     <custom:MenuComboBox Source="/Resources/Images/menu_font-family.png"
                                                          Descriptor="Family"
+                                                         SelectedItem="{Binding FontSelectedFamily}"
                                                          IsEditable="False" IsReadOnly="True">
                                         <custom:MenuComboBox.Items>
                                             <ComboBoxItem Content="Arial"
@@ -101,6 +101,7 @@
                                     </custom:MenuComboBox>
                                     <custom:MenuComboBox Source="/Resources/Images/menu_font-family.png"
                                                          Descriptor="Size"
+                                                         SelectedItem="{Binding FontSelectedSize}"
                                                          IsEditable="True" IsReadOnly="False"
                                                          IsTextSearchEnabled="False">
                                         <custom:MenuComboBox.Items>
@@ -124,63 +125,124 @@
                                         </custom:MenuComboBox.Items>
                                     </custom:MenuComboBox>
                                     <custom:MenuTextBox Source="/Resources/Images/menu_colour.png"
-                                                        Descriptor="Colour"/>
-                                    <!--<Button Content="/Resources/Images/menu_font-family.png"
-                                            Tag="Family"
-                                            Style="{StaticResource MenuButton}"/>-->
-                                    <!--<Button Content="/Resources/Images/menu_font-family.png"
-                                            Tag="Size"
-                                            Style="{StaticResource MenuButton}"/>-->
-                                    <!--<Button Content="/Resources/Images/menu_colour.png"
-                                            Tag="Colour"
-                                            Style="{StaticResource MenuButton}"/>-->
+                                                        Descriptor="Colour"
+                                                        Text="{Binding FontSelectedForeground, FallbackValue=#000000}"/>
                                 </UniformGrid>
                             </Grid>
                         </Border>
-                        <Button Content="/Resources/Images/menu_colour.png"
-                                Tag="Background Colour"
-                                Style="{StaticResource MenuButton2}"/>
+                        <Border Style="{StaticResource MenuSection}">
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="*"/>
+                                </Grid.RowDefinitions>
+
+                                <TextBlock Text="Page"
+                                           VerticalAlignment="Top"
+                                           Style="{StaticResource MenuSection_Title}"/>
+                                <UniformGrid Rows="3"
+                                             Grid.Row="1">
+                                    <Button Content="/Resources/Images/menu_page.png"
+                                            Tag="New Page"
+                                            Style="{StaticResource MenuButton}"
+                                            Command="{Binding Pages_CreatePageCommand}"/>
+                                    <Button Content="/Resources/Images/menu_page.png"
+                                            Tag="Remove Page"
+                                            Style="{StaticResource MenuButton}"
+                                            Command="{Binding Pages_RemovePageCommand}"/>
+                                    <Button Content="/Resources/Images/menu_page.png"
+                                            Tag="Clear Pages"
+                                            Style="{StaticResource MenuButton}"
+                                            Command="{Binding Pages_ClearPagesCommand}"/>
+                                </UniformGrid>
+                            </Grid>
+                        </Border>
                     </StackPanel>
 
                     <!--Create a StackPanel with content for the 'Text' category. This panel's visibility is connected to a variable in the code-behind that can completely remove it when 'Text' is unselected, or the border it sits in is docked.-->
                     <StackPanel Orientation="Horizontal"
-                                Visibility="{Binding Content_Text}">
+                                Visibility="{Binding Content_Text, FallbackValue=Collapsed}">
 
                     </StackPanel>
 
                     <!--Create a StackPanel with content for the 'Media' category. This panel's visibility is connected to a variable in the code-behind that can completely remove it when 'Media' is unselected, or the border it sits in is docked.-->
                     <StackPanel Orientation="Horizontal"
-                                Visibility="{Binding Content_Media}">
+                                Visibility="{Binding Content_Media, FallbackValue=Collapsed}">
 
                     </StackPanel>
 
                     <!--Create a StackPanel with content for the 'Page' category. This panel's visibility is connected to a variable in the code-behind that can completely remove it when 'Page' is unselected, or the border it sits in is docked.-->
                     <StackPanel Orientation="Horizontal"
-                                Visibility="{Binding Content_Page}">
+                                Visibility="{Binding Content_Page, FallbackValue=Collapsed}">
+                        <Border Style="{StaticResource MenuSection}">
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="*"/>
+                                </Grid.RowDefinitions>
 
+                                <TextBlock Text="New"
+                                           VerticalAlignment="Top"
+                                           Style="{StaticResource MenuSection_Title}"/>
+                                <StackPanel Orientation="Horizontal"
+                                            Grid.Row="1">
+                                    <Button Content="/Resources/Images/menu_page.png"
+                                            Tag="New Page"
+                                            Style="{StaticResource MenuButton2}"
+                                            Command="{Binding Pages_CreatePageCommand}"/>
+                                    <Button Content="/Resources/Images/menu_page.png"
+                                            Tag="New Slide"
+                                            Style="{StaticResource MenuButton2}"
+                                            Command="{Binding Pages_CreateSlideCommand}"/>
+                                </StackPanel>
+                            </Grid>
+                        </Border>
+                        <Border Style="{StaticResource MenuSection}">
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="*"/>
+                                </Grid.RowDefinitions>
+
+                                <TextBlock Text="Temporary"
+                                           VerticalAlignment="Top"
+                                           Style="{StaticResource MenuSection_Title}"/>
+                                <UniformGrid Rows="2"
+                                             Grid.Row="1">
+                                    <Button Content="/Resources/Images/menu_page.png"
+                                            Tag="Remove Latest Page / Slide"
+                                            Style="{StaticResource MenuButton}"
+                                            Command="{Binding Pages_RemovePageCommand}"/>
+                                    <Button Content="/Resources/Images/menu_page.png"
+                                            Tag="Clear All Pages / Slides"
+                                            Style="{StaticResource MenuButton}"
+                                            Command="{Binding Pages_ClearPagesCommand}"/>
+                                </UniformGrid>
+                            </Grid>
+                        </Border>
                     </StackPanel>
 
                     <!--Create a StackPanel with content for the 'View' category. This panel's visibility is connected to a variable in the code-behind that can completely remove it when 'View' is unselected, or the border it sits in is docked.-->
                     <StackPanel Orientation="Horizontal"
-                                Visibility="{Binding Content_View}">
+                                Visibility="{Binding Content_View, FallbackValue=Collapsed}">
 
                     </StackPanel>
 
                     <!--Create a StackPanel with content for the 'Version Control' category. This panel's visibility is connected to a variable in the code-behind that can completely remove it when 'Version Control' is unselected, or the border it sits in is docked.-->
                     <StackPanel Orientation="Horizontal"
-                                Visibility="{Binding Content_VersionControl}">
+                                Visibility="{Binding Content_VersionControl, FallbackValue=Collapsed}">
 
                     </StackPanel>
 
                     <!--Create a StackPanel with content for the 'Image' special category. This panel's visibility is connected to a variable in the code-behind that can completely remove it when 'Image' is unselected, or the border it sits in is docked.-->
                     <StackPanel Orientation="Horizontal"
-                                Visibility="{Binding Content_Image}">
+                                Visibility="{Binding Content_Image, FallbackValue=Collapsed}">
 
                     </StackPanel>
 
                     <!--Create a StackPanel with content for the 'Video' category. This panel's visibility is connected to a variable in the code-behind that can completely remove it when 'Video' is unselected, or the border it sits in is docked.-->
                     <StackPanel Orientation="Horizontal"
-                                Visibility="{Binding Content_Video}">
+                                Visibility="{Binding Content_Video, FallbackValue=Collapsed}">
 
                     </StackPanel>
 
@@ -189,6 +251,7 @@
 
             <!--Create the PageVM display area. This contains the ViewModel responsible for handling all document / workspace related display purposes.-->
             <ContentControl Content="{Binding PageVM}"
+                            Margin="0,20,0,0"
                             VerticalAlignment="Stretch"/>
 
         </DockPanel>

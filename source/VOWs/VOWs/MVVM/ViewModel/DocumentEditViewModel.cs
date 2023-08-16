@@ -4,10 +4,14 @@ using CommunityToolkit.Mvvm.Messaging;
 using System;
 using System.Diagnostics;
 using System.IO;
+using System.Text.RegularExpressions;
 using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Media;
 using VOWs.Events;
 using VOWs.MVVM.Model;
 using VOWs.MVVM.Model.Data;
+using Page = VOWs.Custom.Page;
 
 namespace VOWs.MVVM.ViewModel
 {
@@ -21,6 +25,7 @@ namespace VOWs.MVVM.ViewModel
         public Globals Globals { get => Globals.Default; }
 
         #region Binding Properties & Fields
+        // Fields.
         private bool _vows_Selected;
         private bool _tabs_HomeSelected;
         private bool _tabs_TextSelected;
@@ -42,7 +47,11 @@ namespace VOWs.MVVM.ViewModel
         private Visibility _content_VersionControl;
         private Visibility _content_Image;
         private Visibility _content_Video;
+        private ComboBoxItem _fontSelectedFamily;
+        private ComboBoxItem _fontSelectedSize;
+        private string _fontSelectedForeground;
 
+        // Properties.
         /// <summary>
         /// The <c>VOWs_Selected</c> property refers to whether the VOWs button is currently toggled on or off.
         /// This, in turn, will toggle the expanding side bar to the left of the display.
@@ -108,7 +117,7 @@ namespace VOWs.MVVM.ViewModel
                 {
                     // Set the Content panel visibility to 'Visibility.Collapsed'.
                     Content = Visibility.Collapsed;
-                    // Now that Content is false, we'll use this variable to set the property back to false.
+                    // Now that Content is Collapsed, we'll use this variable to set the property back to false.
 #pragma warning disable CA2011 // Avoid infinite recursion
                     Tabs_TextSelected = false;
 #pragma warning restore CA2011 // Avoid infinite recursion
@@ -431,13 +440,122 @@ namespace VOWs.MVVM.ViewModel
         /// be set to <c>Visibility.Visible</c>.
         /// </summary>
         public Visibility Content_Video { get => _content_Video; set => SetProperty(ref _content_Video, value); }
+        /// <summary>
+        /// The <c>FontSelectedFamily</c> property refers to the currently selected ComboBoxItem within the Font ->
+        /// Family ComboBox. Updating this variable in turn updates the backing field and <c>CurrentFont.Family</c>
+        /// property.
+        /// </summary>
+        public ComboBoxItem FontSelectedFamily
+        {
+            get => _fontSelectedFamily;
+            set
+            {
+                SetProperty(ref _fontSelectedFamily, value);
+                CurrentFont.Family = new((string)value.Content);
+                OnFontUpdate();
+            }
+        }
+        /// <summary>
+        /// The <c>FontSelectedSize</c> property refers to the currently selected ComboBoxItem within the Font ->
+        /// Size ComboBox. Updating this variable in turn updates the backing field and <c>CurrentFont.Size</c>
+        /// property.
+        /// </summary>
+        public ComboBoxItem FontSelectedSize
+        {
+            get => _fontSelectedSize;
+            set
+            {
+                SetProperty(ref _fontSelectedSize, value);
+                if (!int.TryParse((string)value.Content, out int size))
+                {
+                    size = 11;
+                }
+                CurrentFont.Size = size;
+                OnFontUpdate();
+            }
+        }
+        /// <summary>
+        /// The <c>FontSelectedForeground</c> property refers to the currently entered string within the Font ->
+        /// Foreground TextBox. Updating this variable in turn updates the backing field and <c>CurrentFont.Foreground</c>
+        /// property.
+        /// </summary>
+        public string FontSelectedForeground
+        {
+            get => _fontSelectedForeground;
+            set
+            {
+                SetProperty(ref _fontSelectedForeground, value);
+                if (!Regex.IsMatch(value, "^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$"))
+                {
+                    // The new value is not a valid hex code - default to #000000.
+#pragma warning disable CA2011 // Avoid infinite recursion
+                    FontSelectedForeground = "#000000";
+#pragma warning restore CA2011 // Avoid infinite recursion
+                }
+                // The regex matches, so we can do calculations on the values.
+                // First, we'll collect the rgb values.
+                byte r = (byte)(byte.Parse(value.Substring(1, 1)) * 16 + byte.Parse(value.Substring(2, 1)));
+                byte g = (byte)(byte.Parse(value.Substring(3, 1)) * 16 + byte.Parse(value.Substring(4, 1)));
+                byte b = (byte)(byte.Parse(value.Substring(5, 1)) * 16 + byte.Parse(value.Substring(6, 1)));
+                // Now we can update the Foreground property of the CurrentFont.
+                CurrentFont.Foreground = Color.FromRgb(r, g, b);
+                OnFontUpdate();
+            }
+        }
         #endregion
         #region Commands
+        /// <summary>
+        /// The <c>Pages_CreatePageCommand</c> command will trigger the creation of a new <c>Page</c> object.
+        /// This is a temporary command until proper page management can be implemented.
+        /// </summary>
+        public RelayCommand Pages_CreatePageCommand { get; }
+        /// <summary>
+        /// The <c>Pages_CreateSlideCommand</c> command will trigger the creation of a new <c>Page</c> object
+        /// with slide settings (landscape).
+        /// </summary>
+        public RelayCommand Pages_CreateSlideCommand { get; }
+        /// <summary>
+        /// The <c>Pages_RemovePageCommand</c> command will trigger the deletion of the latest <c>Page</c> object.
+        /// This is a temporary command until proper page management can be implemented.
+        /// </summary>
+        public RelayCommand Pages_RemovePageCommand { get; }
+        /// <summary>
+        /// The <c>Pages_ClearPagesCommand</c> command will trigger the deletion of all <c>Page</c> objects.
+        /// This is a temporary command until proper page management can be implemented.
+        /// </summary>
+        public RelayCommand Pages_ClearPagesCommand { get; }
+        /// <summary>
+        /// The <c>SideMenu_HomeCommand</c> command will trigger the actions related to the "Home" option.
+        /// This will close this application and open the launcher application, if present, else display an error.
+        /// </summary>
         public RelayCommand SideMenu_HomeCommand { get; }
+        /// <summary>
+        /// The <c>SideMenu_InfoCommand</c> command will trigger the actions related to the "Info" option.
+        /// This will open a new window containing information about the currently open document or workspace, if
+        /// open, else display an error.
+        /// </summary>
         public RelayCommand SideMenu_InfoCommand { get; }
+        /// <summary>
+        /// The <c>SideMenu_SaveCommand</c> command will trigger the actions relating to the "Save" option.
+        /// This will save any changes made to the open document or workspace to file, if open, else display an error.
+        /// </summary>
         public RelayCommand SideMenu_SaveCommand { get; }
+        /// <summary>
+        /// The <c>SideMenu_PrintCommand</c> command will trigger the actions relating to the "Print" option.
+        /// This will open a dialogue window to print the open or selected document, if open, else display an error.
+        /// </summary>
         public RelayCommand SideMenu_PrintCommand { get; }
+        /// <summary>
+        /// The <c>SideMenu_ExportCommand</c> command will trigger the actions relating to the "Export" option.
+        /// This will open a new window containing exporting options for the open document or workspace, if open,
+        /// else display an error.
+        /// </summary>
         public RelayCommand SideMenu_ExportCommand { get; }
+        /// <summary>
+        /// The <c>SideMenu_DirCommand</c> command will trigger the actions relating to the "Dir." option.
+        /// This will open a new file explorer window at the parent directory of the open document or workspace, if
+        /// open, else display an error.
+        /// </summary>
         public RelayCommand SideMenu_DirCommand { get; }
         #endregion
         #region Other Properties & Fields
@@ -472,6 +590,33 @@ namespace VOWs.MVVM.ViewModel
             VOWs_Selected = false;
             #endregion
             #region Set "Commands" region variables.
+            Pages_CreatePageCommand = new(() =>
+            {
+                PageVM.Pages.Add(new Page() { Width = 500, Height = 900 });
+                // We're adding a new Page, so it is necessary to set it's font.
+                // OnFontUpdate() also calls SyncPages() for us, so no need to do it again.
+                OnFontUpdate();
+            });
+            Pages_CreateSlideCommand = new(() =>
+            {
+                PageVM.Pages.Add(new Page() { Width = 900, Height = 500 });
+                // We're adding a new Page, so it is necessary to set it's font.
+                // OnFontUpdate() also calls SyncPages() for us, so no need to do it again.
+                OnFontUpdate();
+            });
+            Pages_RemovePageCommand = new(() =>
+            {
+                if (PageVM.Pages.Count != 0)
+                {
+                    PageVM.Pages.RemoveAt(PageVM.Pages.Count - 1);
+                    PageVM.SyncPages();
+                }
+            });
+            Pages_ClearPagesCommand = new(() =>
+            {
+                PageVM.Pages.Clear();
+                PageVM.SyncPages();
+            });
             SideMenu_HomeCommand = new(() =>
             {
                 // TODO: Check if content is saved, display a confirmation message if it hasn't been saved.
@@ -539,12 +684,33 @@ namespace VOWs.MVVM.ViewModel
             });
             #endregion
             #region Set "Other Properties & Fields" region variables.
+            CurrentFont = new(new("Calibri"), 64, Color.FromRgb(0,0,0));
             Logo = new("pack://application:,,,/Resources/Images/VOWsuite-logos_white.png",
                 "pack://application:,,,/Resources/Images/VOWsuite-logos_black.png",
                 new Uri("/Resources/Images/VOWsuite-logos_black.png",
                 UriKind.Relative));
-            PageVM = new PageViewModel();
+            PageVM = new PageViewModel(new Document(new("C:/Users/jonathon.thompson3/Documents/Unnamed Document.vdoc")));
+            OnFontUpdate();
             #endregion
+        }
+
+        /// <summary>
+        /// The <c>OnFontUpdate</c> method will force all <c>Page</c> objects to update their internal properties
+        /// to match that of the <c>CurrentFont</c> object.
+        /// </summary>
+        protected void OnFontUpdate()
+        {
+            // Iterate through all Pages and update settings.
+            foreach (Page p in PageVM.Pages)
+            {
+                p.FontFamily = CurrentFont.Family;
+                p.FontSize = CurrentFont.Size;
+                p.FontStyle = CurrentFont.Italics == true ? FontStyles.Italic : FontStyles.Normal;
+                p.FontWeight = CurrentFont.Bold == true ? FontWeights.Bold : FontWeights.Normal;
+                p.Foreground = new SolidColorBrush(CurrentFont.Foreground);
+            }
+            // Sync changes.
+            PageVM.SyncPages();
         }
     }
 }

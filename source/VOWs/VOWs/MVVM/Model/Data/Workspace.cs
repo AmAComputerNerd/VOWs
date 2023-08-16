@@ -1,68 +1,49 @@
-﻿using CommunityToolkit.Mvvm.ComponentModel;
-using System;
+﻿using System;
 using System.Collections.ObjectModel;
+using System.IO;
+using System.Windows.Controls;
 
 namespace VOWs.MVVM.Model.Data
 {
-    /// <summary>
-    /// The <c>Workspace</c> class is a data representation of a VOWsuite workspace - a collection of documents that are in some ways related to each other, grouped by the user.
-    /// This includes all information about the location of the Workspace, documents within it, and workspace-specific settings (later).
-    /// </summary>
-    public partial class Workspace : ObservableRecipient
+    public class Workspace : DataObject
     {
+        // Fields.
+        private Uri _location;
+        private Document _selectedDocument;
+
+        // Properties.
         /// <summary>
-        /// The <c>Name</c> property represents the given name to this Workspace.
+        /// The <c>Info</c> property stores information about this <c>Workspace</c>.
         /// </summary>
-        [ObservableProperty]
-        private string name;
+        public override DataObjectInfo Info { get; }
         /// <summary>
-        /// The <c>Documents</c> property represents the collection of Documents within this Workspace.
-        /// These are generated based off all items matching the VOWsuite format within the Workspace.
+        /// The <c>Location</c> property holds a Uri to the location of this <c>Workspace</c> on the computer.
         /// </summary>
-        [ObservableProperty]
-        private ObservableCollection<Document> documents;
+        public override Uri Location { get => _location; set => SetProperty(ref _location, value); }
         /// <summary>
-        /// The <c>FileLocation</c> property represents the location of this Workspace on the computer.
+        /// The <c>SelectedDocument</c> property holds the currently open <c>Document</c> from within this
+        /// <c>Workspace</c>.
         /// </summary>
-        [ObservableProperty]
-        private Uri fileLocation;
+        public Document SelectedDocument { get => _selectedDocument; set => SetProperty(ref _selectedDocument, value); }
 
         /// <summary>
-        /// The constructor for <c>Workspace</c> constructs the object based off a Uri pointing to a VOWsuite
-        /// "Workspace" file.
+        /// The constructor for <c>Workspace</c> initialises variables based off the provided <c>location</c>.
         /// </summary>
-        /// <param name="fileLocation">The Uri pointing to the VOWsuite "Workspace" file.</param>
-        public Workspace(Uri fileLocation)
+        /// <param name="location">A Uri pointing to the location of this <c>Workspace</c> on the computer.</param>
+        public Workspace(Uri location)
         {
-            FileLocation = fileLocation;
-        }
-
-        /// <summary>
-        /// Create a new Workspace at the defined <c>fileLocation</c>.
-        /// If the <c>fileLocation</c> ends in a fileName, that name will be used as the name for this Workspace.
-        /// If not, the Workspace will be named "UntitledX", where X is a number determined by the lowest
-        /// available number that wouldn't conflict with other Workspace names in that directory.
-        /// </summary>
-        /// <param name="fileLocation">The string representing the file location. Rules for this variable are as above.</param>
-        /// <returns>The created Workspace object.</returns>
-        public static Workspace CreateNew(string fileLocation)
-        {
-            // TODO: Create a new Workspace in the specified location.
-            return null;
-        }
-
-        /// <summary>
-        /// Create a new Workspace at the defined <c>fileDirectory</c> under a defined <c>fileName</c>.
-        /// The <c>fileDirectory</c> must point to an accessible directory, and the <c>fileName</c>
-        /// must be a valid name for a file and must follow all Windows File Subsystem syntax rules.
-        /// </summary>
-        /// <param name="fileDirectory">The Uri pointing to the directory to store this Workspace in.</param>
-        /// <param name="fileName">The name that will be used as the file name, as well as the Workspace name.</param>
-        /// <returns>The created Workspace object.</returns>
-        public static Workspace CreateNew(Uri fileDirectory, string fileName)
-        {
-            // TODO: Create a new Workspace in the specified location.
-            return null;
+            // TODO: Load the contents of the 'info.yml' file in the zipped folder.
+            Info = new DataObjectInfo()
+            {
+                Name = new FileInfo(location.AbsolutePath).Name,
+                Description = "This is an example description!",
+                Extension = ExtensionUtils.GetType(new FileInfo(location.AbsolutePath).Extension)
+            };
+            Location = location;
+            // For now, we'll just set the mode settings to the 'EnforceXXXMode' settings defined in EnvironmentArgs.
+            CompatibilityMode = Globals.Default.CommandLineArgs.EnforceCompatibilityMode;
+            TextOnlyMode = Globals.Default.CommandLineArgs.EnforceTextOnlyMode;
+            ReadOnlyMode = Globals.Default.CommandLineArgs.EnforceReadOnlyMode;
         }
     }
 }

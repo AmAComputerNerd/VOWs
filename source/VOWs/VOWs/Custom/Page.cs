@@ -35,18 +35,12 @@ namespace VOWs.Custom
     /// </summary>
     public class Page : Control
     {
-        public static readonly DependencyProperty PageWidthProperty = DependencyProperty.Register(nameof(PageWidth), typeof(double), typeof(Page));
-        public static readonly DependencyProperty PageHeightProperty = DependencyProperty.Register(nameof(PageHeight), typeof(double), typeof(Page));
+        public static readonly DependencyProperty SourceProperty = DependencyProperty.Register(nameof(Source), typeof(DataObject), typeof(Page));
 
-        public double PageWidth
+        public DataObject Source
         {
-            get => (double)GetValue(PageWidthProperty);
-            set => SetValue(PageWidthProperty, value);
-        }
-        public double PageHeight
-        {
-            get => (double)GetValue(PageHeightProperty);
-            set => SetValue(PageHeightProperty, value);
+            get => (DataObject)GetValue(SourceProperty);
+            set => SetValue(SourceProperty, value);
         }
 
         static Page()

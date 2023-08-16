@@ -1,12 +1,11 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
-using System.Windows.Documents;
 using System.Windows.Media;
-using System.Xml.Linq;
 
 namespace VOWs.MVVM.Model.Data
 {
     public class Font : ObservableRecipient
     {
+        // Fields.
         private FontFamily _family;
         private int _size;
         private bool _bold;
@@ -16,6 +15,7 @@ namespace VOWs.MVVM.Model.Data
         private Color _foreground;
         private Color _background;
 
+        // Properties.
         /// <summary>
         /// The <c>Family</c> property represents the FontFamily for this Font object.
         /// </summary>
