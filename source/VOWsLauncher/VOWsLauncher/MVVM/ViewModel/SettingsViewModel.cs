@@ -20,6 +20,7 @@ namespace VOWsLauncher.MVVM.ViewModel
         /// The <c>SaveSettingsCommand</c> command will update the settings of the <c>Globals</c> file to match that which is recorded in here.
         /// </summary>
         public RelayCommand SaveSettingsCommand { get; }
+        public RelayCommand ResetSettingsCommand { get; }
 
         public bool IsBlackTheme { get; set; }
         public bool IsDarkTheme { get; set; }
@@ -70,12 +71,14 @@ namespace VOWsLauncher.MVVM.ViewModel
                 if (!Globals.UseHighContrast.Equals(IsHighContrast))
                 {
                     WeakReferenceMessenger.Default.Send(new LogMessage("A change in the 'UseHighContrast' setting has been reported. Old value - '" + Globals.UseHighContrast + "'. New value - '" + IsHighContrast + "'."));
+                    if (IsHighContrast) MessageBox.Show("Due to unfinished development, the 'Use High Contrast' setting isn't effective!", "Unimplemented Setting");
                     Globals.UseHighContrast = IsHighContrast;
                 }
                 // Save Larger Text.
                 if (!Globals.UseLargeText.Equals(IsLargerText))
                 {
                     WeakReferenceMessenger.Default.Send(new LogMessage("A change in the 'UseLargeText' setting has been reported. Old value - '" + Globals.UseLargeText + "'. New value - '" + IsLargerText + "'."));
+                    if (IsLargerText) MessageBox.Show("The 'Use Large Text' setting is still work in progress!\nYou may encounter some visual issues during use!", "Work In Progress Setting");
                     Globals.UseLargeText = IsLargerText;
                 }
                 // Save Beginners Tips.
@@ -95,11 +98,34 @@ namespace VOWsLauncher.MVVM.ViewModel
                     WeakReferenceMessenger.Default.Send(new LogMessage("A change in the 'UseTabsForVersionControl' setting has been reported. Old value - 'true'. New value - 'false'."));
                     Globals.UseTabsForVersionControl = false;
                 }
+                // Call Globals.SaveValues() to save these settings to file.
+                Globals.SaveValues();
                 // Show MessageBox confirming settings update.
                 WeakReferenceMessenger.Default.Send(new LogMessage("Finished updating application settings.", ToString(), LogLevel.INFO));
                 MessageBox.Show("Successfully updated settings!\nSome settings may require a restart to take effect!", "Settings - Success!");
                 // Kick the user back to the home screen.
                 WeakReferenceMessenger.Default.Send(new ChangeViewMessage(0));
+            });
+            // Assign function for the ResetSettingsCommand.
+            ResetSettingsCommand = new(() =>
+            {
+                // Reset theme.
+                IsBlackTheme = false;
+                IsDarkTheme = true;
+                IsLightTheme = false;
+                IsWhiteTheme = false;
+                // Reset accent.
+                AccentHex = "#5da1c0";
+                // Reset accessibility settings.
+                IsHighContrast = false;
+                IsLargerText = false;
+                // Reset launcher settings.
+                IsBeginnerTips = true;
+                // Reset editor settings.
+                IsRibbonVersionControl = true;
+                IsDockedVersionControl = false;
+                // Save changes.
+                SaveSettingsCommand.Execute(null);
             });
             // Assign default values for variables.
             ResetValues();

@@ -43,7 +43,6 @@ namespace VOWs.MVVM.Model.Data
     {
         // Fields.
         private string _name;
-        private string _description;
         private ExtensionType _extension;
 
         // Properties.
@@ -51,10 +50,6 @@ namespace VOWs.MVVM.Model.Data
         /// The <c>Name</c> property represents the display-friendly name for the implementing object.
         /// </summary>
         public string Name { get => _name; set => SetProperty(ref _name, value); }
-        /// <summary>
-        /// The <c>Description</c> property represents a short description for the implementing object.
-        /// </summary>
-        public string Description { get => _description; set => SetProperty(ref _description, value); }
         /// <summary>
         /// The <c>Extension</c> property represents an <c>ExtensionType</c> object containing default
         /// details on an extension type (e.g. matching extensions, compatibility mode, etc.).

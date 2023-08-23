@@ -37,7 +37,6 @@ namespace VOWs.MVVM.Model.Data
             Info = new()
             {
                 Name = new FileInfo(location.AbsolutePath).Name,
-                Description = "This is an example description!",
                 Extension = ExtensionUtils.GetType(new FileInfo(location.AbsolutePath).Extension)
             };
             Location = location;

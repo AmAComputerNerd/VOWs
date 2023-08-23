@@ -70,7 +70,14 @@ namespace VOWsLauncher.MVVM.ViewModel.SubWindows
         /// The <c>Template</c> property refers to the current template for this new document.
         /// It is retrieved using inter-app messaging, and will default to an empty Template object if none is set.
         /// </summary>
-        public Template Template { get => WeakReferenceMessenger.Default.Send(new RetrieveSelectedTemplateMessage()); }
+        public Template Template
+        {
+            get
+            {
+                Template currentTemplate = WeakReferenceMessenger.Default.Send(new RetrieveSelectedTemplateMessage());
+                return currentTemplate.IsWorkplace ? Template.Empty : currentTemplate;
+            }
+        }
         /// <summary>
         /// The <c>PageSize</c> property refers to the default page size for this new document.
         /// By default, this will match the Template, if selected, else the currently selected value of the ComboBox.

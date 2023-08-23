@@ -12,7 +12,7 @@
         <!--Title and descriptive text for this category.-->
         <TextBlock Text="Recent"
                    Style="{StaticResource TextTitle}"/>
-        <TextBlock Text="View a list of recently opened workspaces and documents. Click on the desired workspace or document to&#x0a;reopen and continue work on it!"
+        <TextBlock Text="View a list of recently opened workspaces and documents. Click on the desired workspace or document to reopen and continue work on it!"
                    Margin="0,0,0,20"
                    Style="{StaticResource Text}"/>
 
@@ -39,8 +39,17 @@
                          Style="{StaticResource StylisedButtonSticky}"/>
 
             <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center"
-                        Grid.Row="1" Grid.ColumnSpan="2">
+                        Grid.Row="1" Grid.ColumnSpan="2"
+                        Visibility="{Binding WorkspaceContentVisibility, FallbackValue=Visible}">
                 <TextBlock Text="No workspaces to show!"
+                           Style="{StaticResource TextSubtitle}"/>
+                <TextBlock Text="You haven't opened any recently!"
+                           Style="{StaticResource Text}"/>
+            </StackPanel>
+            <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center"
+                        Grid.Row="1" Grid.ColumnSpan="2"
+                        Visibility="{Binding DocumentContentVisibility, FallbackValue=Collapsed}">
+                <TextBlock Text="No documents to show!"
                            Style="{StaticResource TextSubtitle}"/>
                 <TextBlock Text="You haven't opened any recently!"
                            Style="{StaticResource Text}"/>

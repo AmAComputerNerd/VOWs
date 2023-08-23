@@ -14,7 +14,7 @@
                        Style="{StaticResource TextTitle}"/>
             <StackPanel Orientation="Horizontal"
                         HorizontalAlignment="Right" VerticalAlignment="Center">
-                <TextBlock Text="Your changes will not be saved until you click the 'Save' button!"
+                <TextBlock Text="Your changes won't be saved until you click the 'Save' button!"
                            VerticalAlignment="Center"
                            Margin="0,0,10,0"
                            Style="{StaticResource Text}"/>
@@ -23,6 +23,11 @@
                         Padding="5" BorderThickness="1"
                         Style="{StaticResource SimplisticButton}"
                         Command="{Binding SaveSettingsCommand}"/>
+                <Button Content="Reset"
+                        FontSize="12"
+                        Padding="5" BorderThickness="1"
+                        Style="{StaticResource SimplisticButton}"
+                        Command="{Binding ResetSettingsCommand}"/>
             </StackPanel>
         </Grid>
 
@@ -56,7 +61,7 @@
                        Style="{StaticResource TextSubtitle}"/>
             <StackPanel Orientation="Horizontal"
                         HorizontalAlignment="Right" VerticalAlignment="Center">
-                <TextBlock Text="Requires a valid hex code - leave blank for defaults:"
+                <TextBlock Text="Requires a valid hex code (blank - default):"
                            VerticalAlignment="Center"
                            Margin="0,0,20,0"
                            Style="{StaticResource Text}"/>

@@ -17,7 +17,7 @@
             <!--The title and description for this window.-->
             <TextBlock Text="New Workspace"
                        Style="{StaticResource TextSubtitle}"/>
-            <TextBlock Text="Create a new workspace - a collection of&#x0a;documents relevant to your topic or&#x0a;project!"
+            <TextBlock Text="Create a new workspace - a collection of documents relevant to your topic or project!"
                        Style="{StaticResource Text}"/>
 
             <!--The full list of settings that can be changed by the user.-->
@@ -78,6 +78,7 @@
                            Style="{StaticResource Text}"/>
                 <TextBlock Text="{Binding Template.Name}"
                            HorizontalAlignment="Right" VerticalAlignment="Center"
+                           TextWrapping="Wrap"
                            Grid.Row="3" Grid.Column="1"
                            Style="{StaticResource Text}"/>
 

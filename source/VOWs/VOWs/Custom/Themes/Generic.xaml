@@ -282,6 +282,55 @@
         
     </Style>
 
+    <Style TargetType="{x:Type custom:MenuSection}">
+
+        <Style.Setters>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type custom:MenuSection}">
+                        <Border Padding="5,0"
+                                BorderBrush="{Binding Globals.Accent}" BorderThickness="1,0">
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="*"/>
+                                </Grid.RowDefinitions>
+
+                                <TextBlock Text="{TemplateBinding Title}"
+                                           HorizontalAlignment="Center" VerticalAlignment="Top"
+                                           FontSize="9" FontWeight="Light"
+                                           Foreground="{TemplateBinding Foreground}"/>
+                                <ContentPresenter Content="{TemplateBinding Content}"
+                                                  Grid.Row="1"/>
+                            </Grid>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+
+            <Setter Property="Title" Value="Unnamed Category"/>
+            <Setter Property="Foreground" Value="#b8b8b8"/>
+        </Style.Setters>
+
+        <Style.Triggers>
+            <!--Theming triggers. These are pretty long, annoyingly, because Trigger objects can't be nested.-->
+            <!--Default theming triggers. Anything that changes based ONLY on the theme selected should go in here.-->
+            <DataTrigger Binding="{Binding Globals.Theme}" Value="Black">
+                <Setter Property="Foreground" Value="#c6c6c6"/>
+            </DataTrigger>
+            <DataTrigger Binding="{Binding Globals.Theme}" Value="Dark">
+                <Setter Property="Foreground" Value="#b8b8b8"/>
+            </DataTrigger>
+            <DataTrigger Binding="{Binding Globals.Theme}" Value="Light">
+                <Setter Property="Foreground" Value="#1f1f1f"/>
+            </DataTrigger>
+            <DataTrigger Binding="{Binding Globals.Theme}" Value="White">
+                <Setter Property="Foreground" Value="#0a0a0a"/>
+            </DataTrigger>
+        </Style.Triggers>
+
+    </Style>
+    
     <Style TargetType="{x:Type custom:Page}">
 
         <Style.Setters>
@@ -294,7 +343,20 @@
                                 Margin="{TemplateBinding Margin}"
                                 HorizontalAlignment="{TemplateBinding HorizontalAlignment}" VerticalAlignment="{TemplateBinding VerticalAlignment}">
 
-                            <RichTextBox Margin="{TemplateBinding Padding}"
+                            <!--<custom:PageTextBox/>-->
+                            <!--<custom:PageTextBox Margin="{TemplateBinding Padding}"
+                                                CurrentForeground="{TemplateBinding Foreground}" Background="{TemplateBinding Background}"
+                                                AcceptsReturn="True" AcceptsTab="True"
+                                                AllowDrop="True"
+                                                CaretBrush="{TemplateBinding Foreground}"
+                                                FlowDirection="{TemplateBinding FlowDirection}"
+                                                CurrentFontFamily="{TemplateBinding FontFamily}" CurrentFontSize="{TemplateBinding FontSize}"
+                                                CurrentFontStyle="{TemplateBinding FontStyle}" CurrentFontWeight="{TemplateBinding FontWeight}"
+                                                IsUndoEnabled="False"
+                                                IsInactiveSelectionHighlightEnabled="True" IsHitTestVisible="True"/>-->
+                            <ContentPresenter Content="{TemplateBinding TextBox}"/>
+
+                            <!--<RichTextBox Margin="{TemplateBinding Padding}"
                                          Foreground="{TemplateBinding Foreground}" Background="{TemplateBinding Background}"
                                          AcceptsReturn="True" AcceptsTab="True"
                                          AllowDrop="True"
@@ -302,10 +364,16 @@
                                          FlowDirection="{TemplateBinding FlowDirection}"
                                          FontFamily="{TemplateBinding FontFamily}" FontSize="{TemplateBinding FontSize}"
                                          FontStyle="{TemplateBinding FontStyle}" FontStretch="{TemplateBinding FontStretch}" FontWeight="{TemplateBinding FontWeight}"
-                                         IsUndoEnabled="False"/>
+                                         IsUndoEnabled="False"/>-->
 
                         </Border>
                     </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+
+            <Setter Property="TextBox">
+                <Setter.Value>
+                    <custom:PageTextBox/>
                 </Setter.Value>
             </Setter>
 
@@ -323,5 +391,26 @@
         </Style.Triggers>
         
     </Style>
-    
+
+    <Style TargetType="{x:Type custom:PageTextBox}"
+           BasedOn="{StaticResource {x:Type RichTextBox}}">
+
+        <Style.Setters>
+            <Setter Property="AcceptsReturn" Value="True"/>
+            <Setter Property="AcceptsTab" Value="True"/>
+            <Setter Property="AllowDrop" Value="True"/>
+            <Setter Property="Background" Value="{Binding RelativeSource={RelativeSource AncestorType=custom:Page}, Path=Background}"/>
+            <Setter Property="CaretBrush" Value="{Binding RelativeSource={RelativeSource AncestorType=custom:Page}, Path=Foreground}"/>
+            <Setter Property="CurrentFontFamily" Value="{Binding RelativeSource={RelativeSource AncestorType=custom:Page}, Path=FontFamily}"/>
+            <Setter Property="CurrentFontSize" Value="{Binding RelativeSource={RelativeSource AncestorType=custom:Page}, Path=FontSize}"/>
+            <Setter Property="CurrentFontStyle" Value="{Binding RelativeSource={RelativeSource AncestorType=custom:Page}, Path=FontStyle}"/>
+            <Setter Property="CurrentFontWeight" Value="{Binding RelativeSource={RelativeSource AncestorType=custom:Page}, Path=FontWeight}"/>
+            <Setter Property="CurrentForeground" Value="{Binding RelativeSource={RelativeSource AncestorType=custom:Page}, Path=Foreground}"/>
+            <Setter Property="IsUndoEnabled" Value="False"/>
+            <Setter Property="IsInactiveSelectionHighlightEnabled" Value="True"/>
+            <Setter Property="Margin" Value="{Binding RelativeSource={RelativeSource AncestorType=custom:Page}, Path=Padding}"/>
+        </Style.Setters>
+        
+    </Style>
+
 </ResourceDictionary>

@@ -1,4 +1,10 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Messaging;
+using System;
+using System.IO;
+using System.Reflection;
+using System.Text.Json;
+using System.Text.Json.Nodes;
 using System.Windows;
 using VOWsLauncher.Events;
 
@@ -25,7 +31,7 @@ namespace VOWsLauncher.MVVM.Model
         /// <summary>
         /// The <c>WrappedTheme</c> property will return the theme with extra database information attached (<c>WrappedItem</c>).
         /// </summary>
-        public WrappedItem<string> WrappedTheme { get; }
+        public WrappedItem<string> WrappedTheme { get; private set; }
         /// <summary>
         /// The <c>Theme</c> property exposes the value of the theme.
         /// Typically, unless you really need database information, it makes more sense to use this property over <c>WrappedTheme</c>.
@@ -42,7 +48,7 @@ namespace VOWsLauncher.MVVM.Model
         /// <summary>
         /// The <c>WrappedAccent</c> property will return the accent colour with extra database information attached (<c>WrappedItem</c>).
         /// </summary>
-        public WrappedItem<string> WrappedAccent { get; }
+        public WrappedItem<string> WrappedAccent { get; private set; }
         /// <summary>
         /// The <c>Accent</c> property exposes the value of the accent.
         /// Typically, unless you really need database information, it makes more sense to use this property over <c>WrappedAccent</c>.
@@ -59,7 +65,7 @@ namespace VOWsLauncher.MVVM.Model
         /// <summary>
         /// The <c>WrappedUseHighContrast</c> property will return the boolean setting with extra database information attached (<c>WrappedItem</c>).
         /// </summary>
-        public WrappedItem<bool> WrappedUseHighContrast { get; }
+        public WrappedItem<bool> WrappedUseHighContrast { get; private set; }
         /// <summary>
         /// The <c>UseHighContrast</c> property exposes the value of the boolean setting dictating whether elements should use a high contrast colour scheme.
         /// Typically, unless you really need database information, it makes more sense to use this property over <c>WrappedUseHighContrast</c>.
@@ -76,7 +82,7 @@ namespace VOWsLauncher.MVVM.Model
         /// <summary>
         /// The <c>WrappedUseLargeText</c> property will return the boolean setting with extra database information attached (<c>WrappedItem</c>).
         /// </summary>
-        public WrappedItem<bool> WrappedUseLargeText { get; }
+        public WrappedItem<bool> WrappedUseLargeText { get; private set; }
         /// <summary>
         /// The <c>UseLargeText</c> property exposes the value of the boolean setting dictating whether text should be enlarged for easier vision.
         /// Typically, unless you really need database information, it makes more sense to use this property over <c>WrappedUseLargeText</c>.
@@ -93,7 +99,7 @@ namespace VOWsLauncher.MVVM.Model
         /// <summary>
         /// The <c>WrappedShowBeginnersText</c> property will return the boolean setting with extra database information attached (<c>WrappedItem</c>).
         /// </summary>
-        public WrappedItem<bool> WrappedShowBeginnersText { get; }
+        public WrappedItem<bool> WrappedShowBeginnersText { get; private set; }
         /// <summary>
         /// The <c>ShowBeginnersText</c> property exposes the value of the boolean setting dictating whether beginners information should be shown in the launcher.
         /// Typically, unless you really need database information, it makes more sense to use this property over <c>WrappedShowBeginnersText</c>.
@@ -110,7 +116,7 @@ namespace VOWsLauncher.MVVM.Model
         /// <summary>
         /// The <c>WrappedUseTabsForVersionControl</c> property will return the boolean setting with extra database information attached (<c>WrappedItem</c>).
         /// </summary>
-        public WrappedItem<bool> WrappedUseTabsForVersionControl { get; }
+        public WrappedItem<bool> WrappedUseTabsForVersionControl { get; private set; }
         /// <summary>
         /// The <c>UseTabsForVersionControl</c> property exposes the value of the boolean setting dictating whether the version control actions should be stored in the tabs menu
         /// (true) or as a seperate window (false).
@@ -157,12 +163,131 @@ namespace VOWsLauncher.MVVM.Model
 #pragma warning restore CS8602 // Dereference of a possibly null reference.
 #pragma warning restore CS8601 // Possible null reference assignment.
             // TODO: Add database access.
-            WrappedTheme = new("application.theme", "Theme", "Black", true);
-            WrappedAccent = new("application.accent", "Accent", "#5da1c0", true);
-            WrappedUseHighContrast = new("application.accessibility.highcontrast", "High Contrast", false, true);
-            WrappedUseLargeText = new("application.accessibility.largetext", "Large Text", false, true);
-            WrappedShowBeginnersText = new("application.launcher.beginnerstips", "Beginners Tips", true, true);
-            WrappedUseTabsForVersionControl = new("application.editor.versioncontrol", "Use Tabs for Version Control", true, true);
+            RefreshValues();
+        }
+
+        public void RefreshValues()
+        {
+            // Check if Uri to settings.json exists.
+            string configDirectoryPath = Directory.GetParent(AppDomain.CurrentDomain.BaseDirectory).FullName + "/config";
+            Directory.CreateDirectory(configDirectoryPath);
+            string settingsPath = configDirectoryPath + "/settings.json";
+            if (!File.Exists(settingsPath))
+            {
+                // The file doesn't exist! We'll create a new one.
+                WeakReferenceMessenger.Default.Send(new LogMessage("No 'settings.json' file found - creating a new one with default settings.", ToString(), LogLevel.INFO));
+                JsonObject defaultContent = new()
+                {
+                    ["theme"] = "Dark",
+                    ["accent"] = "#5da1c0",
+                    ["accessibility"] = new JsonObject()
+                    {
+                        ["highcontrast"] = false,
+                        ["largetext"] = false
+                    },
+                    ["launcher"] = new JsonObject()
+                    {
+                        ["beginnerstips"] = true
+                    },
+                    ["editor"] = new JsonObject()
+                    {
+                        ["versioncontrol"] = true
+                    }
+                };
+                using FileStream settingsStream = File.Create(settingsPath);
+                using Utf8JsonWriter settingsWriter = new(settingsStream);
+                defaultContent.WriteTo(settingsWriter, new() { WriteIndented = true });
+                WeakReferenceMessenger.Default.Send(new LogMessage("Successfully created new 'settings.json' file!", ToString(), LogLevel.DEBUG));
+                RefreshValues();
+            }
+            // The file exists, so we'll read from it.
+            using FileStream settingsReadStream = File.OpenRead(settingsPath);
+            // Check if the JSON is valid - a JsonException will raise if it isn't.
+            JsonObject keyValuePairs = null;
+            try
+            {
+                keyValuePairs = JsonObject.Parse(settingsReadStream)?.AsObject();
+            }
+            catch { }
+            if (keyValuePairs == null)
+            {
+                // Malformed JSON file, so we'll log a message and reconstruct the file with default values.
+                WeakReferenceMessenger.Default.Send(new LogMessage("Encountered a malformed 'settings.json' - attempting to reconstruct file.", ToString(), LogLevel.WARNING));
+                // Before deletion, we'll also close the FileStream.
+                settingsReadStream.Dispose();
+                settingsReadStream.Close();
+                File.Delete(settingsPath);
+                WeakReferenceMessenger.Default.Send(new LogMessage("Removed malformed 'settings.json' file.", ToString(), LogLevel.DEBUG));
+                MessageBox.Show("Detected a malformed 'settings.json' file. Default settings have been restored.", "Warning");
+                RefreshValues();
+                return;
+            }
+            // Valid JSON file - we can begin the slow process of extracting values.
+            if (keyValuePairs.ContainsKey("theme")) WrappedTheme = new(keyValuePairs["theme"].GetPath(), "Theme", keyValuePairs["theme"].GetValue<string>(), true);
+            else WrappedTheme = new("", "Theme", "Dark", true);
+            if (keyValuePairs.ContainsKey("accent")) WrappedAccent = new(keyValuePairs["accent"].GetPath(), "Accent", keyValuePairs["accent"].GetValue<string>(), true);
+            else WrappedAccent = new("", "Accent", "#5da1c0", true);
+            // Retrieve "accessibility" sub-category and extract child values.
+            JsonObject accessibility = new();
+            if (keyValuePairs.ContainsKey("accessibility"))
+            {
+                try { accessibility = keyValuePairs["accessibility"].AsObject(); }
+                catch { accessibility = new(); }
+            }
+            if (accessibility.ContainsKey("highcontrast")) WrappedUseHighContrast = new(accessibility["highcontrast"].GetPath(), "Use High Contrast", accessibility["highcontrast"].GetValue<bool>(), true);
+            else WrappedUseHighContrast = new("", "Use High Contrast", false, true);
+            if (accessibility.ContainsKey("largetext")) WrappedUseLargeText = new(accessibility["largetext"].GetPath(), "Use Large Text", accessibility["largetext"].GetValue<bool>(), true);
+            else WrappedUseLargeText = new("", "Use Large Text", false, true);
+            // Retrieve "launcher" sub-category and extract child values.
+            JsonObject launcher = new();
+            if (keyValuePairs.ContainsKey("launcher"))
+            {
+                try { launcher = keyValuePairs["launcher"].AsObject(); }
+                catch { launcher = new(); }
+            }
+            if (launcher.ContainsKey("beginnerstips")) WrappedShowBeginnersText = new(launcher["beginnerstips"].GetPath(), "Show Beginners Tips", launcher["beginnerstips"].GetValue<bool>(), true);
+            else WrappedShowBeginnersText = new("", "Show Beginners Tips", true, true);
+            // Retrieve "editor" sub-category and extract child values.
+            JsonObject editor = new();
+            if (keyValuePairs.ContainsKey("editor"))
+            {
+                try { editor = keyValuePairs["editor"].AsObject(); }
+                catch { editor = new(); }
+            }
+            if (editor.ContainsKey("versioncontrol")) WrappedUseTabsForVersionControl = new(editor["versioncontrol"].GetPath(), "Use Tabs for Version Control", editor["versioncontrol"].GetValue<bool>(), true);
+            else WrappedUseTabsForVersionControl = new("", "Use Tabs for Version Control", true, true);
+        }
+    
+        public void SaveValues()
+        {
+            // Retrieve directory values.
+            string configDirectoryPath = Directory.GetParent(AppDomain.CurrentDomain.BaseDirectory).FullName + "/config";
+            Directory.CreateDirectory(configDirectoryPath);
+            string settingsPath = configDirectoryPath + "/settings.json";
+            // Now we can begin writing anew to this file.
+            JsonObject newContent = new()
+            {
+                ["theme"] = WrappedTheme.Item,
+                ["accent"] = WrappedAccent.Item,
+                ["accessibility"] = new JsonObject()
+                {
+                    ["highcontrast"] = WrappedUseHighContrast.Item,
+                    ["largetext"] = WrappedUseLargeText.Item
+                },
+                ["launcher"] = new JsonObject()
+                {
+                    ["beginnerstips"] = WrappedShowBeginnersText.Item
+                },
+                ["editor"] = new JsonObject()
+                {
+                    ["versioncontrol"] = WrappedUseTabsForVersionControl.Item
+                }
+            };
+            using FileStream settingsStream = File.Create(settingsPath);
+            using Utf8JsonWriter settingsWriter = new(settingsStream);
+            newContent.WriteTo(settingsWriter, new() { WriteIndented = true });
+            // Now, to update variables, we'll call RefreshValues().
+            // Unfortunately, this means we cant make use of the fancy using keyword.
         }
     }
 }

@@ -8,6 +8,20 @@
         - White: https://coolors.co/palette/ffffff-f5f5f5-141414-0a0a0a-b6d5e2
     -->
 
+    <!--A janky fix for the Button TextBlock TextWrapping bug - should apply to every TextBox here.-->
+    <Style TargetType="TextBlock">
+
+        <Setter Property="TextWrapping" Value="NoWrap"/>
+
+        <Style.Triggers>
+            <!--Triggers relating to Large Text Size option.-->
+            <DataTrigger Binding="{Binding Globals.UseLargeText}" Value="true">
+                <Setter Property="TextWrapping" Value="Wrap"/>
+            </DataTrigger>
+        </Style.Triggers>
+
+    </Style>
+
     <Style x:Key="ThemedBorder"
            TargetType="Border">
 
@@ -262,6 +276,7 @@
 
         <Style.Setters>
             <Setter Property="Foreground" Value="#cccccc"/>
+            <Setter Property="TextWrapping" Value="Wrap"/>
             <Setter Property="FontSize" Value="28"/>
             <Setter Property="HorizontalAlignment" Value="Left"/>
             <Setter Property="Margin" Value="0,0,0,20"/>
@@ -282,6 +297,11 @@
             <DataTrigger Binding="{Binding Globals.Theme}" Value="White">
                 <Setter Property="Foreground" Value="#141414"/>
             </DataTrigger>
+            
+            <!--Triggers relating to Large Text Size option.-->
+            <DataTrigger Binding="{Binding Globals.UseLargeText}" Value="true">
+                <Setter Property="FontSize" Value="42"/>
+            </DataTrigger>
         </Style.Triggers>
 
     </Style>
@@ -291,6 +311,7 @@
 
         <Style.Setters>
             <Setter Property="Foreground" Value="#cccccc"/>
+            <Setter Property="TextWrapping" Value="Wrap"/>
             <Setter Property="FontSize" Value="20"/>
             <Setter Property="HorizontalAlignment" Value="Left"/>
             <Setter Property="Margin" Value="0,0,0,10"/>
@@ -311,6 +332,11 @@
             <DataTrigger Binding="{Binding Globals.Theme}" Value="White">
                 <Setter Property="Foreground" Value="#141414"/>
             </DataTrigger>
+
+            <!--Triggers relating to Large Text Size option.-->
+            <DataTrigger Binding="{Binding Globals.UseLargeText}" Value="true">
+                <Setter Property="FontSize" Value="30"/>
+            </DataTrigger>
         </Style.Triggers>
 
     </Style>
@@ -320,6 +346,7 @@
 
         <Style.Setters>
             <Setter Property="Foreground" Value="#b8b8b8"/>
+            <Setter Property="TextWrapping" Value="Wrap"/>
             <Setter Property="FontSize" Value="14"/>
             <Setter Property="HorizontalAlignment" Value="Left"/>
             <Setter Property="Margin" Value="0,0,0,5"/>
@@ -340,10 +367,47 @@
             <DataTrigger Binding="{Binding Globals.Theme}" Value="White">
                 <Setter Property="Foreground" Value="#0a0a0a"/>
             </DataTrigger>
+
+            <!--Triggers relating to Large Text Size option.-->
+            <DataTrigger Binding="{Binding Globals.UseLargeText}" Value="true">
+                <Setter Property="FontSize" Value="21"/>
+            </DataTrigger>
         </Style.Triggers>
 
     </Style>
 
+    <Style x:Key="Text_Hyperlink"
+           TargetType="Hyperlink">
+
+        <Style.Setters>
+            <Setter Property="Foreground" Value="#b8b8b8"/>
+            <Setter Property="FontSize" Value="14"/>
+        </Style.Setters>
+
+        <Style.Triggers>
+            <!--Theming triggers. These are pretty long, annoyingly, because Trigger objects can't be nested.-->
+            <!--Default theming triggers. Anything that changes based ONLY on the theme selected should go in here.-->
+            <DataTrigger Binding="{Binding Globals.Theme}" Value="Black">
+                <Setter Property="Foreground" Value="#c6c6c6"/>
+            </DataTrigger>
+            <DataTrigger Binding="{Binding Globals.Theme}" Value="Dark">
+                <Setter Property="Foreground" Value="#b8b8b8"/>
+            </DataTrigger>
+            <DataTrigger Binding="{Binding Globals.Theme}" Value="Light">
+                <Setter Property="Foreground" Value="#1f1f1f"/>
+            </DataTrigger>
+            <DataTrigger Binding="{Binding Globals.Theme}" Value="White">
+                <Setter Property="Foreground" Value="#0a0a0a"/>
+            </DataTrigger>
+
+            <!--Triggers relating to Large Text Size option.-->
+            <DataTrigger Binding="{Binding Globals.UseLargeText}" Value="true">
+                <Setter Property="FontSize" Value="21"/>
+            </DataTrigger>
+        </Style.Triggers>
+
+    </Style>
+    
     <Style x:Key="UserInput"
            TargetType="TextBox">
 
@@ -351,6 +415,7 @@
             <Setter Property="Background" Value="#474747"/>
             <Setter Property="Foreground" Value="#b8b8b8"/>
             <Setter Property="BorderBrush" Value="{Binding Globals.Accent}"/>
+            <Setter Property="TextWrapping" Value="Wrap"/>
             <Setter Property="FontSize" Value="12"/>
             <Setter Property="HorizontalContentAlignment" Value="Center"/>
             <Setter Property="VerticalContentAlignment" Value="Center"/>
@@ -375,10 +440,186 @@
                 <Setter Property="Background" Value="#ffffff"/>
                 <Setter Property="Foreground" Value="#0a0a0a"/>
             </DataTrigger>
+
+            <!--Triggers relating to Large Text Size option.-->
+            <DataTrigger Binding="{Binding Globals.UseLargeText}" Value="true">
+                <Setter Property="FontSize" Value="18"/>
+            </DataTrigger>
         </Style.Triggers>
         
     </Style>
 
+    <Style x:Key="StylisedComboBox"
+           TargetType="ComboBox">
+        <Style.Setters>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="ComboBox">
+                        <Border Background="Transparent"
+                                BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}"
+                                Margin="{TemplateBinding Margin}" Padding="{TemplateBinding Padding}"
+                                HorizontalAlignment="{TemplateBinding HorizontalAlignment}" VerticalAlignment="{TemplateBinding VerticalAlignment}">
+
+                            <Grid Margin="5,2"
+                                  HorizontalAlignment="Right">
+
+                                <ToggleButton x:Name="ToggleButton"
+                                              Focusable="False"
+                                              IsChecked="{Binding Path=IsDropDownOpen, Mode=TwoWay, RelativeSource={RelativeSource Mode=TemplatedParent}}"
+                                              ClickMode="Press"
+                                              OverridesDefaultStyle="True">
+                                    <ToggleButton.Template>
+                                        <ControlTemplate TargetType="ToggleButton">
+                                            <Grid>
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition/>
+                                                    <ColumnDefinition Width="20"/>
+                                                </Grid.ColumnDefinitions>
+
+                                                <Border x:Name="Border"
+                                                        Grid.ColumnSpan="2"
+                                                        Background="{TemplateBinding Background}"
+                                                        BorderThickness="1">
+                                                    <Border.BorderBrush>
+                                                        <VisualBrush>
+                                                            <VisualBrush.Visual>
+                                                                <Rectangle StrokeDashArray="2,1" Stroke="{Binding RelativeSource={RelativeSource AncestorType={x:Type ComboBox}}, Path=BorderBrush}" StrokeThickness="1"
+                                                                           Width="{Binding RelativeSource={RelativeSource AncestorType={x:Type Border}}, Path=ActualWidth}"
+                                                                           Height="{Binding RelativeSource={RelativeSource AncestorType={x:Type TextBox}}, Path=ActualHeight}"/>
+                                                            </VisualBrush.Visual>
+                                                        </VisualBrush>
+                                                    </Border.BorderBrush>
+                                                </Border>
+
+                                                <Border Margin="1,0"
+                                                        Background="Transparent"/>
+
+                                                <Path x:Name="Arrow"
+                                                      Grid.Column="1"
+                                                      Fill="{Binding Globals.Accent}"
+                                                      HorizontalAlignment="Center" VerticalAlignment="Center"
+                                                      Data="M0,0 L0,2 L4,6 L8,2 L8,0 L4,4 z"/>
+                                            </Grid>
+                                        </ControlTemplate>
+                                    </ToggleButton.Template>
+                                </ToggleButton>
+
+                                <!--I can't tell you why this works, but the spacing breaks without both Padding and Margin.-->
+                                <!--Please do not remove.-->
+                                <Border Padding="3,0,10,0"
+                                        Margin="3,0,10,0">
+                                    <ContentPresenter x:Name="ContentSite"
+                                                      IsHitTestVisible="False"
+                                                      Content="{TemplateBinding SelectionBoxItem}"
+                                                      ContentTemplate="{TemplateBinding SelectionBoxItemTemplate}" ContentTemplateSelector="{TemplateBinding ItemTemplateSelector}"
+                                                      HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                                </Border>
+
+                                <!--Same thing applies for the EditableTextBox - DO NOT TOUCH PADDING OR MARGIN!-->
+                                <TextBox x:Name="PART_EditableTextBox"
+                                         Style="{x:Null}"
+                                         Margin="3,0,10,0" Padding="3,0,10,0"
+                                         HorizontalAlignment="Left" VerticalAlignment="Center"
+                                         Focusable="True"
+                                         Background="Transparent" Foreground="{TemplateBinding Foreground}"
+                                         CaretBrush="{TemplateBinding Foreground}"
+                                         BorderThickness="0"
+                                         Visibility="Collapsed"
+                                         IsReadOnly="{TemplateBinding IsReadOnly}"/>
+
+                                <Popup x:Name="Popup"
+                                       Placement="Bottom"
+                                       IsOpen="{TemplateBinding IsDropDownOpen}"
+                                       AllowsTransparency="True"
+                                       Focusable="False"
+                                       PopupAnimation="Slide">
+                                    <Grid x:Name="DropDown"
+                                          SnapsToDevicePixels="True"
+                                          MaxHeight="{TemplateBinding MaxDropDownHeight}">
+                                        <Border x:Name="DropDownBorder"
+                                                Background="{TemplateBinding Background}"
+                                                BorderThickness="1">
+                                            <Border.BorderBrush>
+                                                <VisualBrush>
+                                                    <VisualBrush.Visual>
+                                                        <Rectangle StrokeDashArray="2,1" Stroke="{TemplateBinding BorderBrush}" StrokeThickness="1"
+                                                                   Width="{Binding RelativeSource={RelativeSource AncestorType={x:Type Border}}, Path=ActualWidth}"
+                                                                   Height="{Binding RelativeSource={RelativeSource AncestorType={x:Type TextBox}}, Path=ActualHeight}"/>
+                                                    </VisualBrush.Visual>
+                                                </VisualBrush>
+                                            </Border.BorderBrush>
+                                        </Border>
+                                        <ScrollViewer Margin="4,6,4,6"
+                                                      SnapsToDevicePixels="True">
+                                            <StackPanel IsItemsHost="True"
+                                                        KeyboardNavigation.DirectionalNavigation="Contained" />
+                                        </ScrollViewer>
+                                    </Grid>
+                                </Popup>
+
+                            </Grid>
+
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="HasItems" Value="false">
+                                <Setter TargetName="DropDownBorder" Property="MinHeight" Value="95"/>
+                            </Trigger>
+                            <Trigger Property="IsEnabled" Value="False">
+                                <Setter Property="BorderBrush" Value="#888888"/>
+                            </Trigger>
+                            <Trigger Property="IsGrouping" Value="true">
+                                <Setter Property="ScrollViewer.CanContentScroll" Value="false"/>
+                            </Trigger>
+                            <Trigger SourceName="Popup" Property="AllowsTransparency" Value="true">
+                                <Setter TargetName="DropDownBorder" Property="CornerRadius" Value="0"/>
+                                <Setter TargetName="DropDownBorder" Property="Margin" Value="0,2,0,0"/>
+                            </Trigger>
+                            <Trigger Property="IsEditable" Value="True">
+                                <Setter Property="IsTabStop" Value="False"/>
+                                <Setter TargetName="PART_EditableTextBox" Property="Visibility" Value="Visible"/>
+                                <Setter TargetName="ContentSite" Property="Visibility" Value="Collapsed"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+
+            <Setter Property="Background" Value="#474747"/>
+            <Setter Property="Foreground" Value="#cccccc"/>
+            <Setter Property="BorderBrush" Value="{Binding Globals.Accent}"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="MinHeight" Value="20"/>
+            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Setter Property="OverridesDefaultStyle" Value="true"/>
+            <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Auto"/>
+            <Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Auto"/>
+            <Setter Property="ScrollViewer.CanContentScroll" Value="true"/>
+        </Style.Setters>
+
+        <Style.Triggers>
+            <!--Theming triggers. These are pretty long, annoyingly, because Trigger objects can't be nested.-->
+            <!--Default theming triggers. Anything that changes based ONLY on the theme selected should go in here.-->
+            <DataTrigger Binding="{Binding Globals.Theme}" Value="Black">
+                <Setter Property="Background" Value="#262626"/>
+                <Setter Property="Foreground" Value="#dddddd"/>
+            </DataTrigger>
+            <DataTrigger Binding="{Binding Globals.Theme}" Value="Dark">
+                <Setter Property="Background" Value="#474747"/>
+                <Setter Property="Foreground" Value="#cccccc"/>
+            </DataTrigger>
+            <DataTrigger Binding="{Binding Globals.Theme}" Value="Light">
+                <Setter Property="Background" Value="#ebebeb"/>
+                <Setter Property="Foreground" Value="#333333"/>
+            </DataTrigger>
+            <DataTrigger Binding="{Binding Globals.Theme}" Value="White">
+                <Setter Property="Background" Value="#ffffff"/>
+                <Setter Property="Foreground" Value="#141414"/>
+            </DataTrigger>
+        </Style.Triggers>
+
+    </Style>
+    
     <Style x:Key="MenuButton"
            TargetType="Button">
 
@@ -391,7 +632,8 @@
                               HorizontalAlignment="Stretch"
                               Background="{TemplateBinding Background}">
 
-                            <TextBlock Text="{TemplateBinding Property=Content}"
+                            <TextBlock Text="{TemplateBinding Content}"
+                                       FontSize="{TemplateBinding FontSize}"
                                        VerticalAlignment="Center"
                                        Margin="50,0,0,0"/>
 
@@ -404,6 +646,7 @@
             <Setter Property="Background" Value="#3d3d3d"/>
             <Setter Property="BorderBrush" Value="#3d3d3d"/>
             <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="FontSize" Value="11"/>
 
         </Style.Setters>
 
@@ -476,6 +719,10 @@
                 </MultiDataTrigger.Setters>
             </MultiDataTrigger>
 
+            <!--Triggers relating to Large Text Size option.-->
+            <DataTrigger Binding="{Binding Globals.UseLargeText}" Value="true">
+                <Setter Property="FontSize" Value="16"/>
+            </DataTrigger>
         </Style.Triggers>
 
     </Style>
@@ -493,7 +740,8 @@
                               HorizontalAlignment="Stretch"
                               Background="{TemplateBinding Background}">
 
-                            <TextBlock Text="{TemplateBinding Property=Content}"
+                            <TextBlock Text="{TemplateBinding Content}"
+                                       FontSize="{TemplateBinding FontSize}"
                                        VerticalAlignment="Center"
                                        Margin="50,0,0,0"/>
                         </Grid>
@@ -505,6 +753,7 @@
             <Setter Property="Background" Value="#474747"/>
             <Setter Property="BorderBrush" Value="#3d3d3d"/>
             <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="FontSize" Value="11"/>
 
         </Style.Setters>
 
@@ -576,6 +825,11 @@
                     <Setter Property="Background" Value="#ffffff"/>
                 </MultiDataTrigger.Setters>
             </MultiDataTrigger>
+
+            <!--Triggers relating to Large Text Size option.-->
+            <DataTrigger Binding="{Binding Globals.UseLargeText}" Value="true">
+                <Setter Property="FontSize" Value="16"/>
+            </DataTrigger>
 
         </Style.Triggers>
 
@@ -593,7 +847,8 @@
                               HorizontalAlignment="Stretch"
                               Background="{TemplateBinding Background}">
 
-                            <TextBlock Text="{TemplateBinding Property=Content}"
+                            <TextBlock Text="{TemplateBinding Content}"
+                                       FontSize="{TemplateBinding FontSize}"
                                        VerticalAlignment="Center"
                                        Margin="50,0,0,0"/>
                         </Grid>
@@ -605,6 +860,7 @@
             <Setter Property="Background" Value="#474747"/>
             <Setter Property="BorderBrush" Value="#3d3d3d"/>
             <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="FontSize" Value="11"/>
 
         </Style.Setters>
 
@@ -677,6 +933,11 @@
                 </MultiDataTrigger.Setters>
             </MultiDataTrigger>
 
+            <!--Triggers relating to Large Text Size option.-->
+            <DataTrigger Binding="{Binding Globals.UseLargeText}" Value="true">
+                <Setter Property="FontSize" Value="16"/>
+            </DataTrigger>
+
         </Style.Triggers>
 
     </Style>
@@ -693,7 +954,7 @@
                                 BorderThickness="{TemplateBinding BorderThickness}"
                                 CornerRadius="5">
 
-                            <TextBlock Text="{TemplateBinding Property=Content}"
+                            <TextBlock Text="{TemplateBinding Content}"
                                        VerticalAlignment="Center"
                                        HorizontalAlignment="Center"
                                        FontSize="{TemplateBinding FontSize}"
@@ -736,7 +997,6 @@
                         </LinearGradientBrush>
                     </Setter.Value>
                 </Setter>
-                <Setter Property="BorderBrush" Value="#4084a3"/>
             </DataTrigger>
             <DataTrigger Binding="{Binding Globals.Theme}" Value="Dark">
                 <Setter Property="Foreground" Value="#b8b8b8"/>
@@ -749,7 +1009,6 @@
                         </LinearGradientBrush>
                     </Setter.Value>
                 </Setter>
-                <Setter Property="BorderBrush" Value="#5da1c0"/>
             </DataTrigger>
             <DataTrigger Binding="{Binding Globals.Theme}" Value="Light">
                 <Setter Property="Foreground" Value="#1F1F1F"/>
@@ -762,7 +1021,6 @@
                         </LinearGradientBrush>
                     </Setter.Value>
                 </Setter>
-                <Setter Property="BorderBrush" Value="#89bbd1"/>
             </DataTrigger>
             <DataTrigger Binding="{Binding Globals.Theme}" Value="White">
                 <Setter Property="Foreground" Value="#0A0A0A"/>
@@ -775,7 +1033,6 @@
                         </LinearGradientBrush>
                     </Setter.Value>
                 </Setter>
-                <Setter Property="BorderBrush" Value="#b6d5e2"/>
             </DataTrigger>
 
             <!--Theming triggers for the IsMouseOver event, as well as the theme.-->
@@ -853,6 +1110,11 @@
             <Trigger Property="IsPressed" Value="True">
                 <Setter Property="Background" Value="{Binding Globals.Accent}"/>
             </Trigger>
+
+            <!--Triggers relating to Large Text Size option.-->
+            <DataTrigger Binding="{Binding Globals.UseLargeText}" Value="true">
+                <Setter Property="FontSize" Value="24"/>
+            </DataTrigger>
 
         </Style.Triggers>
 
@@ -893,7 +1155,7 @@
                     </LinearGradientBrush>
                 </Setter.Value>
             </Setter>
-            <Setter Property="BorderBrush" Value="#5da1c0"/>
+            <Setter Property="BorderBrush" Value="{Binding Globals.Accent}"/>
             <Setter Property="BorderThickness" Value="1"/>
             <Setter Property="FontSize" Value="16"/>
         </Style.Setters>
@@ -913,7 +1175,6 @@
                         </LinearGradientBrush>
                     </Setter.Value>
                 </Setter>
-                <Setter Property="BorderBrush" Value="#4084a3"/>
             </DataTrigger>
             <DataTrigger Binding="{Binding Globals.Theme}" Value="Dark">
                 <Setter Property="Foreground" Value="#b8b8b8"/>
@@ -926,7 +1187,6 @@
                         </LinearGradientBrush>
                     </Setter.Value>
                 </Setter>
-                <Setter Property="BorderBrush" Value="#5da1c0"/>
             </DataTrigger>
             <DataTrigger Binding="{Binding Globals.Theme}" Value="Light">
                 <Setter Property="Foreground" Value="#1F1F1F"/>
@@ -939,7 +1199,6 @@
                         </LinearGradientBrush>
                     </Setter.Value>
                 </Setter>
-                <Setter Property="BorderBrush" Value="#89bbd1"/>
             </DataTrigger>
             <DataTrigger Binding="{Binding Globals.Theme}" Value="White">
                 <Setter Property="Foreground" Value="#0A0A0A"/>
@@ -952,7 +1211,6 @@
                         </LinearGradientBrush>
                     </Setter.Value>
                 </Setter>
-                <Setter Property="BorderBrush" Value="#b6d5e2"/>
             </DataTrigger>
 
             <!--Theming triggers for the IsMouseOver event, as well as the theme.-->
@@ -1030,6 +1288,11 @@
             <Trigger Property="IsChecked" Value="True">
                 <Setter Property="Background" Value="{Binding Globals.Accent}"/>
             </Trigger>
+
+            <!--Triggers relating to Large Text Size option.-->
+            <DataTrigger Binding="{Binding Globals.UseLargeText}" Value="true">
+                <Setter Property="FontSize" Value="24"/>
+            </DataTrigger>
 
         </Style.Triggers>
 
@@ -1069,7 +1332,7 @@
                     </LinearGradientBrush>
                 </Setter.Value>
             </Setter>
-            <Setter Property="BorderBrush" Value="#5da1c0"/>
+            <Setter Property="BorderBrush" Value="{Binding Globals.Accent}"/>
             <Setter Property="BorderThickness" Value="1"/>
             <Setter Property="FontSize" Value="16"/>
         </Style.Setters>
@@ -1089,7 +1352,6 @@
                         </LinearGradientBrush>
                     </Setter.Value>
                 </Setter>
-                <Setter Property="BorderBrush" Value="#4084a3"/>
             </DataTrigger>
             <DataTrigger Binding="{Binding Globals.Theme}" Value="Dark">
                 <Setter Property="Foreground" Value="#b8b8b8"/>
@@ -1102,7 +1364,6 @@
                         </LinearGradientBrush>
                     </Setter.Value>
                 </Setter>
-                <Setter Property="BorderBrush" Value="#5da1c0"/>
             </DataTrigger>
             <DataTrigger Binding="{Binding Globals.Theme}" Value="Light">
                 <Setter Property="Foreground" Value="#1F1F1F"/>
@@ -1115,7 +1376,6 @@
                         </LinearGradientBrush>
                     </Setter.Value>
                 </Setter>
-                <Setter Property="BorderBrush" Value="#89bbd1"/>
             </DataTrigger>
             <DataTrigger Binding="{Binding Globals.Theme}" Value="White">
                 <Setter Property="Foreground" Value="#0A0A0A"/>
@@ -1128,7 +1388,6 @@
                         </LinearGradientBrush>
                     </Setter.Value>
                 </Setter>
-                <Setter Property="BorderBrush" Value="#b6d5e2"/>
             </DataTrigger>
 
             <!--Theming triggers for the IsMouseOver event, as well as the theme.-->
@@ -1207,6 +1466,11 @@
                 <Setter Property="Background" Value="{Binding Globals.Accent}"/>
             </Trigger>
 
+            <!--Triggers relating to Large Text Size option.-->
+            <DataTrigger Binding="{Binding Globals.UseLargeText}" Value="true">
+                <Setter Property="FontSize" Value="24"/>
+            </DataTrigger>
+
         </Style.Triggers>
 
     </Style>
@@ -1238,6 +1502,7 @@
             <Setter Property="Foreground" Value="#cccccc"/>
             <Setter Property="BorderBrush" Value="{Binding Globals.Accent}"/>
             <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="FontSize" Value="11"/>
         </Style.Setters>
 
         <Style.Triggers>
@@ -1333,6 +1598,11 @@
                 <Setter Property="Background" Value="{Binding Globals.Accent}"/>
             </Trigger>
 
+            <!--Triggers relating to Large Text Size option.-->
+            <DataTrigger Binding="{Binding Globals.UseLargeText}" Value="true">
+                <Setter Property="FontSize" Value="16"/>
+            </DataTrigger>
+
         </Style.Triggers>
         
     </Style>
@@ -1365,6 +1635,7 @@
             <Setter Property="Background" Value="Transparent"/>
             <Setter Property="BorderBrush" Value="{Binding Globals.Accent}"/>
             <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="FontSize" Value="11"/>
         </Style.Setters>
 
         <Style.Triggers>
@@ -1460,6 +1731,11 @@
                 <Setter Property="Background" Value="{Binding Globals.Accent}"/>
             </Trigger>
 
+            <!--Triggers relating to Large Text Size option.-->
+            <DataTrigger Binding="{Binding Globals.UseLargeText}" Value="true">
+                <Setter Property="FontSize" Value="16"/>
+            </DataTrigger>
+
         </Style.Triggers>
 
     </Style>
@@ -1491,6 +1767,7 @@
             <Setter Property="Background" Value="Transparent"/>
             <Setter Property="BorderBrush" Value="{Binding Globals.Accent}"/>
             <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="FontSize" Value="11"/>
         </Style.Setters>
 
         <Style.Triggers>
@@ -1585,6 +1862,11 @@
             <Trigger Property="IsChecked" Value="True">
                 <Setter Property="Background" Value="{Binding Globals.Accent}"/>
             </Trigger>
+
+            <!--Triggers relating to Large Text Size option.-->
+            <DataTrigger Binding="{Binding Globals.UseLargeText}" Value="true">
+                <Setter Property="FontSize" Value="16"/>
+            </DataTrigger>
 
         </Style.Triggers>
 

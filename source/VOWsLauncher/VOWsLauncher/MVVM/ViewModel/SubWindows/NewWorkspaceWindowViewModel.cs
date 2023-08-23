@@ -60,7 +60,14 @@ namespace VOWsLauncher.MVVM.ViewModel.SubWindows
         /// The <c>Template</c> property refers to the current template for this new workspace.
         /// It is retrieved using inter-app messaging, and will default to an empty Template object if none is set.
         /// </summary>
-        public Template Template { get => WeakReferenceMessenger.Default.Send(new RetrieveSelectedTemplateMessage()); }
+        public Template Template 
+        {
+            get
+            {
+                Template currentTemplate = WeakReferenceMessenger.Default.Send(new RetrieveSelectedTemplateMessage());
+                return currentTemplate.IsWorkplace ? currentTemplate : Template.Empty;
+            }
+        }
 
         #endregion XAMLBindings
 

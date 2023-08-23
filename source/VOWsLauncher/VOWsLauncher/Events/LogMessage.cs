@@ -44,7 +44,7 @@
         }
     }
 
-    public enum LogLevel : int
+    public enum LogLevel
     {
         /// <summary>
         /// <c>DEBUG</c> represents a message that is added for flow management / development purposes; more for the developer than the user.

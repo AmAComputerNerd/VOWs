@@ -35,12 +35,12 @@ namespace VOWs.Custom
     /// </summary>
     public class Page : Control
     {
-        public static readonly DependencyProperty SourceProperty = DependencyProperty.Register(nameof(Source), typeof(DataObject), typeof(Page));
+        public static readonly DependencyProperty TextBoxProperty = DependencyProperty.Register(nameof(TextBox), typeof(PageTextBox), typeof(Page));
 
-        public DataObject Source
+        public PageTextBox TextBox
         {
-            get => (DataObject)GetValue(SourceProperty);
-            set => SetValue(SourceProperty, value);
+            get => (PageTextBox)GetValue(TextBoxProperty);
+            set => SetValue(TextBoxProperty, value);
         }
 
         static Page()

@@ -11,11 +11,13 @@ using System.Windows.Media;
 using VOWs.Events;
 using VOWs.MVVM.Model;
 using VOWs.MVVM.Model.Data;
+using VOWs.MVVM.ViewModel.SubWindows;
+using VOWs.SubWindows;
 using Page = VOWs.Custom.Page;
 
 namespace VOWs.MVVM.ViewModel
 {
-    public class DocumentEditViewModel : ObservableObject
+    public class DocumentEditViewModel : ObservableRecipient
     {
         // Copies of global resources relevant to the DocumentEditView.
         /// <summary>
@@ -47,8 +49,10 @@ namespace VOWs.MVVM.ViewModel
         private Visibility _content_VersionControl;
         private Visibility _content_Image;
         private Visibility _content_Video;
-        private ComboBoxItem _fontSelectedFamily;
-        private ComboBoxItem _fontSelectedSize;
+        //private ComboBoxItem _fontSelectedFamily;
+        private string _fontSelectedFamily;
+        //private ComboBoxItem _fontSelectedSize;
+        private string _fontSelectedSize;
         private string _fontSelectedForeground;
 
         // Properties.
@@ -445,13 +449,14 @@ namespace VOWs.MVVM.ViewModel
         /// Family ComboBox. Updating this variable in turn updates the backing field and <c>CurrentFont.Family</c>
         /// property.
         /// </summary>
-        public ComboBoxItem FontSelectedFamily
+        //public ComboBoxItem FontSelectedFamily
+        public string FontSelectedFamily
         {
             get => _fontSelectedFamily;
             set
             {
                 SetProperty(ref _fontSelectedFamily, value);
-                CurrentFont.Family = new((string)value.Content);
+                CurrentFont.Family = new(value);
                 OnFontUpdate();
             }
         }
@@ -460,13 +465,14 @@ namespace VOWs.MVVM.ViewModel
         /// Size ComboBox. Updating this variable in turn updates the backing field and <c>CurrentFont.Size</c>
         /// property.
         /// </summary>
-        public ComboBoxItem FontSelectedSize
+        //public ComboBoxItem FontSelectedSize
+        public string FontSelectedSize
         {
             get => _fontSelectedSize;
             set
             {
                 SetProperty(ref _fontSelectedSize, value);
-                if (!int.TryParse((string)value.Content, out int size))
+                if (!int.TryParse(value, out int size))
                 {
                     size = 11;
                 }
@@ -484,21 +490,24 @@ namespace VOWs.MVVM.ViewModel
             get => _fontSelectedForeground;
             set
             {
+                value = value == null ? "#000000" : value;
                 SetProperty(ref _fontSelectedForeground, value);
-                if (!Regex.IsMatch(value, "^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$"))
+                if (!(Regex.IsMatch(value, "^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$")))
                 {
                     // The new value is not a valid hex code - default to #000000.
 #pragma warning disable CA2011 // Avoid infinite recursion
+                    WeakReferenceMessenger.Default.Send(new LogMessage("Read invalid font foreground. Defaulted to #000000.", ToString(), LogLevel.DEBUG));
                     FontSelectedForeground = "#000000";
 #pragma warning restore CA2011 // Avoid infinite recursion
                 }
                 // The regex matches, so we can do calculations on the values.
                 // First, we'll collect the rgb values.
-                byte r = (byte)(byte.Parse(value.Substring(1, 1)) * 16 + byte.Parse(value.Substring(2, 1)));
-                byte g = (byte)(byte.Parse(value.Substring(3, 1)) * 16 + byte.Parse(value.Substring(4, 1)));
-                byte b = (byte)(byte.Parse(value.Substring(5, 1)) * 16 + byte.Parse(value.Substring(6, 1)));
+                byte[] rgb = Convert.FromHexString(value.Split('#')[1]);
+                //byte r = (byte)(byte.Parse(value.Substring(1, 1)) * 16 + byte.Parse(value.Substring(2, 1)));
+                //byte g = (byte)(byte.Parse(value.Substring(3, 1)) * 16 + byte.Parse(value.Substring(4, 1)));
+                //byte b = (byte)(byte.Parse(value.Substring(5, 1)) * 16 + byte.Parse(value.Substring(6, 1)));
                 // Now we can update the Foreground property of the CurrentFont.
-                CurrentFont.Foreground = Color.FromRgb(r, g, b);
+                CurrentFont.Foreground = Color.FromRgb(rgb[0], rgb[1], rgb[2]);
                 OnFontUpdate();
             }
         }
@@ -574,6 +583,21 @@ namespace VOWs.MVVM.ViewModel
         /// This logo is the simple (~1:1) version of the logo.
         /// </summary>
         public DynamicURIResolver Logo { get; }
+        /// <summary>
+        /// The <c>CompatibilityMode</c> property determines whether Compatibility Mode is or isn't enabled.
+        /// In Compatibility Mode, all version control features will be disabled.
+        /// </summary>
+        public bool CompatibilityMode { get; }
+        /// <summary>
+        /// The <c>TextOnlyMode</c> property determines whether Text Only Mode is or isn't enabled.
+        /// In Text Only Mode, all non-text related functions (e.g., namely media and a few page controls) will be disabled.
+        /// </summary>
+        public bool TextOnlyMode { get; }
+        /// <summary>
+        /// The <c>ReadOnlyMode</c> property determines whether Read Only Mode is or isn't enabled.
+        /// In Read Only Mode, all editing functions will be disabled.
+        /// </summary>
+        public bool ReadOnlyMode { get; }
         #endregion
 
         /// <summary>
@@ -581,6 +605,7 @@ namespace VOWs.MVVM.ViewModel
         /// </summary>
         public DocumentEditViewModel()
         {
+            IsActive = true;
             #region Set "Binding Properties & Fields" region variables.
             // This is temporary - later, this will be done automatically.
             Tabs_Image = Visibility.Visible;
@@ -636,8 +661,19 @@ namespace VOWs.MVVM.ViewModel
             SideMenu_InfoCommand = new(() =>
             {
                 // TODO: Retrieve information on the currently open document / workspace.
-                WeakReferenceMessenger.Default.Send(new LogMessage("User tried to use an unimplemented function (SideMenu_InfoCommand)", ToString(), LogLevel.WARNING));
-                MessageBox.Show("This isn't implemented yet! Check back in a later version!", "Oops!");
+                // Get an instance of the MainWindow.
+                MainWindow mw = (MainWindow)Application.Current.MainWindow;
+                // Create an instance of the NewDocumentWindow and set its owner to be MainWindow and a new datacontext.
+                Window w = new InfoWindow()
+                {
+                    Owner = mw,
+                };
+                InfoWindowViewModel nvm = new();
+                w.DataContext = nvm;
+                // Show the window.
+                w.Show();
+                //WeakReferenceMessenger.Default.Send(new LogMessage("User tried to use an unimplemented function (SideMenu_InfoCommand)", ToString(), LogLevel.WARNING));
+                //MessageBox.Show("This isn't implemented yet! Check back in a later version!", "Oops!");
             });
             SideMenu_SaveCommand = new(() =>
             {
@@ -684,14 +720,28 @@ namespace VOWs.MVVM.ViewModel
             });
             #endregion
             #region Set "Other Properties & Fields" region variables.
-            CurrentFont = new(new("Calibri"), 64, Color.FromRgb(0,0,0));
+            CurrentFont = new(new("Calibri"), 11, Color.FromRgb(0,0,0));
             Logo = new("pack://application:,,,/Resources/Images/VOWsuite-logos_white.png",
                 "pack://application:,,,/Resources/Images/VOWsuite-logos_black.png",
                 new Uri("/Resources/Images/VOWsuite-logos_black.png",
                 UriKind.Relative));
-            PageVM = new PageViewModel(new Document(new("C:/Users/jonathon.thompson3/Documents/Unnamed Document.vdoc")));
+            PageVM = new PageViewModel(new Document(Globals.CommandLineArgs.SourcePath ?? new("C:/Users/jonathon.thompson3/Documents/Unnamed Document.vdoc")));
             OnFontUpdate();
+            CompatibilityMode = Globals.CommandLineArgs.EnforceCompatibilityMode || ExtensionUtils.GetMeta(Globals.CommandLineArgs.SourcePathExtensionType).EnforceCompatibilityMode;
+            TextOnlyMode = Globals.CommandLineArgs.EnforceTextOnlyMode || ExtensionUtils.GetMeta(Globals.CommandLineArgs.SourcePathExtensionType).EnforceTextOnlyMode;
+            ReadOnlyMode = Globals.CommandLineArgs.EnforceReadOnlyMode || ExtensionUtils.GetMeta(Globals.CommandLineArgs.SourcePathExtensionType).EnforceReadOnlyMode;
             #endregion
+        }
+
+        protected override void OnActivated()
+        {
+            // Register the class with RequestEditorModesMessage events to reply to.
+            Messenger.Register<DocumentEditViewModel, RequestEditorModesMessage>(this, (r, m) => r.Reply(m));
+        }
+
+        private void Reply(RequestEditorModesMessage message)
+        {
+            message.Reply(new(CompatibilityMode, TextOnlyMode, ReadOnlyMode));
         }
 
         /// <summary>

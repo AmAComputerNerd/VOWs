@@ -10,7 +10,7 @@
 
         <TextBlock Text="Pinned"
                    Style="{StaticResource TextTitle}"/>
-        <TextBlock Text="Take a look at all your favourite projects! You can pin or unpin documents and workspaces in the 'Open' or&#x0a;'Recent' tabs!"
+        <TextBlock Text="Take a look at all your favourite projects! You can pin or unpin documents and workspaces in the 'Open' or 'Recent' tabs!"
                    Margin="0,0,0,10"
                    Style="{StaticResource Text}"/>
 

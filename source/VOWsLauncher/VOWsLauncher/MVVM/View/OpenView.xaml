@@ -31,7 +31,7 @@
         <TextBlock Text="Edit Templates"
                    Style="{StaticResource TextSubtitle}"/>
 
-        <TextBlock Text="Made a mistake in one of your templates, or feeling the need to fix that singular speck on an otherwise perfect&#x0a;template? Browse the list of installed templates below and select one to open the template and edit it as you&#x0a;see fit!"
+        <TextBlock Text="Made a mistake in one of your templates, or feeling the need to fix that singular speck on an otherwise perfect template? Browse the list of installed templates below and select one to open the template and edit it as you see fit!"
                    Style="{StaticResource Text}"/>
 
         <StackPanel Orientation="Horizontal"
@@ -44,7 +44,12 @@
                                    RadiusY="20"
                                    Rect="0,0,690,125"/>
             </StackPanel.Clip>
-            
+
+            <TextBlock Text="Feature not implemented!"
+                       Margin="260,0,0,0"
+                       VerticalAlignment="Center"
+                       Style="{StaticResource Text}"/>
+
         </StackPanel>
     </StackPanel>
     

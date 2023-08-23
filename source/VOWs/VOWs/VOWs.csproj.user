@@ -13,6 +13,9 @@
     <Compile Update="MVVM\View\PageView.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="SubWindows\InfoWindow.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Page Update="MainWindow.xaml">
@@ -31,6 +34,9 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Custom\Themes\Generic.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="SubWindows\InfoWindow.xaml">
       <SubType>Designer</SubType>
     </Page>
   </ItemGroup>

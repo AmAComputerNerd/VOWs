@@ -9,7 +9,6 @@
              d:DesignHeight="495" d:DesignWidth="690">
 
     <Grid>
-
         <StackPanel>
 
             <TextBlock Text="Ready to begin?"

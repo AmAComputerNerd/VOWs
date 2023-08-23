@@ -12,7 +12,7 @@
         <TextBlock Text="New"
                    Style="{StaticResource TextTitle}"/>
 
-        <TextBlock Text="Time for a new project? You can create a new document if you're planning for something short and sweet, or&#x0a;for the wild ideas begging to escape the bounds of a single document, use a workspace to lock and store it all&#x0a;in one convenient package!"
+        <TextBlock Text="Time for a new project? You can create a new document if you're planning for something short and sweet, or for the wild ideas begging to escape the bounds of a single document, use a workspace to lock and store it all in one convenient package!"
                    Margin="0,0,0,20"
                    Style="{StaticResource Text}"/>
 
@@ -32,13 +32,15 @@
             <Button Content="VOWs for Beginners"
                     Padding="50"
                     MaxWidth="220"
-                    Style="{StaticResource StylisedButton}"/>
+                    Style="{StaticResource StylisedButton}"
+                    Command="{Binding VOWsTutorial1Command}"/>
 
-            <TextBlock Text="More templates"
-                       TextDecorations="Underline"
-                       HorizontalAlignment="Center" VerticalAlignment="Center"
+            <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center"
                        Margin="20,0"
-                       Style="{StaticResource Text}"/>
+                       Style="{StaticResource Text}">
+                <Hyperlink Style="{StaticResource Text_Hyperlink}"
+                           Command="{Binding MoreTemplatesCommand}">More templates</Hyperlink>
+            </TextBlock>
         </StackPanel>
 
         <StackPanel Orientation="Horizontal"
@@ -54,16 +56,18 @@
                        Margin="30,0"
                        Style="{StaticResource TextSubtitle}"/>
 
-            <Button Content="VOWs: Workplaces Tutorial"
+            <Button Content="VOWs: Workspaces Tutorial"
                     Padding="50"
                     MaxWidth="220"
-                    Style="{StaticResource StylisedButton}"/>
+                    Style="{StaticResource StylisedButton}"
+                    Command="{Binding VOWsTutorial2Command}"/>
 
-            <TextBlock Text="More templates"
-                       TextDecorations="Underline"
-                       HorizontalAlignment="Center" VerticalAlignment="Center"
+            <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center"
                        Margin="20,0"
-                       Style="{StaticResource Text}"/>
+                       Style="{StaticResource Text}">
+                <Hyperlink Style="{StaticResource Text_Hyperlink}"
+                           Command="{Binding MoreTemplatesCommand}">More templates</Hyperlink>
+            </TextBlock>
         </StackPanel>
 
     </StackPanel>

@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.IO.Compression;
 using System.Linq;
 using VOWs.Events;
 using VOWs.MVVM.Model.Data;
@@ -24,6 +25,16 @@ namespace VOWs.MVVM.Model
         /// If no Document or Workspace is open, it will simply be null.
         /// </summary>
         public Uri? SourcePath { get; private set; }
+        /// <summary>
+        /// The <c>ExtractedPath</c> parameter will point to the extracted path to the currently open Document or Workspace.
+        /// If no Document or Workspace is open, it will simply be null.
+        /// </summary>
+        public Uri? ExtractedPath { get; private set; }
+        /// <summary>
+        /// The <c>SourcePathExtensionType</c> is populated simultaneously to <c>SourcePath</c> and contains information about
+        /// the format of the open document / workspace.
+        /// </summary>
+        public ExtensionType SourcePathExtensionType { get; private set; }
         /// <summary>
         /// The <c>EnforceCompatibilityMode</c> parameter is a flag to enforce whether the editor should run in
         /// a legacy compatibility mode, which disables custom VOWs features such as version control.
@@ -129,7 +140,12 @@ namespace VOWs.MVVM.Model
                     {
                         // This is a valid Workspace extension, so we'll try converting it to a Uri.
                         success = Uri.TryCreate(value, new UriCreationOptions(), out Uri workspaceUri);
-                        if (success) SourcePath = workspaceUri;
+                        if (success)
+                        {
+                            SourcePath = workspaceUri;
+                            SourcePathExtensionType = ExtensionUtils.GetType("." + value.Split('.').Last());
+                            if (SourcePathExtensionType.Equals(ExtensionType.VWSP)) ExtractData();
+                        }
                         return;
                     }
                     break;
@@ -140,7 +156,12 @@ namespace VOWs.MVVM.Model
                     {
                         // This is a valid Document extension, so we'll try converting it to a Uri.
                         success = Uri.TryCreate(value, new UriCreationOptions(), out Uri documentUri);
-                        if (success) SourcePath = documentUri;
+                        if (success)
+                        {
+                            SourcePath = documentUri;
+                            SourcePathExtensionType = ExtensionUtils.GetType("." + value.Split('.').Last());
+                            if (SourcePathExtensionType.Equals(ExtensionType.VDOC)) ExtractData();
+                        }
                         return;
                     }
                     break;
@@ -149,7 +170,12 @@ namespace VOWs.MVVM.Model
                     // The source uri for the document or workspace is left ambiguous.
                     // We'll just try to convert it to a Uri and set the value without doing any checking.
                     success = Uri.TryCreate(value, new UriCreationOptions(), out Uri ambiguousUri);
-                    if (success) SourcePath = ambiguousUri;
+                    if (success)
+                    {
+                        SourcePath = ambiguousUri;
+                        SourcePathExtensionType = ExtensionUtils.GetType("." + value.Split('.').Last());
+                        ExtractData();
+                    }
                     return;
                 case "-enforceCompatibility":
                     // Try to convert value to a bool.
@@ -183,6 +209,32 @@ namespace VOWs.MVVM.Model
         {
             // Set the default value for SourcePath.
             if (SourcePath == null) SourcePath = null;
+        }
+    
+        /// <summary>
+        /// The <c>ExtractData</c> method will be called once to extract the data of the open Document or Workspace.
+        /// This should only be called where the document / workspace is in VOWs format.
+        /// </summary>
+        private void ExtractData()
+        {
+            // Define path to /temp/ folder for all unzipping and rezipping operations.
+            string path = Directory.GetParent(AppDomain.CurrentDomain.BaseDirectory).FullName + "\\temp";
+            // Create the directory anew if it doesn't exist, or delete it's contents if it does.
+            if (Directory.Exists(path))
+            {
+                DirectoryInfo di = new(path);
+                foreach (FileInfo file in di.GetFiles()) file.Delete();
+                foreach (DirectoryInfo dir in di.GetDirectories()) dir.Delete(true);
+            }
+            else Directory.CreateDirectory(path);
+            // Now we can begin constructing a new VOWs object in this directory!
+            // First, we'll copy the open file to the temp directory.
+            File.Copy(SourcePath.AbsolutePath, Directory.GetParent(SourcePath.AbsolutePath).FullName + "\\zipped.zip");
+            // Next, we can extract it to the /temp/ directory.
+            ZipFile.ExtractToDirectory(Directory.GetParent(SourcePath.AbsolutePath).FullName + "\\zipped.zip", path);
+            // Now that it's extracted, we'll delete the zip file we created and set the value of ExtractedPath.
+            File.Delete(Directory.GetParent(SourcePath.AbsolutePath).FullName + "\\zipped.zip");
+            ExtractedPath = new(path);
         }
     }
 }

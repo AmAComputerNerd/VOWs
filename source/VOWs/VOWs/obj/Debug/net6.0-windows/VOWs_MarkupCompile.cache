@@ -10,11 +10,11 @@ none
 false
 TRACE;DEBUG;NET;NET6_0;NETCOREAPP
 D:\Coding\VOWs\source\VOWs\VOWs\App.xaml
-6-1890622749
+7779307157
 
-28-1385855676
+35-2137805822
 195785729555
-Custom\Themes\Generic.xaml;MainWindow.xaml;MVVM\View\DocumentEditView.xaml;MVVM\View\PageView.xaml;Resources\Themes\DocumentStyles.xaml;Resources\Themes\RootStyles.xaml;
+Custom\Themes\Generic.xaml;MainWindow.xaml;MVVM\View\DocumentEditView.xaml;MVVM\View\PageView.xaml;Resources\Themes\DocumentStyles.xaml;Resources\Themes\RootStyles.xaml;SubWindows\InfoWindow.xaml;
 
 False
 

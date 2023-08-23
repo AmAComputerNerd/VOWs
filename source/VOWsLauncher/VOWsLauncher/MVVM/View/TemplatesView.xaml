@@ -3,7 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:VOWsLauncher.MVVM.View"
+             xmlns:local="clr-namespace:VOWsLauncher.MVVM.View" xmlns:viewmodel="clr-namespace:VOWsLauncher.MVVM.ViewModel" d:DataContext="{d:DesignInstance Type=viewmodel:TemplatesViewModel}"
              mc:Ignorable="d" 
              d:DesignHeight="495" d:DesignWidth="690">
     
@@ -25,21 +25,20 @@
                     <StackPanel>
                         <RadioButton Content="📄   VOWs Tutorial"
                                      Padding="0,5"
+                                     IsChecked="{Binding IsVOWsTutorial1Selected}"
                                      Style="{StaticResource StylisedButtonSticky}"/>
                         <RadioButton Content="📁   VOWs Workspace Tutorial"
                                      Padding="0,5"
+                                     IsChecked="{Binding IsVOWsTutorial2Selected}"
                                      Style="{StaticResource StylisedButtonSticky}"/>
                     </StackPanel>
                 </ScrollViewer>
             </Border>
 
-            <UniformGrid Columns="2"
-                        Margin="0,20,0,0">
-                <Button Content="Done"
-                        Style="{StaticResource StylisedButton}"/>
-                <Button Content="Back"
-                        Style="{StaticResource StylisedButton}"/>
-            </UniformGrid>
+            <Button Content="Done"
+                    Margin="0,20,0,0"
+                    Style="{StaticResource StylisedButton}"
+                    Command="{Binding DoneCommand}"/>
 
         </StackPanel>
 

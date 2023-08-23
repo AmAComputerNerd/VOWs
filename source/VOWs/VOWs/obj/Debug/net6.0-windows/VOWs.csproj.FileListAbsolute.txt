@@ -62,3 +62,5 @@ D:\Coding\VOWs\source\VOWs\VOWs\obj\Debug\net6.0-windows\VOWs.genruntimeconfig.c
 D:\Coding\VOWs\source\VOWs\VOWs\obj\Debug\net6.0-windows\ref\VOWs.dll
 D:\Coding\C#\VOWs\source\VOWs\VOWs\obj\Debug\net6.0-windows\Custom\Themes\Generic.baml
 D:\Coding\VOWs\source\VOWs\VOWs\obj\Debug\net6.0-windows\Custom\Themes\Generic.baml
+D:\Coding\VOWs\source\VOWs\VOWs\obj\Debug\net6.0-windows\SubWindows\InfoWindow.g.cs
+D:\Coding\VOWs\source\VOWs\VOWs\obj\Debug\net6.0-windows\SubWindows\InfoWindow.baml

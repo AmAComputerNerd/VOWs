@@ -1,8 +1,15 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Messaging;
+using System;
 using System.Collections.ObjectModel;
+using System.IO;
+using System.Text.Json.Nodes;
+using System.Windows;
 using VOWs.Custom;
+using VOWs.Events;
 using VOWs.MVVM.Model;
 using VOWs.MVVM.Model.Data;
+using DataObject = VOWs.MVVM.Model.Data.DataObject;
 
 namespace VOWs.MVVM.ViewModel
 {
@@ -107,7 +114,44 @@ namespace VOWs.MVVM.ViewModel
         /// </summary>
         public PageViewModel(DataObject dataObject)
         {
+            // Activate PageViewModel to receive messages.
+            IsActive = true;
+            // Set Source variables.
             Source = dataObject;
+            if (Globals.CommandLineArgs.ExtractedPath == null)
+            {
+                // Set data of the DataObject based off file name.
+                Source.Info.Name = Globals.CommandLineArgs.SourcePath == null ? "null" : Path.GetFileNameWithoutExtension(Globals.CommandLineArgs.SourcePath.AbsolutePath);
+            }
+            else
+            {
+                // Set data of the DataObject based off the info file.;
+                string infoPath = Globals.CommandLineArgs.ExtractedPath.AbsolutePath + "\\info.json";
+                if (!File.Exists(infoPath))
+                {
+                    // Malformed - just use file name.
+                    Source.Info.Name = Globals.CommandLineArgs.SourcePath == null ? "null" : Path.GetFileNameWithoutExtension(Globals.CommandLineArgs.SourcePath.AbsolutePath);
+                    return;
+                }
+                // The file exists, so we'll read from it.
+                using FileStream infoReadStream = File.OpenRead(infoPath);
+                // Check if the JSON is valid - a JsonException will raise if it isn't.
+                JsonObject keyValuePairs = null;
+                try
+                {
+                    keyValuePairs = JsonObject.Parse(infoReadStream)?.AsObject();
+                }
+                catch { }
+                if (keyValuePairs == null)
+                {
+                    // Malformed JSON file, so we'll log a message and just use file name.
+                    WeakReferenceMessenger.Default.Send(new LogMessage("Encountered a malformed 'info.json' - defaulting to using standard methods.", ToString(), LogLevel.WARNING));
+                    Source.Info.Name = Globals.CommandLineArgs.SourcePath == null ? "null" : Path.GetFileNameWithoutExtension(Globals.CommandLineArgs.SourcePath.AbsolutePath);
+                    return;
+                }
+                if (keyValuePairs.ContainsKey("name")) Source.Info.Name = keyValuePairs["theme"].GetValue<string>();
+                else Source.Info.Name = Globals.CommandLineArgs.SourcePath == null ? "null" : Path.GetFileNameWithoutExtension(Globals.CommandLineArgs.SourcePath.AbsolutePath);
+            }
         }
     
         /// <summary>
@@ -119,6 +163,17 @@ namespace VOWs.MVVM.ViewModel
             if (_document != null) _document.Pages = Pages;
             else if (_workspace != null) _workspace.SelectedDocument.Pages = Pages;
             return;
+        }
+
+        protected override void OnActivated()
+        {
+            // Register PageViewModel to reply to RequestDataObjectMessage messages.
+            Messenger.Register<PageViewModel, RequestDataObjectMessage>(this, (r, m) => r.Reply(m));
+        }
+
+        private void Reply(RequestDataObjectMessage message)
+        {
+            message.Reply(Source);
         }
     }
 }

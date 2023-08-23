@@ -18,7 +18,7 @@
             <!--The title and description for this window.-->
             <TextBlock Text="New Document"
                        Style="{StaticResource TextSubtitle}"/>
-            <TextBlock Text="Create a new document - a canvas for your&#x0a;next essay, presentation or masterpiece!"
+            <TextBlock Text="Create a new document - a canvas for your next essay, presentation or masterpiece!"
                        Style="{StaticResource Text}"/>
 
             <!--The full list of settings that can be changed by the user.-->
@@ -79,6 +79,7 @@
                            Style="{StaticResource Text}"/>
                 <TextBlock Text="{Binding Template.Name}"
                            HorizontalAlignment="Right" VerticalAlignment="Center"
+                           TextWrapping="Wrap"
                            Grid.Row="3" Grid.Column="1"
                            Style="{StaticResource Text}"/>
 
@@ -90,7 +91,8 @@
                           ItemsSource="{Binding PageSize_Elements}"
                           HorizontalAlignment="Right" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"
                           MinWidth="30"
-                          Grid.Row="4" Grid.Column="1"/>
+                          Grid.Row="4" Grid.Column="1"
+                          Style="{StaticResource StylisedComboBox}"/>
                 <!--<TextBox Text="A4"
                          HorizontalAlignment="Right" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"
                          MinWidth="30"
